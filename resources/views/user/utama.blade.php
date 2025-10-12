@@ -15,7 +15,7 @@
   {{-- Header --}}
 <header class="header-2 position-relative">
   <div class="page-header min-vh-100 d-flex align-items-center justify-content-center text-center text-white"
-       style="background-image: url('{{ asset('assets/img/lembaga/background_bpd.png') }}');
+       style="background-image: url('{{ asset('assets/img/background.jpg') }}');
               background-size: cover; background-position: center;">
     <!-- Overlay -->
     <div style="background: rgba(0,0,0,0.5); position:absolute; top:0; right:0; bottom:0; left:0;"></div>
