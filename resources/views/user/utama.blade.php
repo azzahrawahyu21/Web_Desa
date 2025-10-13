@@ -30,7 +30,7 @@
 
   {{-- Content --}}
 <main class="position-relative mb-5">
-  <div class="container" style="margin-top:-250px; z-index:5; position:relative;">
+  <div class="container mt-5" style="z-index:5; position:relative;">
     <div class="card p-4 bg-transparent text-center"
          style="border-radius:20px;
                 background: linear-gradient(to bottom, rgba(13, 71, 21, 0.7), rgba(255, 255, 255, 0.9));
