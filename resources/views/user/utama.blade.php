@@ -63,35 +63,7 @@
 </main>
 
   {{-- Footer --}}
-  <footer class="bg-light py-5 border-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <h6 class="fw-bold">Pemerintahan Desa Driyorejo</h6>
-          <p>Driyorejo, Nguntoronadi, Driyan, Driyorejo, Magetan, Kabupaten Magetan, Jawa Timur 63383</p>
-        </div>
-        <div class="col-md-3">
-          <h6 class="fw-bold">Hubungi Kami</h6>
-          <p>0850000000<br>driyorejo@gmail.com</p>
-        </div>
-        <div class="col-md-3">
-          <h6 class="fw-bold">Jelajahi</h6>
-          <ul class="list-unstyled">
-            <li><a href="#">Lembaga</a></li>
-            <li><a href="#">Struktur Keanggotaan</a></li>
-            <li><a href="#">Berita</a></li>
-            <li><a href="#">UMKM</a></li>
-            <li><a href="#">Data Statistik</a></li>
-            <li><a href="#">Galeri</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h6 class="fw-bold">Lokasi</h6>
-          <img src="{{ asset('assets/img/lembaga/map.png') }}" class="img-fluid" alt="Peta Lokasi">
-        </div>
-      </div>
-    </div>
-  </footer>
+  @include('user.footer')
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
