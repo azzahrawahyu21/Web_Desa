@@ -31,9 +31,9 @@ class MenuController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Menu berhasil ditambahkan!');
     }
 
-    public function dashboard()
-    {
-        $menus = Menu::all(); // Ambil semua menu dari database
-        return view('dashboard', compact('menus'));
-    }
+    // public function dashboard()
+    // {
+    //     $menus = Menu::all(); // Ambil semua menu dari database
+    //     return view('dashboard', compact('menus'));
+    // }
 }
