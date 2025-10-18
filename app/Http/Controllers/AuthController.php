@@ -58,7 +58,9 @@ class AuthController extends Controller
 
     public function addAdmin()
     {
-        return view('superadmin.addAdmin');
+        // return view('superadmin.addAdmin');
+        $admins = Pengguna::where('peran', 'admin')->get();
+        return view('superadmin.addAdmin', compact('admins'));
     }
 
     public function storeAdmin(Request $request)
@@ -82,4 +84,37 @@ class AuthController extends Controller
         return redirect()->back()->with('success', 'Admin berhasil ditambahkan!');
     }
 
+    public function toggleAdmin($id_pengguna)
+    {
+        $admin = Pengguna::findOrFail($id_pengguna);
+
+        // Pastikan hanya admin yang dapat diubah statusnya
+        if ($admin->peran !== 'Admin') {
+            return redirect()->back()->with('error', 'Hanya admin yang dapat diubah statusnya.');
+        }
+
+        // Toggle status
+        $admin->status = $admin->status === 'aktif' ? 'nonaktif' : 'aktif';
+        $admin->save();
+
+        return redirect()->back()->with('success', 'Status admin berhasil diubah.');
+    }
+    public function toggleAdminAjax($id_pengguna)
+    {
+        $admin = Pengguna::findOrFail($id_pengguna);
+
+        // if ($admin->peran !== 'Admin') {
+        if (strtolower($admin->peran) !== 'admin') {
+            return response()->json(['error' => 'Hanya admin yang dapat diubah statusnya.'], 403);
+        }
+
+        // Ubah status
+        $admin->status = $admin->status === 'aktif' ? 'nonaktif' : 'aktif';
+        $admin->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $admin->status
+        ]);
+    }
 }

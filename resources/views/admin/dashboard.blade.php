@@ -114,7 +114,34 @@
         <div class="underline"></div>
       </div>
 
-      <!-- PROFIL DESA -->
+        <div class="mb-8 section-wrapper">
+            {{-- Menu dinamis dari database --}}
+            @if($menus->isNotEmpty())
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    @foreach($menus as $menu)
+                        <a href="{{ route('submenu.index', $menu->id_menu) }}" 
+                            class="bg-[#0D4715] text-white font-semibold py-3 rounded-lg shadow hover:bg-green-900 text-center transition-all">
+                            {{ strtoupper($menu->nama_menu) }}
+                        </a>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-500 italic mb-6">Belum ada menu yang ditambahkan.</p>
+            @endif
+
+            <div style="width: 100%; height: 3px; background-color: #f3ab77ff; border-radius: 3px; margin-top: 28px; margin-bottom: 28px;"></div>
+        </div>
+
+        <!-- TOMBOL TAMBAH MENU -->
+        <div class="section-wrapper text-center mb-8">
+            <h4 class="text-[#0D4715] font-bold mb-4">Ingin Menambahkan Menu Baru?</h4>
+            <a href="{{ route('menu.create') }}"
+                class="bg-[#0D4715] text-white font-semibold py-3 px-6 rounded-lg shadow hover:bg-green-900 inline-block transition-all">
+                <i class="bi bi-plus-circle me-2"></i> Tambah Menu
+            </a>
+        </div>
+
+      {{-- <!-- PROFIL DESA -->
       <div class="mb-8 section-wrapper">
         <h3 class="text-[#0D4715] font-bold mb-4">PROFIL DESA</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -125,6 +152,7 @@
         </div>
         <div style="width: 100%; height: 3px; background-color: #f3ab77ff; border-radius: 3px; margin-top: 28px; margin-bottom: 28px;"></div>
       </div>
+
 
       <!-- DATA STATISTIK -->
       <div class="mb-8 section-wrapper">
@@ -157,10 +185,25 @@
           <button class="bg-[#0D4715] text-white font-semibold py-3 rounded-lg shadow hover:bg-green-900">FOTO</button>
         </div>
         <div style="width: 100%; height: 4px; background-color: #f3ab77ff; border-radius: 3px; margin-top: 28px; margin-bottom: 28px;"></div>
-      </div>
+      </div> --}}
 
     </div>
   </main>
+{{-- <div class="bg-white shadow-lg rounded-xl p-8 w-full max-w-6xl border border-gray-200"
+    style="box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);">
+<div class="section-wrapper">
+    <h4 class="text-[#0D4715] font-bold mb-4">Ingin Menambahkan Menu Baru?</h4>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a 
+            href="{{ route('menu.create') }}"
+            class="bg-[#0D4715] text-white font-semibold py-3 rounded-lg shadow hover:bg-green-900 text-center">
+            Tambah Menu
+        </a>
+    </div>
+</div>
+
+</div> --}}
+
 
     {{-- Footer --}}
     @include('admin.footerAdmin')
