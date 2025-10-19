@@ -41,3 +41,4 @@ Route::post('/profil', [ProfilDesaController::class, 'store'])->name('profil.sto
 Route::get('/profil/edit/{id}', [ProfilDesaController::class, 'edit'])->name('profil.edit');
 Route::put('/profil/update/{id}', [ProfilDesaController::class, 'update'])->name('profil.update');
 Route::delete('/profil/hapus/{id}', [ProfilDesaController::class, 'destroy'])->name('profil.hapus');
+
