@@ -22,7 +22,7 @@ class SubmenuController extends Controller
         $request->validate([
             'judul' => 'required|string|max:45',
             'isi'   => 'nullable|string',
-            'foto'  => 'nullable|string|max:100',
+            'foto'  => 'nullable|string|max:255',
         ]);
 
         // Ambil pengguna yang sedang login
@@ -32,12 +32,14 @@ class SubmenuController extends Controller
             return redirect()->back()->withErrors(['auth' => 'Anda harus login terlebih dahulu.']);
         }
 
+        $fotoUrl = $request->input('foto') ?: null;
+
         Submenu::create([
             'judul'       => $request->judul,
             'isi'         => $request->isi,
-            'foto'        => $request->foto,
+            'foto'        => $fotoUrl, // ini nanti hasil URL dari ElFinder
             'id_menu'     => $id_menu,
-            'id_pengguna' => $pengguna->id_pengguna, // sesuai kolom di tabel pengguna
+            'id_pengguna' => $pengguna->id_pengguna,
         ]);
 
         return redirect()
