@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
+use App\Http\Controllers\ProfilDesaController;
 
 Route::get('/', function () {
     return view('user.utama');
@@ -32,3 +33,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/menu/{id_menu}/submenu', [SubmenuController::class, 'store'])->name('submenu.store');
 });
 Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
+
+// menu
+Route::get('/profil', [ProfilDesaController::class, 'index'])->name('profil_desa');
+Route::get('/profil/tambah', [ProfilDesaController::class, 'create'])->name('profil.tambah');
+Route::post('/profil', [ProfilDesaController::class, 'store'])->name('profil.store');
+Route::get('/profil/edit/{id}', [ProfilDesaController::class, 'edit'])->name('profil.edit');
+Route::put('/profil/update/{id}', [ProfilDesaController::class, 'update'])->name('profil.update');
+Route::delete('/profil/hapus/{id}', [ProfilDesaController::class, 'destroy'])->name('profil.hapus');
+

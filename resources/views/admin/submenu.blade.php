@@ -86,8 +86,38 @@
           <div class="list-group-item">
             <h5 class="fw-bold">{{ $submenu->judul }}</h5>
             <p>{{ $submenu->isi }}</p>
+
             @if($submenu->foto)
-              <img src="{{ $submenu->foto }}" alt="Foto Submenu" class="img-fluid rounded" style="max-height: 150px;">
+              @php
+                // --- Perbaikan otomatis URL ---
+                $fotoUrl = $submenu->foto;
+                // ganti IP yang salah
+                $fotoUrl = str_replace('127.0.01', '127.0.0.1', $fotoUrl);
+                // hapus slash ganda
+                $fotoUrl = str_replace('//files', '/files', $fotoUrl);
+                // ambil ekstensi file
+                $ext = pathinfo($fotoUrl, PATHINFO_EXTENSION);
+              @endphp
+
+              {{-- Gambar --}}
+              @if(in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                <img src="{{ $fotoUrl }}" alt="Foto Submenu" class="img-fluid rounded border mt-2" style="max-height: 180px;">
+              
+              {{-- PDF --}}
+              @elseif(strtolower($ext) === 'pdf')
+                <iframe src="{{ $fotoUrl }}" class="w-100 rounded border mt-2" style="height: 300px;" title="PDF Preview"></iframe>
+                <div class="mt-2">
+                  <a href="{{ $fotoUrl }}" target="_blank" class="btn btn-sm btn-outline-success">
+                    <i class="bi bi-file-earmark-pdf"></i> Buka PDF
+                  </a>
+                </div>
+
+              {{-- File lainnya --}}
+              @else
+                <a href="{{ $fotoUrl }}" target="_blank" class="btn btn-sm btn-outline-secondary mt-2">
+                  <i class="bi bi-file-earmark"></i> Lihat File
+                </a>
+              @endif
             @endif
           </div>
         @endforeach
@@ -95,6 +125,30 @@
     @endif
   </div>
 </div>
+<!-- Input foto di dalam form -->
+<div class="mb-3">
+  <label for="foto" class="form-label fw-semibold">Foto (URL)</label>
+  <div class="input-group">
+    <input type="text" name="foto" id="foto" class="form-control">
+    <button type="button" class="btn btn-secondary" id="btnBrowse">Pilih dari ElFinder</button>
+  </div>
+</div>
+
+<script>
+  function openElfinder() {
+    window.open('/elfinder', 'Elfinder', 'width=900,height=600');
+  }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $('#btnBrowse').on('click', function() {
+    var fm = window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
+    window.SetUrl = function (items) {
+      var fileUrl = items.map(function (item) { return item.url; }).join(',');
+      $('#foto').val(fileUrl);
+    };
+  });
+</script>
 
 </body>
 </html>
