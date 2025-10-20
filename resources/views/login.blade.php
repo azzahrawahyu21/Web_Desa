@@ -71,14 +71,14 @@
         }
 
         input:focus {
-            border-color: #e48b47;
+            border-color: #f97316;
             box-shadow: 0 0 5px rgba(244,162,97,0.5);
         }
 
         button {
             width: 107%;
             padding: 15px;
-            background-color: #e48b47;
+            background-color: #f97316;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -89,7 +89,7 @@
         }
 
         button:hover {
-            background-color: #a74e0bff;
+            background-color: #a84702ff;
             transform: translateY(-1px);
         }
 
