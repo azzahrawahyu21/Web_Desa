@@ -24,6 +24,9 @@ class Pengguna extends Authenticatable
         'kata_sandi',
     ];
 
+    const STATUS_AKTIF = 'Aktif';
+    const STATUS_TIDAK_AKTIF = 'Tidak Aktif';
+
     // Supaya Eloquent menggunakan kata_sandi untuk login
     public function getAuthPassword()
     {

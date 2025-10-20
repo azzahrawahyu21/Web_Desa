@@ -24,23 +24,36 @@ class AuthController extends Controller
             'kata_sandi' => 'required',
         ]);
 
-        $pengguna = \App\Models\Pengguna::where('email', $request->email)
-                    ->where('status','aktif')
-                    ->first();
+        // Cek apakah email terdaftar
+        $pengguna = \App\Models\Pengguna::where('email', $request->email)->first();
 
-        if ($pengguna && \Illuminate\Support\Facades\Hash::check($request->kata_sandi, $pengguna->kata_sandi)) {
-            \Illuminate\Support\Facades\Auth::login($pengguna);
-
-            $role = strtolower($pengguna->peran); // ubah semua jadi lowercase
-
-            if ($role === 'superadmin') {
-                return redirect()->route('addAdmin');
-            } elseif ($role === 'admin') {
-                return redirect()->route('admin.dashboard');
-            }
+        if (!$pengguna) {
+            return back()->withErrors(['email' => 'Akun tidak ditemukan.']);
         }
 
-        return back()->withErrors(['email' => 'Email atau kata sandi salah']);
+        // Cek status aktif
+        if ($pengguna->status !== 'Aktif') {
+            return back()->withErrors(['email' => 'Akun Anda tidak aktif.']);
+        }
+
+        // Cek kecocokan password
+        if (!\Illuminate\Support\Facades\Hash::check($request->kata_sandi, $pengguna->kata_sandi)) {
+            return back()->withErrors(['email' => 'Kata sandi salah.']);
+        }
+
+        // Login dan redirect sesuai peran
+        \Illuminate\Support\Facades\Auth::login($pengguna);
+
+        $role = strtolower($pengguna->peran); // ubah semua jadi lowercase
+
+        if ($role === 'superadmin') {
+            return redirect()->route('addAdmin');
+        } elseif ($role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        // Jika peran bukan admin/superadmin
+        return back()->withErrors(['email' => 'Akun tidak ditemukan, tidak aktif, atau tidak memiliki akses.']);
     }
 
     // Logout
@@ -109,7 +122,7 @@ class AuthController extends Controller
         }
 
         // Ubah status
-        $admin->status = $admin->status === 'aktif' ? 'nonaktif' : 'aktif';
+        $admin->status = $admin->status === 'Aktif' ? 'Tidak Aktif' : 'Aktif';
         $admin->save();
 
         return response()->json([

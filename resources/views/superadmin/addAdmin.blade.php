@@ -255,13 +255,13 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $admin->nama_pengguna }}</td>
                             <td>{{ $admin->email }}</td>
-                            <td id="status-{{ $admin->id_pengguna }}">{{ ucfirst($admin->status) }}</td>
+                            <td id="status-{{ $admin->id_pengguna }}">{{ ($admin->status) }}</td>
                             <td>
                                 <label class="switch">
                                     <input type="checkbox" 
                                         class="toggle-admin" 
                                         data-id="{{ $admin->id_pengguna }}" 
-                                        {{ $admin->status === 'aktif' ? 'checked' : '' }}>
+                                        {{ $admin->status === 'Aktif' ? 'checked' : '' }}>
                                     <span class="slider"></span>
                                 </label>
                             </td>
@@ -293,9 +293,9 @@ document.querySelectorAll('.toggle-admin').forEach(toggle => {
             console.log('Response:', result); // lihat hasilnya di console
 
             if (result.success) {
-                const newStatus = result.status === 'aktif' ? 'Aktif' : 'Tidak Aktif';
+                const newStatus = result.status === 'Aktif' ? 'Aktif' : 'Tidak Aktif';
                 statusCell.textContent = newStatus;
-                statusCell.style.color = result.status === 'aktif' ? '#0D4715' : '#888';
+                statusCell.style.color = result.status === 'Aktif' ? '#0D4715' : '#888';
             } else {
                 alert('Gagal memperbarui status.');
                 this.checked = !checked;
