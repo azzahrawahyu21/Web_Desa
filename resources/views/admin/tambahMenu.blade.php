@@ -118,9 +118,21 @@
         <input type="text" name="nama_menu" id="nama_menu" class="form-control" placeholder="Masukkan nama menu baru" required>
       </div>
 
-      <div class="mb-3">
+      {{-- <div class="mb-3">
         <label for="url" class="form-label fw-semibold">URL (opsional)</label>
         <input type="text" name="url" id="url" class="form-control" placeholder="Masukkan URL">
+      </div> --}}
+
+      <div class="mb-3">
+        <label for="url" class="form-label fw-semibold">Pilih Kategori</label>
+        <select name="url" id="url" class="form-select" required>
+          <option value="" disabled selected>-- Pilih Kategori --</option>
+          <option value="profil_desa">Profil Desa</option>
+          <option value="data_statistik">Data Statistik</option>
+          <option value="lembaga">Lembaga</option>
+          <option value="berita_desa">Berita Desa</option>
+          <option value="galeri">Galeri</option>
+        </select>
       </div>
 
       <div class="d-flex justify-content-between mt-4">

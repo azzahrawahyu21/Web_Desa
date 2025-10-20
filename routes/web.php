@@ -5,9 +5,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\ProfilDesaController;
+use App\Http\Controllers\UserController;
+use App\Models\Menu;
 
 Route::get('/', function () {
-    return view('user.utama');
+    // return view('user.utama');
+    $menus = Menu::all()->groupBy('url'); // ambil data dari tabel menu
+    return view('user.utama', compact('menus')); // kirim ke halaman utama
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -42,3 +46,6 @@ Route::get('/profil/edit/{id}', [ProfilDesaController::class, 'edit'])->name('pr
 Route::put('/profil/update/{id}', [ProfilDesaController::class, 'update'])->name('profil.update');
 Route::delete('/profil/hapus/{id}', [ProfilDesaController::class, 'destroy'])->name('profil.hapus');
 
+// Pengguna
+Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
+Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
