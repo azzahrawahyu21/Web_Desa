@@ -120,7 +120,7 @@
 
       <div class="mb-3">
         <label for="url" class="form-label fw-semibold">URL (opsional)</label>
-        <input type="text" name="url" id="url" class="form-control" placeholder="Masukkan URL submenu">
+        <input type="text" name="url" id="url" class="form-control" placeholder="Masukkan URL">
       </div>
 
       <div class="d-flex justify-content-between mt-4">
