@@ -25,5 +25,9 @@ class AppServiceProvider extends ServiceProvider
             $menus = Menu::all()->groupBy('url');
             $view->with('menus', $menus);
         });
+
+        View::composer('admin.sidebar', function ($view) {
+            $view->with('menus', Menu::all());
+        });
     }
 }

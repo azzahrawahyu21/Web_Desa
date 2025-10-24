@@ -29,12 +29,24 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
 
     // Menu CRUD
+    Route::get('/admin/menu', [MenuController::class, 'showMenu'])->name('menu.index');
     Route::get('/admin/tambahMenu', [MenuController::class, 'create'])->name('menu.create');
     Route::post('/admin/menu/store', [MenuController::class, 'store'])->name('menu.store');
+    Route::get('/admin/menu/{id_menu}/edit', [MenuController::class, 'edit'])->name('menu.edit');
+    Route::put('/admin/menu/{id_menu}', [MenuController::class, 'update'])->name('menu.update');
+    // Route::put('/admin/menu/{id_menu}/update', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('/admin/menu/{id_menu}', [MenuController::class, 'destroy'])->name('menu.destroy');
 
     // Submenu
     Route::get('/admin/menu/{id_menu}/submenu', [SubmenuController::class, 'index'])->name('submenu.index');
     Route::post('/admin/menu/{id_menu}/submenu', [SubmenuController::class, 'store'])->name('submenu.store');
+    Route::get('/admin/menu/{id_menu}/submenu/create', [SubmenuController::class, 'create'])->name('submenu.create');
+    // Route::put('/admin/submenu/{id_submenu}', [SubmenuController::class, 'update'])->name('submenu.update');
+    // Route::delete('/admin/submenu/{id_submenu}', [SubmenuController::class, 'destroy'])->name('submenu.destroy');
+    Route::get('/admin/menu/{id_menu}/kelola', [SubmenuController::class, 'kelola'])->name('submenu.kelola');
+    Route::get('/admin/menu/{id_menu}/submenu/{id_submenu}/edit', [SubmenuController::class, 'edit'])->name('submenu.edit');
+    Route::put('/admin/menu/{id_menu}/submenu/{id_submenu}', [SubmenuController::class, 'update'])->name('submenu.update');
+    Route::delete('/admin/menu/{id_menu}/submenu/{id_submenu}', [SubmenuController::class, 'destroy'])->name('submenu.destroy');
 });
 Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
 
