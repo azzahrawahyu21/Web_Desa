@@ -46,8 +46,7 @@
                   <i class="bi bi-trash"></i> Hapus
                 </button>
               </form>
-              <a href="{{ route('subkategori-statistik.index') }}?id_kategori={{ $kategori->id_kategori }}" 
-                class="btn btn-info btn-sm text-white">
+              <a href="{{ route('subkategori-statistik.index', $kategori->id_kategori) }}" class="btn btn-info btn-sm text-white">
                 <i class="bi bi-list-ul"></i> Detail
               </a>
 

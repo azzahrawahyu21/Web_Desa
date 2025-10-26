@@ -64,7 +64,7 @@
 
     @if(isset($kategoris) && $kategoris->isNotEmpty())
       @foreach($kategoris as $kategori)
-        <a href="{{ route('subkategori-statistik.index', $kategori->id_kategori) }}" class="ps-5">
+        <a href="{{ route('subkategori-statistik.index', $kategori->id_kategori) }}" class="ps-5 {{ request()->routeIs('subkategori-statistik.index') && request()->segment(3) == $kategori->id_kategori ? 'active' : '' }}">
           <i class="bi bi-folder2-open me-2"></i> {{ ucfirst($kategori->nama_kategori) }}
         </a>
       @endforeach

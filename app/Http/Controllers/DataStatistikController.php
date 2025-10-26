@@ -25,16 +25,16 @@ class DataStatistikController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'tahun' => 'required|integer',
         'jumlah' => 'required|integer',
+        'tahun' => 'required|digits:4',
         'id_subkategori' => 'required|exists:subkategori_statistik,id_subkategori',
     ]);
 
     DataStatistik::create([
-        'tahun' => $request->tahun,
         'jumlah' => $request->jumlah,
+        'tahun' => $request->tahun. '-01-01',
         'id_subkategori' => $request->id_subkategori,
-        'id_user' => auth()->id(),
+        'id_pengguna' => auth()->id(),
     ]);
 
     // return back()->with('success', 'Data statistik berhasil ditambahkan!');
@@ -47,7 +47,7 @@ return redirect()->route('subkategori-statistik.show', $request->id_subkategori)
     {
         $data = DataStatistik::findOrFail($id);
         $kategori = KategoriStatistik::with('subkategori')->get();
-        return view('admin.dataStatistik', compact('data', 'kategori'))->with('mode', 'edit');
+        return view('admin.dataStatistik.editData', compact('data', 'kategori'))->with('mode', 'edit');
     }
 
     public function update(Request $request, $id)

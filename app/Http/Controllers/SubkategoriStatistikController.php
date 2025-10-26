@@ -9,35 +9,19 @@ use App\Models\KategoriStatistik;
 class SubkategoriStatistikController extends Controller
 {
     // Tampilkan daftar subkategori
-    public function index(Request $request)
+    public function index($id_kategori)
     {
-        $id_kategori = $request->query('id_kategori');
-
-        if ($id_kategori) {
-            $subkategoris = SubkategoriStatistik::with('kategori')
-                                ->where('id_kategori', $id_kategori)
-                                ->get();
-            $kategori = KategoriStatistik::find($id_kategori);
-        } else {
-            $subkategoris = SubkategoriStatistik::with('kategori')->get();
-            $kategori = null;
-        }
+        $kategori = KategoriStatistik::findOrFail($id_kategori);
+        $subkategoris = SubkategoriStatistik::with('kategori')
+                            ->where('id_kategori', $id_kategori)
+                            ->get();
 
         return view('admin.dataStatistik.subkategoriStatistik', compact('subkategoris', 'id_kategori', 'kategori'));
     }
 
-    // Form tambah subkategori
-    public function create(Request $request)
+    public function create($id_kategori)
     {
-        $id_kategori = $request->query('id_kategori');
-
-        if (!$id_kategori) {
-            return redirect()->route('subkategori-statistik.index')
-                             ->with('error', 'Pilih kategori terlebih dahulu.');
-        }
-
-        $kategori = KategoriStatistik::find($id_kategori);
-
+        $kategori = KategoriStatistik::findOrFail($id_kategori);
         return view('admin.dataStatistik.tambahSubkategoriStatistik', compact('id_kategori', 'kategori'));
     }
 
@@ -61,8 +45,9 @@ class SubkategoriStatistikController extends Controller
     // Edit subkategori
     public function edit($id_subkategori)
     {
-        $subkategori = SubkategoriStatistik::findOrFail($id_subkategori);
-        return view('admin.dataStatistik.editSubkategoriStatistik', compact('subkategori'));
+        $subkategori = SubkategoriStatistik::with('kategori')->findOrFail($id_subkategori);
+        $kategori = $subkategori->kategori;
+        return view('admin.dataStatistik.editSubkategoriStatistik', compact('subkategori', 'kategori'));
     }
 
     // Update subkategori
@@ -94,6 +79,10 @@ class SubkategoriStatistikController extends Controller
     public function show($id_subkategori)
     {
         $subkategori = SubkategoriStatistik::with('kategori', 'dataStatistik')->findOrFail($id_subkategori);
-        return view('admin.dataStatistik.detailSubkategoriStatistik', compact('subkategori'));
+
+        // Ambil data statistik dari relasi
+        $dataStatistik = $subkategori->dataStatistik;
+
+        return view('admin.dataStatistik.detailSubkategoriStatistik', compact('subkategori', 'dataStatistik'));
     }
 }

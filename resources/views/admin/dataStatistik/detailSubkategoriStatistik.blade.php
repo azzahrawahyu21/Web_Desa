@@ -39,17 +39,35 @@
           <th>No</th>
           <th>Tahun</th>
           <th>Jumlah</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         @forelse($dataStatistik as $index => $data)
           <tr>
             <td class="text-center">{{ $index + 1 }}</td>
-            <td>{{ $data->tahun }}</td>
+            <td>{{ \Carbon\Carbon::parse($data->tahun)->format('Y') }}</td>
             <td>{{ $data->jumlah }}</td>
+            <td class="text-center">
+              {{-- Tombol Edit --}}
+              <a href="{{ route('data-statistik.edit', $data->id_data) }}" class="btn btn-warning btn-sm">
+                <i class="bi bi-pencil-square"></i> Edit
+              </a>
+
+              {{-- Tombol Hapus --}}
+              <form action="{{ route('data-statistik.destroy', $data->id_data) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">
+                  <i class="bi bi-trash"></i> Hapus
+                </button>
+              </form>
+            </td>
           </tr>
         @empty
-          <tr><td colspan="3" class="text-center text-muted">Belum ada data statistik.</td></tr>
+          <tr>
+            <td colspan="4" class="text-center text-muted">Belum ada data statistik.</td>
+          </tr>
         @endforelse
       </tbody>
     </table>
