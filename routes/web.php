@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
-
 use App\Http\Controllers\KategoriStatistikController;
 use App\Http\Controllers\SubkategoriStatistikController;
 use App\Http\Controllers\DataStatistikController;
@@ -12,9 +11,6 @@ use App\Http\Controllers\UserController;
 use App\Models\Menu;
 use Barryvdh\Elfinder\ElfinderController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\UserController;
-use App\Models\Menu;
-use Barryvdh\Elfinder\ElfinderController;
 
 // Halaman utama
 Route::get('/', function () {
