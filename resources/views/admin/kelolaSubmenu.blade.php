@@ -51,10 +51,12 @@
           <tr>
             <td class="text-center">{{ $index + 1 }}</td>
             <td>{{ $submenu->judul }}</td>
-            <td>{{ Str::limit($submenu->isi, 100) }}</td>
+            <td>{!! Str::limit($submenu->isi, 200, '...') !!}</td>
             <td class="text-center">
               @if($submenu->foto)
-                <img src="{{ $submenu->foto }}" alt="Foto" class="img-fluid rounded" style="max-height:80px;">
+                <img src="{{ asset('ufiles/' . $submenu->foto) }}" alt="Foto" class="img-fluid rounded" style="max-height:80px;">
+              @else
+                <span class="text-muted">-</span>
               @endif
             </td>
             <td class="text-center">

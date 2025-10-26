@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
     <head>
         <meta charset="utf-8">
-        <title>elFinder 2.0</title>
+        <title>File Manager1</title>
 
         <!-- jQuery and jQuery UI (REQUIRED) -->
         <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css">
@@ -41,13 +41,29 @@
                             oncomplete: 'destroy'
                         }
                     },
-                    getFileCallback: function (file) {
-                        window.parent.processSelectedFile(file.path, '{{ $input_id  }}');
-                        parent.jQuery.colorbox.close();
-                    }
+getFileCallback: function (file) {
+    if (window.opener && typeof window.opener.processSelectedFile === 'function') {
+        window.opener.processSelectedFile(file);
+        window.close();
+    } else {
+        alert('Fungsi processSelectedFile tidak ditemukan di parent window.');
+        console.error(window.opener);
+    }
+}
                 }).elfinder('instance');
             });
         </script>
+        <script>
+  function getFileCallback(file) {
+      if (window.opener && typeof window.opener.processSelectedFile === 'function') {
+          window.opener.processSelectedFile(file);
+          window.close();
+      } else {
+          alert("Fungsi processSelectedFile tidak ditemukan di parent window.");
+          console.error("Parent window tidak punya fungsi processSelectedFile.");
+      }
+  }
+</script>
 
     </head>
     <body>

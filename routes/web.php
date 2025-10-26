@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
+
 use App\Http\Controllers\KategoriStatistikController;
 use App\Http\Controllers\SubkategoriStatistikController;
 use App\Http\Controllers\DataStatistikController;
@@ -11,6 +12,9 @@ use App\Http\Controllers\UserController;
 use App\Models\Menu;
 use Barryvdh\Elfinder\ElfinderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
+use App\Models\Menu;
+use Barryvdh\Elfinder\ElfinderController;
 
 // Halaman utama
 Route::get('/', function () {
@@ -32,7 +36,6 @@ Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->nam
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset.password.submit');
 
 Route::middleware(['auth'])->group(function () {
-
     // Dashboard & Profil Admin
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
     Route::get('/add-admin', [AuthController::class, 'addAdmin'])->name('addAdmin');
@@ -43,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
     Route::put('/superadmin/update-pengguna/{id_pengguna}', [AuthController::class, 'updatePengguna'])->name('superadmin.updatePengguna');
 
-    // Admin Dashboard
     Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
 
     // Menu CRUD
@@ -106,11 +108,30 @@ Route::prefix('profil')->group(function () {
     Route::delete('/hapus/{id}', [PageController::class, 'destroy'])->name('profil.hapus');
 });
 
+// menu
+Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
+Route::get('/profil/tambah', [PageController::class, 'create'])->name('profil.tambah');
+Route::post('/profil', [PageController::class, 'store'])->name('profil.store');
+Route::get('/profil/edit/{id}', [PageController::class, 'edit'])->name('profil.edit');
+Route::put('/profil/update/{id}', [PageController::class, 'update'])->name('profil.update');
+Route::delete('/profil/hapus/{id}', [PageController::class, 'destroy'])->name('profil.hapus');
+
 // Navbar & menu user
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
 
-// Elfinder
+// Elfinder Routes
+Route::group(['prefix' => 'elfinder'], function() {
+    Route::get('/', [ElfinderController::class, 'showIndex'])->name('elfinder.index');
+    Route::any('connector', [ElfinderController::class, 'showConnector'])->name('elfinder.connector');
+    Route::get('popup/{input_id?}', [ElfinderController::class, 'showPopup'])->name('elfinder.popup');
+});
+
+// Pengguna
+Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
+Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
+
+// Elfinder Routes
 Route::group(['prefix' => 'elfinder'], function() {
     Route::get('/', [ElfinderController::class, 'showIndex'])->name('elfinder.index');
     Route::any('connector', [ElfinderController::class, 'showConnector'])->name('elfinder.connector');

@@ -62,10 +62,17 @@
     <div class="mb-3">
       <label for="foto" class="form-label fw-semibold">File atau Gambar</label>
       <div class="input-group w-100">
-        <input type="text" name="foto" id="foto" class="form-control" placeholder="URL file (opsional)">
+        <input type="hidden" name="foto_url" id="foto_url"> <!-- URL lengkap -->
+        <input type="text" name="foto" id="foto" class="form-control" placeholder="Nama file (opsional)">
         <button type="button" class="btn btn-secondary" id="btnBrowse">Pilih dari ElFinder</button>
       </div>
+
+      <!-- Tempat preview gambar -->
+      <div class="mt-3">
+        <img id="previewImage" src="" alt="Preview" style="max-width: 200px; display:none; border: 1px solid #ccc; padding: 5px; border-radius: 8px;">
+      </div>
     </div>
+
 
     {{-- Tombol Simpan --}}
     <div class="text-end mt-4">
@@ -78,13 +85,53 @@
 
 {{-- Script untuk ElFinder --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
 <script>
-  $('#btnBrowse').on('click', function() {
-    var fm = window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
-    window.SetUrl = function(items) {
-      var fileUrl = items.map(function(item) { return item.url; }).join(',');
-      $('#foto').val(fileUrl);
-    };
+  function processSelectedFile(file) {
+      // Ambil nama file saja
+      const fileName = file.url.split('/').pop(); 
+
+      // Masukkan nama file ke input
+      document.getElementById('foto').value = fileName;
+
+      // Simpan URL lengkap di hidden input
+      document.getElementById('foto_url').value = file.url;
+
+      // Tampilkan preview gambar
+      const preview = document.getElementById('previewImage');
+      preview.src = file.url;
+      preview.style.display = 'block';
+  }
+
+  document.getElementById('btnBrowse').addEventListener('click', function() {
+      window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
   });
+</script>
+<script>
+  // Inisialisasi CKEditor pada textarea isi
+  CKEDITOR.replace('isi', {
+      filebrowserBrowseUrl: '/elfinder/ckeditor', // sambungkan dengan elfinder
+      filebrowserImageBrowseUrl: '/elfinder/ckeditor', 
+      filebrowserUploadUrl: '/elfinder/connector', 
+      height: 300,
+      toolbar: [
+          { name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview' ] },
+          { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
+          { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+          { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+          { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike' ] },
+          { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+          { name: 'insert', items: [ 'Image', 'Link', 'Table', 'HorizontalRule' ] },
+          { name: 'tools', items: [ 'Maximize' ] }
+      ]
+  });
+</script>
+<script>
+  // Matikan warning CKEditor di console
+  CKEDITOR.config.versionCheck = false;
+  console.warn = function(msg) {
+    if (msg.includes("CKEditor 4.22.1 version is not secure")) return;
+    console.log(msg);
+  };
 </script>
 @endsection

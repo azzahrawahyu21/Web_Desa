@@ -101,6 +101,18 @@
             margin-bottom: 15px;
             text-align: center;
         }
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .forgot-password a {
+            color: #f97316;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
 
         @media (max-width: 768px) {
             .wrapper {
@@ -137,6 +149,9 @@
 
                 <button type="submit">MASUK</button>
             </form>
+            <div class="forgot-password">
+                <a href="{{ route('forgot.password') }}">Lupa Kata Sandi?</a>
+            </div>
         </div>
     </div>
 </body>
