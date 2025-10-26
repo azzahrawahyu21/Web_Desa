@@ -93,38 +93,24 @@
 {{-- Script untuk ElFinder --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  // function processSelectedFile(file) {
-  //     document.getElementById('foto').value = file.url;
-  // }
+  function processSelectedFile(file) {
+      // Ambil nama file saja
+      const fileName = file.url.split('/').pop(); 
 
-  // function processSelectedFile(file) {
-  //   // Ambil nama file dari URL
-  //   const fileName = file.url.split('/').pop(); 
-  //   document.getElementById('foto').value = fileName;
-  // }
+      // Masukkan nama file ke input
+      document.getElementById('foto').value = fileName;
 
-  // document.getElementById('btnBrowse').addEventListener('click', function() {
-  //     window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
-  // });
-function processSelectedFile(file) {
-    // Ambil nama file saja
-    const fileName = file.url.split('/').pop(); 
+      // Simpan URL lengkap di hidden input
+      document.getElementById('foto_url').value = file.url;
 
-    // Masukkan nama file ke input
-    document.getElementById('foto').value = fileName;
+      // Tampilkan preview gambar
+      const preview = document.getElementById('previewImage');
+      preview.src = file.url;
+      preview.style.display = 'block';
+  }
 
-    // Simpan URL lengkap di hidden input
-    document.getElementById('foto_url').value = file.url;
-
-    // Tampilkan preview gambar
-    const preview = document.getElementById('previewImage');
-    preview.src = file.url;
-    preview.style.display = 'block';
-}
-
-document.getElementById('btnBrowse').addEventListener('click', function() {
-    window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
-});
-
+  document.getElementById('btnBrowse').addEventListener('click', function() {
+      window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
+  });
 </script>
 @endsection
