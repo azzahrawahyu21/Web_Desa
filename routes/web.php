@@ -7,6 +7,7 @@ use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\ProfilDesaController;
 use App\Http\Controllers\UserController;
 use App\Models\Menu;
+use Barryvdh\Elfinder\ElfinderController;
 
 Route::get('/', function () {
     // return view('user.utama');
@@ -61,3 +62,10 @@ Route::delete('/profil/hapus/{id}', [ProfilDesaController::class, 'destroy'])->n
 // Pengguna
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
+
+// Elfinder Routes
+Route::group(['prefix' => 'elfinder'], function() {
+    Route::get('/', [ElfinderController::class, 'showIndex'])->name('elfinder.index');
+    Route::any('connector', [ElfinderController::class, 'showConnector'])->name('elfinder.connector');
+    Route::get('popup/{input_id?}', [ElfinderController::class, 'showPopup'])->name('elfinder.popup');
+});
