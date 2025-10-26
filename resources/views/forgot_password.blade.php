@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Website Desa</title>
+    <title>Lupa Kata Sandi</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -101,18 +101,6 @@
             margin-bottom: 15px;
             text-align: center;
         }
-        .forgot-password {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .forgot-password a {
-            color: #f97316;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
 
         @media (max-width: 768px) {
             .wrapper {
@@ -133,25 +121,20 @@
         <div class="illustration"></div>
 
         <div class="login-container">
-            <h2>LOGIN</h2>
+            <h2>LUPA KATA SANDI</h2>
+            <h4>Masukkan email Anda untuk proses verifikasi, kami akan mengirimkan kode 4 digit ke email Anda</h4>
 
             @if ($errors->any())
                 <div class="error">{{ $errors->first() }}</div>
             @endif
 
-            <form method="POST" action="{{ route('login.submit') }}">
+            <form method="POST" action="{{ route('forgot.password.submit') }}">
                 @csrf
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email Anda" required>
-
-                <label for="password">Kata Sandi</label>
-                <input type="password" id="password" name="kata_sandi" placeholder="Masukkan kata sandi Anda" required>
-
-                <button type="submit">MASUK</button>
+                
+                <button type="submit">MELANJUTKAN</button>
             </form>
-            <div class="forgot-password">
-                <a href="{{ route('forgot.password') }}">Lupa Kata Sandi?</a>
-            </div>
         </div>
     </div>
 </body>

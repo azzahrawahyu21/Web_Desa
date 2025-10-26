@@ -1,10 +1,9 @@
-<!-- resources/views/login.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Website Desa</title>
+    <title>Reset Kata Sandi</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -16,33 +15,29 @@
             justify-content: center;
             height: 100vh;
         }
-
         .wrapper {
             display: flex;
             background: #fff;
             border-radius: 15px;
             overflow: hidden;
-            width: 1000px; 
+            width: 1000px;
             max-width: 95%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.42); 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.42);
         }
-
         .illustration {
             flex: 1;
             background: url("{{ asset('assets/img/login.png') }}") center/contain no-repeat;
             background-color: #fff;
         }
-
         .login-container {
             flex: 1;
-            background-color: rgba(13, 71, 21, 1); 
+            background-color: rgba(13, 71, 21, 1);
             padding: 60px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             color: #fff;
         }
-
         h2 {
             text-align: center;
             color: #fff;
@@ -50,15 +45,13 @@
             font-size: 26px;
             letter-spacing: 1px;
         }
-
         label {
             color: #fff;
             font-weight: 500;
             margin-bottom: 6px;
             display: block;
         }
-
-        input[type="email"], input[type="password"] {
+        input[type="password"] {
             width: 100%;
             padding: 14px;
             margin-bottom: 22px;
@@ -69,14 +62,12 @@
             transition: 0.3s;
             background-color: #f8f8f8;
         }
-
         input:focus {
             border-color: #f97316;
             box-shadow: 0 0 5px rgba(244,162,97,0.5);
         }
-
         button {
-            width: 107%;
+            width: 100%;
             padding: 15px;
             background-color: #f97316;
             color: #fff;
@@ -87,33 +78,24 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         button:hover {
             background-color: #a84702ff;
             transform: translateY(-1px);
         }
-
-        .error {
-            background-color: #fdecea;
-            color: #d32f2f;
+        .error, .success {
             padding: 10px;
             border-radius: 6px;
             margin-bottom: 15px;
             text-align: center;
         }
-        .forgot-password {
-            text-align: center;
-            margin-top: 15px;
+        .error {
+            background-color: #fdecea;
+            color: #d32f2f;
         }
-        .forgot-password a {
-            color: #f97316;
-            text-decoration: none;
-            font-size: 14px;
+        .success {
+            background-color: #e6ffed;
+            color: #2e7d32;
         }
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
         @media (max-width: 768px) {
             .wrapper {
                 flex-direction: column;
@@ -131,27 +113,25 @@
 <body>
     <div class="wrapper">
         <div class="illustration"></div>
-
         <div class="login-container">
-            <h2>LOGIN</h2>
+            <h2>RESET KATA SANDI</h2>
 
+            @if (session('success'))
+                <div class="success">{{ session('success') }}</div>
+            @endif
             @if ($errors->any())
                 <div class="error">{{ $errors->first() }}</div>
             @endif
 
-            <form method="POST" action="{{ route('login.submit') }}">
+            <form method="POST" action="{{ route('reset.password.submit') }}">
                 @csrf
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email Anda" required>
-
-                <label for="password">Kata Sandi</label>
-                <input type="password" id="password" name="kata_sandi" placeholder="Masukkan kata sandi Anda" required>
-
-                <button type="submit">MASUK</button>
+                <input type="hidden" name="email" value="{{ $email }}">
+                <label for="kata_sandi">Kata Sandi Baru</label>
+                <input type="password" id="kata_sandi" name="kata_sandi" placeholder="Masukkan kata sandi baru" required>
+                <label for="kata_sandi_confirmation">Konfirmasi Kata Sandi</label>
+                <input type="password" id="kata_sandi_confirmation" name="kata_sandi_confirmation" placeholder="Konfirmasi kata sandi" required>
+                <button type="submit">RESET KATA SANDI</button>
             </form>
-            <div class="forgot-password">
-                <a href="{{ route('forgot.password') }}">Lupa Kata Sandi?</a>
-            </div>
         </div>
     </div>
 </body>

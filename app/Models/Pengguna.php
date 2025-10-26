@@ -17,11 +17,14 @@ class Pengguna extends Authenticatable
         'email',
         'kata_sandi',
         'peran',
-        'status'
+        'status',
+        'reset_code',
+        'reset_code_expires_at',
     ];
 
     protected $hidden = [
         'kata_sandi',
+        'reset_code',
     ];
 
     const STATUS_AKTIF = 'Aktif';

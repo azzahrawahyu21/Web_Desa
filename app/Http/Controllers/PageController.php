@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Submenu;
 
-class ProfilDesaController extends Controller
+class PageController extends Controller
 {
     public function index()
     {
