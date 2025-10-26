@@ -51,6 +51,28 @@
       @endif
     </div>
 
+    <!--Tombol Data Statistik -->
+    <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
+      <i class="bi bi-journal-text me-2"></i> Data Statistik
+      <i class="bi bi-chevron-down float-end"></i>
+    </button>
+
+    <div id="StatistikDropdown" class="dropdown-content">
+      <a href="{{ route('kategori-statistik.index') }}" class="ps-5 {{ request()->routeIs('kategori-statistik.index') ? 'active' : '' }}">
+      <i class="bi bi-list-check me-2"></i> Daftar Statistik
+    </a>
+
+    @if(isset($kategoris) && $kategoris->isNotEmpty())
+      @foreach($kategoris as $kategori)
+        <a href="{{ route('subkategori-statistik.index', $kategori->id_kategori) }}" class="ps-5">
+          <i class="bi bi-folder2-open me-2"></i> {{ ucfirst($kategori->nama_kategori) }}
+        </a>
+      @endforeach
+    @else
+      <p class="text-sm text-gray-300 px-5 mt-2 italic">Belum data statistik.</p>
+    @endif
+    </div>
+
     {{-- <hr class="opacity-30 mx-3"> --}}
   </div>
 
@@ -151,15 +173,21 @@
 <script>
   const toggleBtn = document.getElementById('toggleSidebar');
   const sidebar = document.getElementById('sidebar');
-  const dropdownBtn = document.querySelector('.dropdown-toggle-btn');
-  const dropdownContent = document.getElementById('menuDropdown');
 
+  // Toggle sidebar (untuk layar kecil)
   toggleBtn.addEventListener('click', () => {
     sidebar.classList.toggle('show');
   });
 
-  dropdownBtn.addEventListener('click', () => {
-    dropdownContent.classList.toggle('show');
-    dropdownBtn.querySelector('i.bi-chevron-down').classList.toggle('rotate');
+  // Ambil semua tombol dropdown
+  const dropdownButtons = document.querySelectorAll('.dropdown-toggle-btn');
+
+  dropdownButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const dropdownContent = btn.nextElementSibling;
+      dropdownContent.classList.toggle('show');
+      const icon = btn.querySelector('.bi-chevron-down');
+      icon.classList.toggle('rotate');
+    });
   });
 </script>

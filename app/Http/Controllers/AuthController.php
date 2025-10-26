@@ -2,21 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Pengguna;
+use App\Models\Menu;
 use Illuminate\Support\Facades\Hash;
-
 
 class AuthController extends Controller
 {
+    // 🔐 Tampilkan halaman login
     public function showLogin()
     {
+        if (Auth::check()) {
+            $role = strtolower(Auth::user()->peran);
+            if ($role === 'superadmin') {
+                return redirect()->route('addAdmin');
+            } elseif ($role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+        }
+
         return view('login');
     }
 
-    // Proses login
+    // 🔑 Proses login
     public function login(Request $request)
     {
         $request->validate([
@@ -24,27 +33,23 @@ class AuthController extends Controller
             'kata_sandi' => 'required',
         ]);
 
-        // Cek apakah email terdaftar
-        $pengguna = \App\Models\Pengguna::where('email', $request->email)->first();
+        $pengguna = Pengguna::where('email', $request->email)->first();
 
         if (!$pengguna) {
             return back()->withErrors(['email' => 'Akun tidak ditemukan.']);
         }
 
-        // Cek status aktif
         if ($pengguna->status !== 'Aktif') {
             return back()->withErrors(['email' => 'Akun Anda tidak aktif.']);
         }
 
-        // Cek kecocokan password
-        if (!\Illuminate\Support\Facades\Hash::check($request->kata_sandi, $pengguna->kata_sandi)) {
+        if (!Hash::check($request->kata_sandi, $pengguna->kata_sandi)) {
             return back()->withErrors(['email' => 'Kata sandi salah.']);
         }
 
-        // Login dan redirect sesuai peran
-        \Illuminate\Support\Facades\Auth::login($pengguna);
+        Auth::login($pengguna);
 
-        $role = strtolower($pengguna->peran); // ubah semua jadi lowercase
+        $role = strtolower($pengguna->peran);
 
         if ($role === 'superadmin') {
             return redirect()->route('addAdmin');
@@ -52,46 +57,47 @@ class AuthController extends Controller
             return redirect()->route('admin.dashboard');
         }
 
-        // Jika peran bukan admin/superadmin
-        return back()->withErrors(['email' => 'Akun tidak ditemukan, tidak aktif, atau tidak memiliki akses.']);
+        Auth::logout();
+        return back()->withErrors(['email' => 'Akun tidak memiliki akses.']);
     }
 
-    // Logout
+    // 🚪 Logout
     public function logout()
     {
         Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
         return redirect()->route('login');
     }
 
-    // Dashboard dummy
+    // 📊 Dashboard Admin (Revisi: kirim $menus)
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $menus = Menu::all()->groupBy('url');
+        return view('admin.dashboard', compact('menus'));
     }
 
+    // 👤 Halaman Tambah Admin (khusus superadmin)
     public function addAdmin()
     {
-        // return view('superadmin.addAdmin');
         $admins = Pengguna::where('peran', 'admin')->get();
         return view('superadmin.addAdmin', compact('admins'));
     }
 
     public function storeAdmin(Request $request)
     {
-        // Validasi input
         $request->validate([
             'nama_pengguna' => 'required|string|max:45',
             'email' => 'required|email|unique:pengguna,email',
             'kata_sandi' => 'required|string|min:6',
         ]);
 
-        // Simpan ke tabel pengguna
-        \App\Models\Pengguna::create([
+        Pengguna::create([
             'nama_pengguna' => $request->nama_pengguna,
             'email' => $request->email,
-            'kata_sandi' => \Illuminate\Support\Facades\Hash::make($request->kata_sandi),
+            'kata_sandi' => Hash::make($request->kata_sandi),
             'peran' => 'admin',
-            'status' => 'aktif',
+            'status' => 'Aktif',
         ]);
 
         return redirect()->back()->with('success', 'Admin berhasil ditambahkan!');
@@ -101,33 +107,66 @@ class AuthController extends Controller
     {
         $admin = Pengguna::findOrFail($id_pengguna);
 
-        // Pastikan hanya admin yang dapat diubah statusnya
-        if ($admin->peran !== 'Admin') {
+        if (strtolower($admin->peran) !== 'admin') {
             return redirect()->back()->with('error', 'Hanya admin yang dapat diubah statusnya.');
         }
 
-        // Toggle status
-        $admin->status = $admin->status === 'aktif' ? 'nonaktif' : 'aktif';
+        $admin->status = $admin->status === 'Aktif' ? 'Tidak Aktif' : 'Aktif';
         $admin->save();
 
         return redirect()->back()->with('success', 'Status admin berhasil diubah.');
     }
+
     public function toggleAdminAjax($id_pengguna)
     {
         $admin = Pengguna::findOrFail($id_pengguna);
 
-        // if ($admin->peran !== 'Admin') {
         if (strtolower($admin->peran) !== 'admin') {
             return response()->json(['error' => 'Hanya admin yang dapat diubah statusnya.'], 403);
         }
 
-        // Ubah status
         $admin->status = $admin->status === 'Aktif' ? 'Tidak Aktif' : 'Aktif';
         $admin->save();
 
-        return response()->json([
-            'success' => true,
-            'status' => $admin->status
+        return response()->json(['success' => true, 'status' => $admin->status]);
+    }
+
+    public function showProfil()
+    {
+        $admin = Auth::user();
+
+        if (!$admin) {
+            return redirect()->route('login')->withErrors('Silakan login terlebih dahulu.');
+        }
+
+        return view('admin.profil', compact('admin'));
+    }
+
+    public function editProfil()
+    {
+        $admin = Auth::user();
+        return view('admin.editProfil', compact('admin'));
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $admin = Auth::user();
+
+        $request->validate([
+            'nama_pengguna' => 'required|string|max:45',
+            'email' => 'required|email|unique:pengguna,email,' . $admin->id_pengguna . ',id_pengguna',
+            'kata_sandi' => 'nullable|string|min:6',
         ]);
+
+        $admin->nama_pengguna = $request->nama_pengguna;
+        $admin->email = $request->email;
+
+        if ($request->filled('kata_sandi')) {
+            $admin->kata_sandi = Hash::make($request->kata_sandi);
+        }
+
+        $admin->save();
+
+        return redirect()->route('admin.profil')->with('success', 'Profil berhasil diperbarui!');
     }
 }
