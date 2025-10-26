@@ -10,7 +10,8 @@ return array(
     | The dir where to store the images (relative from public)
     |
     */
-    'dir' => ['storage'],
+    // 'dir' => ['storage'],
+    'dir' => ['ufiles'],
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +41,8 @@ return array(
 
     'route' => [
         'prefix' => 'elfinder',
-        'middleware' => ('web'), //Set to null to disable middleware filter
+        // 'middleware' => ('web'), //Set to null to disable middleware filter
+        'middleware' => array('web', 'auth'), //Set to null to disable middleware filter
     ],
 
     /*
@@ -64,15 +66,16 @@ return array(
     |
     */
 
-    'roots' => [
-        [
-            'driver'        => 'LocalFileSystem',
-            'path'          => public_path('files'),
-            'URL'           => env('files'),
-            'accessControl' => 'Barryvdh\Elfinder\Elfinder::checkAccess',
-        ]
-    ],
+    // 'roots' => [
+    //     [
+    //         'driver'        => 'LocalFileSystem',
+    //         'path'          => public_path('files'),
+    //         'URL'           => env('files'),
+    //         'accessControl' => 'Barryvdh\Elfinder\Elfinder::checkAccess',
+    //     ]
+    // ],
 
+    'roots' => null,
     /*
     |--------------------------------------------------------------------------
     | Options

@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubmenuController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
 use App\Models\Menu;
+use Barryvdh\Elfinder\ElfinderController;
 
 Route::get('/', function () {
     // return view('user.utama');
@@ -36,11 +37,28 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/superadmin/update-pengguna/{id_pengguna}', [AuthController::class, 'updatePengguna'])->name('superadmin.updatePengguna');
 
     Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
+
+    // Menu CRUD
+    Route::get('/admin/menu', [MenuController::class, 'showMenu'])->name('menu.index');
     Route::get('/admin/tambahMenu', [MenuController::class, 'create'])->name('menu.create');
     Route::post('/admin/menu/store', [MenuController::class, 'store'])->name('menu.store');
+    Route::get('/admin/menu/{id_menu}/edit', [MenuController::class, 'edit'])->name('menu.edit');
+    Route::put('/admin/menu/{id_menu}', [MenuController::class, 'update'])->name('menu.update');
+    // Route::put('/admin/menu/{id_menu}/update', [MenuController::class, 'update'])->name('menu.update');
+    Route::delete('/admin/menu/{id_menu}', [MenuController::class, 'destroy'])->name('menu.destroy');
+
+    // Submenu
     Route::get('/admin/menu/{id_menu}/submenu', [SubmenuController::class, 'index'])->name('submenu.index');
     Route::post('/admin/menu/{id_menu}/submenu', [SubmenuController::class, 'store'])->name('submenu.store');
+    Route::get('/admin/menu/{id_menu}/submenu/create', [SubmenuController::class, 'create'])->name('submenu.create');
+    // Route::put('/admin/submenu/{id_submenu}', [SubmenuController::class, 'update'])->name('submenu.update');
+    // Route::delete('/admin/submenu/{id_submenu}', [SubmenuController::class, 'destroy'])->name('submenu.destroy');
+    Route::get('/admin/menu/{id_menu}/kelola', [SubmenuController::class, 'kelola'])->name('submenu.kelola');
+    Route::get('/admin/menu/{id_menu}/submenu/{id_submenu}/edit', [SubmenuController::class, 'edit'])->name('submenu.edit');
+    Route::put('/admin/menu/{id_menu}/submenu/{id_submenu}', [SubmenuController::class, 'update'])->name('submenu.update');
+    Route::delete('/admin/menu/{id_menu}/submenu/{id_submenu}', [SubmenuController::class, 'destroy'])->name('submenu.destroy');
 });
+Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
 
 // menu
 Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
@@ -50,6 +68,24 @@ Route::get('/profil/edit/{id}', [PageController::class, 'edit'])->name('profil.e
 Route::put('/profil/update/{id}', [PageController::class, 'update'])->name('profil.update');
 Route::delete('/profil/hapus/{id}', [PageController::class, 'destroy'])->name('profil.hapus');
 
+// Pengguna
+Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
+Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
 
-Route::get('/forgot_password', function () {return view('forgot_password');})->name('forgot_password');
-Route::get('/verifikasi_email', function () {return view('verifikasi_email');})->name('verifikasi_email');
+// Elfinder Routes
+Route::group(['prefix' => 'elfinder'], function() {
+    Route::get('/', [ElfinderController::class, 'showIndex'])->name('elfinder.index');
+    Route::any('connector', [ElfinderController::class, 'showConnector'])->name('elfinder.connector');
+    Route::get('popup/{input_id?}', [ElfinderController::class, 'showPopup'])->name('elfinder.popup');
+});
+
+// Pengguna
+Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
+Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
+
+// Elfinder Routes
+Route::group(['prefix' => 'elfinder'], function() {
+    Route::get('/', [ElfinderController::class, 'showIndex'])->name('elfinder.index');
+    Route::any('connector', [ElfinderController::class, 'showConnector'])->name('elfinder.connector');
+    Route::get('popup/{input_id?}', [ElfinderController::class, 'showPopup'])->name('elfinder.popup');
+});

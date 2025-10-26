@@ -15,4 +15,11 @@ class Menu extends Model
         return $this->hasMany(Submenu::class, 'id_menu');
     }
     public $timestamps = false; 
+
+    protected static function booted()
+    {
+        static::deleting(function ($menu) {
+            $menu->submenus()->delete();
+        });
+    }
 }
