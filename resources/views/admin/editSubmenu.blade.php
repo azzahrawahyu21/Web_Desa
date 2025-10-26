@@ -10,7 +10,7 @@
     <div>
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item">
-          <a href="{{ route('submenu.index', $menu->id_menu) }}" class="text-[#0D4715] fw-semibold text-decoration-none">
+          <a href="{{ route('submenu.kelola', $menu->id_menu) }}" class="text-[#0D4715] fw-semibold text-decoration-none">
             <i class="bi bi-arrow-left-circle me-1"></i> Kelola Submenu - {{ $menu->nama_menu }}
           </a>
         </li>
@@ -62,40 +62,22 @@
 
     {{-- Input Foto --}}
     <div class="mb-3">
-      <label for="foto" class="form-label fw-semibold">Foto (URL)</label>
+      <label for="foto" class="form-label fw-semibold">File atau Gambar</label>
       <div class="input-group w-100">
-        <input
-          type="text"
-          name="foto"
-          id="foto"
-          class="form-control"
-          placeholder="Pilih atau masukkan URL foto"
-          value="{{ old('foto', $submenu->foto) }}"
-        >
+        <input type="hidden" name="foto_url" id="foto_url" value="{{ old('foto_url', $submenu->foto) }}"> <!-- URL lengkap -->
+        <input type="text" name="foto" id="foto" class="form-control" placeholder="Nama file (opsional)" value="{{ basename($submenu->foto) }}">
         <button type="button" class="btn btn-secondary" id="btnBrowse">
-          <i class="bi bi-folder2-open"></i> Pilih File
+          <i class="bi bi-folder2-open"></i> Pilih dari ElFinder
         </button>
       </div>
 
-      @if($submenu->foto)
-        @php
-          $fotoUrl = str_replace('127.0.01', '127.0.0.1', $submenu->foto);
-          $fotoUrl = str_replace('//files', '/files', $fotoUrl);
-          $ext = pathinfo($fotoUrl, PATHINFO_EXTENSION);
-        @endphp
-
-        <div class="mt-3">
-          @if(in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-            <img src="{{ $fotoUrl }}" alt="Foto Submenu" class="img-fluid rounded border" style="max-height:200px;">
-          @elseif(strtolower($ext) === 'pdf')
-            <iframe src="{{ $fotoUrl }}" class="w-100 rounded border" style="height:300px;"></iframe>
-          @else
-            <a href="{{ $fotoUrl }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-              <i class="bi bi-file-earmark"></i> Lihat File
-            </a>
-          @endif
-        </div>
-      @endif
+      {{-- Preview Gambar --}}
+      <div class="mt-3">
+        <img id="previewImage"
+             src="{{ $submenu->foto ? $submenu->foto : '' }}"
+             alt="Preview"
+             style="max-width: 200px; display: {{ $submenu->foto ? 'block' : 'none' }}; border: 1px solid #ccc; padding: 5px; border-radius: 8px;">
+      </div>
     </div>
 
     {{-- Tombol Simpan --}}
@@ -107,15 +89,49 @@
   </form>
 </div>
 
-{{-- Script ElFinder --}}
+{{-- Script CKEditor & ElFinder --}}
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-  $('#btnBrowse').on('click', function() {
-    var fm = window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
-    window.SetUrl = function(items) {
-      var fileUrl = items.map(item => item.url).join(',');
-      $('#foto').val(fileUrl);
-    };
+  // ✅ CKEditor untuk textarea "isi"
+  CKEDITOR.replace('isi', {
+      filebrowserBrowseUrl: '/elfinder/ckeditor', // Integrasi dengan elfinder
+      extraPlugins: 'colorbutton,font',
+      toolbar: [
+          { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'Undo', 'Redo'] },
+          { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike'] },
+          { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+          { name: 'links', items: ['Link', 'Unlink'] },
+          { name: 'insert', items: ['Image', 'Table'] },
+          { name: 'styles', items: ['Format', 'Font', 'FontSize'] },
+          { name: 'colors', items: ['TextColor', 'BGColor'] },
+          { name: 'tools', items: ['Maximize'] }
+      ]
+  });
+
+  // Matikan warning CKEditor di console
+  CKEDITOR.config.versionCheck = false;
+  console.warn = function(msg) {
+    if (msg.includes("CKEditor 4.22.1 version is not secure")) return;
+    console.log(msg);
+  };
+
+
+  // ✅ ElFinder file picker
+  function processSelectedFile(file) {
+      const fileName = file.url.split('/').pop();
+      document.getElementById('foto').value = fileName;
+      document.getElementById('foto_url').value = file.url;
+
+      // Preview Gambar
+      const preview = document.getElementById('previewImage');
+      preview.src = file.url;
+      preview.style.display = 'block';
+  }
+
+  document.getElementById('btnBrowse').addEventListener('click', function() {
+      window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
   });
 </script>
 @endsection

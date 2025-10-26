@@ -59,13 +59,6 @@
     </div>
 
     {{-- Input Foto --}}
-    {{-- <div class="mb-3">
-      <label for="foto" class="form-label fw-semibold">File atau Gambar</label>
-      <div class="input-group w-100">
-        <input type="text" name="foto" id="foto" class="form-control" placeholder="URL file (opsional)">
-        <button type="button" class="btn btn-secondary" id="btnBrowse">Pilih dari ElFinder</button>
-      </div>
-    </div> --}}
     <div class="mb-3">
       <label for="foto" class="form-label fw-semibold">File atau Gambar</label>
       <div class="input-group w-100">
@@ -92,6 +85,7 @@
 
 {{-- Script untuk ElFinder --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
 <script>
   function processSelectedFile(file) {
       // Ambil nama file saja
@@ -112,5 +106,32 @@
   document.getElementById('btnBrowse').addEventListener('click', function() {
       window.open('/elfinder/popup/foto', 'FileManager', 'width=900,height=600');
   });
+</script>
+<script>
+  // Inisialisasi CKEditor pada textarea isi
+  CKEDITOR.replace('isi', {
+      filebrowserBrowseUrl: '/elfinder/ckeditor', // sambungkan dengan elfinder
+      filebrowserImageBrowseUrl: '/elfinder/ckeditor', 
+      filebrowserUploadUrl: '/elfinder/connector', 
+      height: 300,
+      toolbar: [
+          { name: 'document', items: [ 'Source', '-', 'NewPage', 'Preview' ] },
+          { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo' ] },
+          { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },
+          { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+          { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike' ] },
+          { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+          { name: 'insert', items: [ 'Image', 'Link', 'Table', 'HorizontalRule' ] },
+          { name: 'tools', items: [ 'Maximize' ] }
+      ]
+  });
+</script>
+<script>
+  // Matikan warning CKEditor di console
+  CKEDITOR.config.versionCheck = false;
+  console.warn = function(msg) {
+    if (msg.includes("CKEditor 4.22.1 version is not secure")) return;
+    console.log(msg);
+  };
 </script>
 @endsection
