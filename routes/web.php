@@ -67,16 +67,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/kategori-statistik', [KategoriStatistikController::class, 'index'])->name('kategori-statistik.index');
     Route::get('/admin/kategori-statistik/tambah', [KategoriStatistikController::class, 'create'])->name('kategori-statistik.create');
     Route::post('/admin/kategori-statistik/store', [KategoriStatistikController::class, 'store'])->name('kategori-statistik.store');
-    Route::get('/admin/kategori-statistik/edit/{id}', [KategoriStatistikController::class, 'edit'])->name('kategori-statistik.edit');
-    Route::put('/admin/kategori-statistik/update/{id}', [KategoriStatistikController::class, 'update'])->name('kategori-statistik.update');
-    Route::delete('/admin/kategori-statistik/hapus/{id}', [KategoriStatistikController::class, 'destroy'])->name('kategori-statistik.destroy');
-    Route::get('/admin/kategori-statistik/{id}', [KategoriStatistikController::class, 'show'])->name('kategori-statistik.show');
+    Route::get('/admin/kategori-statistik/edit/{id_kategori}', [KategoriStatistikController::class, 'edit'])->name('kategori-statistik.edit');
+    Route::put('/admin/kategori-statistik/update/{id_kategori}', [KategoriStatistikController::class, 'update'])->name('kategori-statistik.update');
+    Route::delete('/admin/kategori-statistik/hapus/{id_kategori}', [KategoriStatistikController::class, 'destroy'])->name('kategori-statistik.destroy');
+    Route::get('/admin/kategori-statistik/{id_kategori}', [KategoriStatistikController::class, 'show'])->name('kategori-statistik.show');
 
     // 📁 Subkategori Statistik
-    Route::get('/admin/subkategori', [App\Http\Controllers\SubkategoriController::class, 'index'])->name('admin.subkategori.index');
-
-    Route::get('/admin/subkategori-statistik', [SubkategoriStatistikController::class, 'index'])->name('subkategori-statistik.index');
-    Route::get('/admin/subkategori-statistik/tambah', [SubkategoriStatistikController::class, 'create'])->name('subkategori-statistik.create');
+    Route::get('/admin/subkategori-statistik/{id_kategori}', [SubkategoriStatistikController::class, 'index'])->name('subkategori-statistik.index');
+    Route::get('/admin/subkategori-statistik/tambah/{id_kategori}', [SubkategoriStatistikController::class, 'create'])->name('subkategori-statistik.create');
     Route::post('/admin/subkategori-statistik/store', [SubkategoriStatistikController::class, 'store'])->name('subkategori-statistik.store');
     Route::get('/admin/subkategori-statistik/edit/{id}', [SubkategoriStatistikController::class, 'edit'])->name('subkategori-statistik.edit');
     Route::put('/admin/subkategori-statistik/update/{id}', [SubkategoriStatistikController::class, 'update'])->name('subkategori-statistik.update');

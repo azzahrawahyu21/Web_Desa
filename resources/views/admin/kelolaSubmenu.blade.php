@@ -37,7 +37,7 @@
 
   <div class="table-responsive">
     <table class="table table-bordered table-striped align-middle">
-      <thead class="text-center">
+      <thead class="text-center table-success">
         <tr>
           <th style="width:5%">No</th>
           <th>Judul</th>

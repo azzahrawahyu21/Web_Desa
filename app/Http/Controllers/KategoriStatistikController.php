@@ -65,9 +65,8 @@ class KategoriStatistikController extends Controller
     }
 
     public function show($id_kategori)
-{
-    $kategori = KategoriStatistik::with('subkategoris')->findOrFail($id_kategori);
-    return view('admin.dataStatistik.detailKategoriStatistik', compact('kategori'));
-}
-
+    {
+        $kategori = KategoriStatistik::with('subkategoris')->findOrFail($id_kategori);
+        return view('admin.dataStatistik.detailKategoriStatistik', compact('kategori'));
+    }
 }
