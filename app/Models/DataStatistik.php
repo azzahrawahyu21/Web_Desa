@@ -10,9 +10,9 @@ class DataStatistik extends Model
     use HasFactory;
 
     protected $table = 'data_statistik';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_data';
     public $timestamps = false;
-    protected $fillable = ['tahun', 'jumlah', 'id_subkategori', 'id_user'];
+    protected $fillable = ['tahun', 'jumlah', 'id_subkategori', 'id_pengguna'];
 
     public function subkategori()
     {

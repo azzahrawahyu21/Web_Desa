@@ -12,8 +12,9 @@ class DataStatistikController extends Controller
 {
     public function index()
     {
-        $dataStatistik = DataStatistik::with('subkategori.kategori', 'user')->get();
-        return view('admin.dataStatistik', compact('dataStatistik'));
+        $dataStatistik = DataStatistik::with('subkategori.kategori')->get();
+        $subkategori = SubkategoriStatistik::all();
+        return view('admin.dataStatistik.dataStatistik', compact('dataStatistik', 'subkategori'));
     }
 
     public function create()
@@ -25,50 +26,55 @@ class DataStatistikController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'tahun' => 'required|integer',
-        'jumlah' => 'required|integer',
-        'id_subkategori' => 'required|exists:subkategori_statistik,id_subkategori',
-    ]);
+            'jumlah' => 'required|integer',
+            'tahun' => 'required|digits:4',
+            'id_subkategori' => 'required|exists:subkategori_statistik,id_subkategori',
+        ]);
 
-    DataStatistik::create([
-        'tahun' => $request->tahun,
-        'jumlah' => $request->jumlah,
-        'id_subkategori' => $request->id_subkategori,
-        'id_user' => auth()->id(),
-    ]);
+        DataStatistik::create([
+            'jumlah' => $request->jumlah,
+            'tahun' => $request->tahun. '-01-01',
+            'id_subkategori' => $request->id_subkategori,
+            'id_pengguna' => auth()->id(),
+        ]);
 
-    // return back()->with('success', 'Data statistik berhasil ditambahkan!');
-return redirect()->route('subkategori-statistik.show', $request->id_subkategori)
-                 ->with('success', 'Data statistik berhasil ditambahkan!');
-
-}
+        return redirect()->route('subkategori-statistik.show', $request->id_subkategori)
+                        ->with('success', 'Data statistik berhasil ditambahkan!');
+    }
 
     public function edit($id)
     {
-        $data = DataStatistik::findOrFail($id);
-        $kategori = KategoriStatistik::with('subkategori')->get();
-        return view('admin.dataStatistik', compact('data', 'kategori'))->with('mode', 'edit');
+        // $data = DataStatistik::findOrFail($id);
+        $data = DataStatistik::with('subkategori.kategori')->findOrFail($id);
+        $subkategori = SubkategoriStatistik::all(); 
+        return view('admin.dataStatistik.editData', compact('data', 'subkategori'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'jumlah' => 'required|numeric',
-            'tahun' => 'required|numeric',
+            'jumlah' => 'required|integer',
+            'tahun' => 'required|digits:4',
             'id_subkategori' => 'required|exists:subkategori_statistik,id_subkategori',
         ]);
 
         $data = DataStatistik::findOrFail($id);
-        $data->update($request->only('jumlah', 'tahun', 'id_subkategori'));
+        $updateData = $request->only('jumlah', 'id_subkategori');
+        $updateData['tahun'] = $request->tahun . '-01-01';
 
-        return redirect()->route('data.index')->with('success', 'Data statistik berhasil diperbarui!');
+        $data->update($updateData);
+
+        return redirect()->route('subkategori-statistik.show', $data->id_subkategori)
+                        ->with('success', 'Data statistik berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         $data = DataStatistik::findOrFail($id);
+        $subkategoriId = $data->id_subkategori;
         $data->delete();
 
-        return redirect()->route('data.index')->with('success', 'Data statistik berhasil dihapus!');
+        return redirect()->route('subkategori-statistik.show', $subkategoriId)
+                        ->with('success', 'Data statistik berhasil dihapus!');
     }
 }
