@@ -4,6 +4,26 @@
 
 @section('content')
 <div class="bg-white rounded-lg shadow-md p-6">
+  {{-- Breadcrumb --}}
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+      <div>
+          <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item">
+                  <a href="{{ route('kategori-statistik.index') }}" class="text-[#0D4715] fw-semibold text-decoration-none">
+                      <i class="bi bi-arrow-left-circle me-1"></i> Kategori Statistik
+                  </a>
+              </li>
+              <li class="breadcrumb-item">
+                  <a href="{{ route('subkategori-statistik.index', $subkategori->id_kategori) }}" class="text-[#0D4715] fw-semibold text-decoration-none">
+                      Daftar Subkategori - {{ $subkategori->kategori->nama_kategori ?? '-' }}
+                  </a>
+              </li>
+              <li class="breadcrumb-item active text-muted" aria-current="page">
+                  Detail Subkategori - {{ $subkategori->nama_subkategori }}
+              </li>
+          </ol>
+      </div>
+  </div>
   <h2 class="text-[#0D4715] text-2xl font-bold mb-4">
     Detail Subkategori: {{ $subkategori->nama_subkategori }}
   </h2>
@@ -34,7 +54,7 @@
   {{-- Daftar Data Statistik --}}
   <div class="table-responsive">
     <table class="table table-bordered table-striped align-middle">
-      <thead class="text-center" style="background-color: #0D4715; color: white;">
+      <thead class="text-center table-success">
         <tr>
           <th>No</th>
           <th>Tahun</th>
@@ -42,13 +62,13 @@
           <th>Aksi</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="text-center">
         @forelse($dataStatistik as $index => $data)
           <tr>
-            <td class="text-center">{{ $index + 1 }}</td>
+            <td>{{ $index + 1 }}</td>
             <td>{{ \Carbon\Carbon::parse($data->tahun)->format('Y') }}</td>
             <td>{{ $data->jumlah }}</td>
-            <td class="text-center">
+            <td>
               {{-- Tombol Edit --}}
               <a href="{{ route('data-statistik.edit', $data->id_data) }}" class="btn btn-warning btn-sm">
                 <i class="bi bi-pencil-square"></i> Edit

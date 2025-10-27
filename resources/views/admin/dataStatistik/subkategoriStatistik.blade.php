@@ -4,6 +4,19 @@
 
 @section('content')
 <div class="bg-white rounded-lg shadow-md p-6">
+    {{-- Breadcrumb --}}
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div>
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('kategori-statistik.index') }}" class="text-[#0D4715] fw-semibold text-decoration-none">
+                        <i class="bi bi-arrow-left-circle me-1"></i> Kategori Statistik
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-muted" aria-current="page">Daftar Subkategori - {{ $kategori->nama_kategori }}</li>
+            </ol>
+        </div>
+    </div>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-[#0D4715] text-2xl fw-bold">Daftar Subkategori Statistik - {{ $kategori->nama_kategori }}</h2>
         <a href="{{ route('subkategori-statistik.create', $kategori->id_kategori) }}" class="btn btn-success">
@@ -18,16 +31,16 @@
     @endif
 
     <div class="table-responsive">
-        <table class="table table-striped align-middle">
-            <thead class="table-success">
+        <table class="table table-bordered table-striped align-middle">
+            <thead class="table-success text-center">
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Nama Subkategori</th>
                     <th>Kategori</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
                 @forelse($subkategoris as $index => $subkategori)
                     <tr>
                         <td>{{ $index + 1 }}</td>

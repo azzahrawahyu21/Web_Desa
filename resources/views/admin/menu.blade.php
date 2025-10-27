@@ -21,7 +21,7 @@
   {{-- Tabel Daftar Menu --}}
   <div class="table-responsive">
     <table class="table table-bordered table-striped align-middle">
-      <thead class="text-center" style="background-color: #0D4715; color: white;">
+      <thead class="text-center table-success">
         <tr>
           <th style="width: 5%">No</th>
           <th>Nama Menu</th>

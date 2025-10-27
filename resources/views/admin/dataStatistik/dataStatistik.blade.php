@@ -14,7 +14,7 @@
     <h6>{{ isset($editData) ? 'Edit Data Statistik' : 'Tambah Data Statistik' }}</h6>
   </div>
   <div class="card-body">
-    <form action="{{ isset($editData) ? route('data.update', $editData->id_data) : route('data.store') }}" method="POST">
+    <form action="{{ isset($editData) ? route('data.update', $editData->id_data) : route('data-statistik.store') }}" method="POST">
       @csrf
       @if(isset($editData))
         @method('PUT')
@@ -65,15 +65,15 @@
     </tr>
   </thead>
   <tbody>
-    @forelse ($data as $index => $item)
+    @forelse ($dataStatistik as $index => $item)
     <tr>
       <td>{{ $index + 1 }}</td>
       <td>{{ $item->subkategori->nama_subkategori ?? '-' }}</td>
       <td>{{ $item->jumlah }}</td>
       <td>{{ $item->tahun }}</td>
       <td>
-        <a href="{{ route('data.index', ['edit' => $item->id_data]) }}" class="btn btn-warning btn-sm">Edit</a>
-        <form action="{{ route('data.hapus', $item->id_data) }}" method="POST" style="display:inline;">
+        <a href="{{ route('data-statistik.index', ['edit' => $item->id_data]) }}" class="btn btn-warning btn-sm">Edit</a>
+        <form action="{{ route('data-statistik.destroy', $item->id_data) }}" method="POST" style="display:inline;">
           @csrf
           @method('DELETE')
           <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Hapus data ini?')">Hapus</button>

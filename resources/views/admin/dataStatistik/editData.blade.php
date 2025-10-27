@@ -4,6 +4,32 @@
 
 @section('content')
 <div class="bg-white rounded-lg shadow-md p-6">
+  {{-- Breadcrumb --}}
+  <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+      <div>
+          <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item">
+                  <a href="{{ route('kategori-statistik.index') }}" class="text-[#0D4715] fw-semibold text-decoration-none">
+                      <i class="bi bi-arrow-left-circle me-1"></i> Kategori Statistik
+                  </a>
+              </li>
+              <li class="breadcrumb-item">
+                  <a href="{{ route('subkategori-statistik.index', $data->subkategori->kategori->id_kategori) }}" class="text-[#0D4715] fw-semibold text-decoration-none">
+                      Daftar Subkategori - {{ $data->subkategori->kategori->nama_kategori ?? '-' }}
+                  </a>
+              </li>
+              <li class="breadcrumb-item">
+                  <a href="{{ route('subkategori-statistik.show', $data->id_subkategori) }}" class="text-[#0D4715] fw-semibold text-decoration-none">
+                      Detail Subkategori - {{ $data->subkategori->nama_subkategori ?? '-' }}
+                  </a>
+              </li>
+              <li class="breadcrumb-item active text-muted" aria-current="page">
+                  Edit Data Statistik
+              </li>
+          </ol>
+      </div>
+  </div>
+
   <h2 class="text-[#0D4715] text-2xl font-bold mb-4">
     Edit Data Statistik untuk {{ $data->subkategoriStatistik->nama_subkategori ?? '-' }}
   </h2>
