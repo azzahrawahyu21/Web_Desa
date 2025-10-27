@@ -65,15 +65,19 @@ class SubkategoriStatistikController extends Controller
     }
 
     // Hapus subkategori
-    public function destroy($id_subkategori)
-    {
-        $subkategori = SubkategoriStatistik::findOrFail($id_subkategori);
-        $id_kategori = $subkategori->id_kategori;
-        $subkategori->delete();
+ public function destroy($id)
+{
+    $subkategori = SubkategoriStatistik::findOrFail($id);
+    $id_kategori = $subkategori->id_kategori;
 
-        return redirect()->route('subkategori-statistik.index', ['id_kategori' => $id_kategori])
-                         ->with('success', 'Subkategori berhasil dihapus!');
-    }
+    // Hapus semua data statistik terkait sebelum hapus subkategori
+    \DB::table('data_statistik')->where('id_subkategori', $id)->delete();
+
+    $subkategori->delete();
+
+    return redirect()->route('subkategori-statistik.index', ['id_kategori' => $id_kategori])
+                     ->with('success', 'Subkategori dan data statistik terkait berhasil dihapus!');
+}
 
     // Detail subkategori
     public function show($id_subkategori)

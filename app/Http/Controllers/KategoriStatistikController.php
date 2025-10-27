@@ -56,17 +56,22 @@ class KategoriStatistikController extends Controller
     }
 
     // Hapus kategori
-    public function destroy($id_kategori)
-    {
-        $kategori = KategoriStatistik::findOrFail($id_kategori);
-        $kategori->delete();
+public function destroy($id_kategori)
+{
+    $kategori = KategoriStatistik::findOrFail($id_kategori);
 
-        return redirect()->route('kategori-statistik.index')->with('success', 'Kategori berhasil dihapus!');
-    }
+    // Hapus semua subkategori dan data statistik terkait sebelum hapus kategori
+    $subkategoriIds = \DB::table('subkategori_statistik')
+                        ->where('id_kategori', $id_kategori)
+                        ->pluck('id_subkategori');
 
-    public function show($id_kategori)
-    {
-        $kategori = KategoriStatistik::with('subkategoris')->findOrFail($id_kategori);
-        return view('admin.dataStatistik.detailKategoriStatistik', compact('kategori'));
-    }
+    \DB::table('data_statistik')->whereIn('id_subkategori', $subkategoriIds)->delete();
+    \DB::table('subkategori_statistik')->where('id_kategori', $id_kategori)->delete();
+
+    $kategori->delete();
+
+    return redirect()->route('kategori-statistik.index')
+                     ->with('success', 'Kategori, subkategori, dan data statistik terkait berhasil dihapus!');
+}
+
 }
