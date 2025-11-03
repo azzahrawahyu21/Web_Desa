@@ -7,6 +7,9 @@ use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\KategoriStatistikController;
 use App\Http\Controllers\SubkategoriStatistikController;
 use App\Http\Controllers\DataStatistikController;
+use App\Http\Controllers\JenisPPIDController;
+use App\Http\Controllers\JudulPPIDController;
+use App\Http\Controllers\PPIDController;
 use App\Http\Controllers\UserController;
 use App\Models\Menu;
 use Barryvdh\Elfinder\ElfinderController;
@@ -72,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/kategori-statistik/hapus/{id_kategori}', [KategoriStatistikController::class, 'destroy'])->name('kategori-statistik.destroy');
     Route::get('/admin/kategori-statistik/{id_kategori}', [KategoriStatistikController::class, 'show'])->name('kategori-statistik.show');
 
-    // 📁 Subkategori Statistik
+    // Subkategori Statistik
     Route::get('/admin/subkategori-statistik/{id_kategori}', [SubkategoriStatistikController::class, 'index'])->name('subkategori-statistik.index');
     Route::get('/admin/subkategori-statistik/tambah/{id_kategori}', [SubkategoriStatistikController::class, 'create'])->name('subkategori-statistik.create');
     Route::post('/admin/subkategori-statistik/store', [SubkategoriStatistikController::class, 'store'])->name('subkategori-statistik.store');
@@ -81,7 +84,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/subkategori-statistik/hapus/{id}', [SubkategoriStatistikController::class, 'destroy'])->name('subkategori-statistik.destroy');
     Route::get('/admin/subkategori-statistik/{id}/detail', [SubkategoriStatistikController::class, 'show'])->name('subkategori-statistik.show');
 
-    // 📈 Data Statistik
+    // Data Statistik
     Route::get('/admin/data-statistik', [DataStatistikController::class, 'index'])->name('data-statistik.index');
     Route::get('/admin/data-statistik/tambah', [DataStatistikController::class, 'create'])->name('data-statistik.create');
     Route::post('/admin/data-statistik/store', [DataStatistikController::class, 'store'])->name('data-statistik.store');
@@ -90,6 +93,36 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/data-statistik/hapus/{id}', [DataStatistikController::class, 'destroy'])->name('data-statistik.destroy');
     Route::post('/admin/data-statistik/store', [DataStatistikController::class, 'store'])->name('data-statistik.store');
 
+    // Jenis PPID
+    Route::get('/admin/jenis-ppid', [JenisPPIDController::class, 'index'])->name('jenis-ppid.index');
+    Route::get('/admin/jenis-ppid/tambah', [JenisPPIDController::class, 'create'])->name('jenis-ppid.create');
+    Route::post('/admin/jenis-ppid/store', [JenisPPIDController::class, 'store'])->name('jenis-ppid.store');
+    Route::get('/admin/jenis-ppid/edit/{id}', [JenisPPIDController::class, 'edit'])->name('jenis-ppid.edit');
+    Route::put('/admin/jenis-ppid/update/{id}', [JenisPPIDController::class, 'update'])->name('jenis-ppid.update');
+    Route::delete('/admin/jenis-ppid/hapus/{id}', [JenisPPIDController::class, 'destroy'])->name('jenis-ppid.destroy');
+
+    // Judul PPID
+    Route::get('/admin/judul-ppid/{id_jenis_ppid}', [JudulPPIDController::class, 'index'])
+     ->name('judul-ppid.index');
+    Route::get('/admin/judul-ppid/tambah/{id_jenis_ppid}', [JudulPPIDController::class, 'create'])
+        ->name('judul-ppid.create');
+    Route::post('/admin/judul-ppid/store', [JudulPPIDController::class, 'store'])
+        ->name('judul-ppid.store');
+    Route::get('/admin/judul-ppid/edit/{id}', [JudulPPIDController::class, 'edit'])
+    ->name('judul-ppid.edit');
+    Route::put('/admin/judul-ppid/update/{id}', [JudulPPIDController::class, 'update'])
+        ->name('judul-ppid.update');
+    Route::delete('/admin/judul-ppid/hapus/{id}', [JudulPPIDController::class, 'destroy'])
+    ->name('judul-ppid.destroy');
+
+    // Dokumen PPID (per judul)
+    Route::get('/admin/ppid/{id_judul}', [PPIDController::class, 'index'])->name('ppid.index');
+    Route::get('/admin/ppid/tambah/{id_judul}', [PPIDController::class, 'create'])->name('ppid.create');
+    Route::post('/admin/ppid/store', [PPIDController::class, 'store'])->name('ppid.store');
+    Route::get('/admin/ppid/edit/{id_ppid}', [PPIDController::class, 'edit'])->name('ppid.edit');
+    Route::put('/admin/ppid/update/{id_ppid}', [PPIDController::class, 'update'])->name('ppid.update');
+    Route::delete('/admin/ppid/hapus/{id_ppid}', [PPIDController::class, 'destroy'])
+        ->name('ppid.destroy');
 });
 
 // Profil Desa
@@ -124,10 +157,3 @@ Route::group(['prefix' => 'elfinder'], function() {
 // Pengguna
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
-
-// Elfinder Routes
-Route::group(['prefix' => 'elfinder'], function() {
-    Route::get('/', [ElfinderController::class, 'showIndex'])->name('elfinder.index');
-    Route::any('connector', [ElfinderController::class, 'showConnector'])->name('elfinder.connector');
-    Route::get('popup/{input_id?}', [ElfinderController::class, 'showPopup'])->name('elfinder.popup');
-});

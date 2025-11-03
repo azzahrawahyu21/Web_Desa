@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Menu;
 use App\Models\KategoriStatistik;
+use App\Models\JenisPPID;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer('admin.sidebar', function ($view) {
             $menus = Menu::all();
             $kategoris = KategoriStatistik::all();
-            $view->with(compact('menus', 'kategoris'));
+            $jenisPpids = JenisPPID::all();
+            $view->with(compact('menus', 'kategoris', 'jenisPpids'));
         });
     }
 }
