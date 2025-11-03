@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Menu;
 use App\Models\KategoriStatistik;
 use App\Models\JenisPPID;
+use App\Models\Rw;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,7 +35,8 @@ class AppServiceProvider extends ServiceProvider
             $menus = Menu::all();
             $kategoris = KategoriStatistik::all();
             $jenisPpids = JenisPPID::all();
-            $view->with(compact('menus', 'kategoris', 'jenisPpids'));
+            $rws = Rw::all();
+            $view->with(compact('menus', 'kategoris', 'jenisPpids','rws'));
         });
     }
 }
