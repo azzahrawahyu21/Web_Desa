@@ -95,6 +95,28 @@
     @endif
     </div>
 
+     <!-- RT/RW -->
+    <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
+      <i class="bi bi-journal-text me-2"></i> Data RT/RW
+      <i class="bi bi-chevron-down float-end"></i>
+    </button>
+
+    <div id="rtRwDropdown" class="dropdown-content">
+      <a href="{{ route('rw.index') }}" class="ps-5 {{ request()->routeIs('rw.index') ? 'active' : '' }}">
+        <i class="bi bi-list-check me-2"></i> Daftar RW
+      </a>
+
+      @if(isset($rws) && $rws->isNotEmpty())
+        @foreach($rws as $rw)
+          <a href="{{ route('rt.index', $rw->id_rw) }}" class="ps-5 {{ request()->routeIs('rt.index') && request()->segment(3) == $rw->id_rw ? 'active' : '' }}">
+            <i class="bi bi-folder2-open me-2"></i> RW {{ ucfirst($rw->no_rw) }}
+          </a>
+        @endforeach
+      @else
+        <p class="text-sm text-gray-300 px-5 mt-2 italic">Belum ada data RW.</p>
+      @endif
+    </div>
+
     {{-- <hr class="opacity-30 mx-3"> --}}
   </div>
 
