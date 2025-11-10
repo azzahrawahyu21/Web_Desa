@@ -41,6 +41,14 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // Navbar & Menu User (publik)
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
+// User
+Route::prefix('user')->group(function () {
+    // Halaman Menu Utama
+    Route::get('/menu/{kategori}/{menu}', [UserMenuController::class, 'showMenu'])->name('user.menu.show');
+
+    // Halaman Submenu
+    Route::get('/menu/{kategori}/{menu}/{submenu}', [UserSubmenuController::class, 'showSubmenu'])->name('user.submenu.show');
+});
 
 // Profil Desa (publik)
 Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
