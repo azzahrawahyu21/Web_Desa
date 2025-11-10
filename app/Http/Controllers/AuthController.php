@@ -76,7 +76,7 @@ class AuthController extends Controller
     // 📊 Dashboard Admin
     public function dashboard()
     {
-        $menus = Menu::all()->groupBy('url');
+        $menus = Menu::with('submenus')->get()->groupBy('url');
         return view('admin.dashboard', compact('menus'));
     }
 

@@ -21,7 +21,7 @@ use App\Http\Controllers\UserSubmenuController;
 
 // ROUTE UMUM (TANPA LOGIN)
 Route::get('/', function () {
-    $menus = Menu::all()->groupBy('url');
+    $menus = Menu::with('submenus')->get()->groupBy('url');
     return view('user.utama', compact('menus'));
 })->name('home');
 
