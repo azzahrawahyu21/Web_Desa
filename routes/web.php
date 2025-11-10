@@ -14,6 +14,10 @@ use App\Http\Controllers\UserController;
 use App\Models\Menu;
 use Barryvdh\Elfinder\ElfinderController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\RwController;
+use App\Http\Controllers\RtController;
+use App\Http\Controllers\UserMenuController;
+use App\Http\Controllers\UserSubmenuController;
 
 // Halaman utama
 Route::get('/', function () {
@@ -123,6 +127,28 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/admin/ppid/update/{id_ppid}', [PPIDController::class, 'update'])->name('ppid.update');
     Route::delete('/admin/ppid/hapus/{id_ppid}', [PPIDController::class, 'destroy'])
         ->name('ppid.destroy');
+
+    Route::prefix('admin')->group(function () {
+
+        // RW
+        Route::get('/rw', [RwController::class, 'index'])->name('rw.index');
+        Route::get('/rw/tambah', [RwController::class, 'create'])->name('rw.create');
+        Route::post('/rw', [RwController::class, 'store'])->name('rw.store');
+        Route::get('/rw/{id_rw}/edit', [RwController::class, 'edit'])->name('rw.edit');
+        Route::put('/rw/{id_rw}', [RwController::class, 'update'])->name('rw.update');
+        Route::delete('/rw/{id_rw}', [RwController::class, 'destroy'])->name('rw.destroy');
+        Route::get('/rw/{id_rw}', [RwController::class, 'show'])->name('rw.show');
+
+        // RT (nested dalam RW)
+        Route::prefix('rw/{id_rw}/rt')->group(function () {
+        Route::get('/', [RtController::class, 'index'])->name('rt.index');
+        Route::get('/tambah', [RtController::class, 'create'])->name('rt.create');
+        Route::post('/store', [RtController::class, 'store'])->name('rt.store');
+        Route::get('/{id_rt}/edit', [RtController::class, 'edit'])->name('rt.edit');
+        Route::put('/{id_rt}/update', [RtController::class, 'update'])->name('rt.update');
+        Route::delete('/{id_rt}/hapus', [RtController::class, 'destroy'])->name('rt.destroy');
+        });
+    });
 });
 
 // Profil Desa
@@ -157,3 +183,10 @@ Route::group(['prefix' => 'elfinder'], function() {
 // Pengguna
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
+Route::prefix('user')->group(function () {
+    // Halaman Menu Utama
+    Route::get('/menu/{kategori}/{menu}', [UserMenuController::class, 'showMenu'])->name('user.menu.show');
+
+    // Halaman Submenu
+    Route::get('/menu/{kategori}/{menu}/{submenu}', [UserSubmenuController::class, 'showSubmenu'])->name('user.submenu.show');
+});
