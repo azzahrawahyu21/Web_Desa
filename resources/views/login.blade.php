@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Website Desa</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -41,6 +42,7 @@
             flex-direction: column;
             justify-content: center;
             color: #fff;
+            position: relative;
         }
 
         h2 {
@@ -82,7 +84,7 @@
             color: #fff;
             border: none;
             border-radius: 8px;
-            font-size: 17px;
+            font-size: 14px;
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
@@ -114,6 +116,28 @@
             text-decoration: underline;
         }
 
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 10;
+            padding: 0;
+            width: auto;
+        }
+
+        .back-button i {
+            filter: drop-shadow(0 0 2px rgba(0,0,0,0.5));
+        }
+
+        .back-button:hover {
+            color: #f97316;
+            transform: scale(1.1);
+        }
         @media (max-width: 768px) {
             .wrapper {
                 flex-direction: column;
@@ -125,6 +149,11 @@
             .login-container {
                 padding: 40px 30px;
             }
+            .back-button {
+                top: 15px;
+                left: 15px;
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -133,6 +162,9 @@
         <div class="illustration"></div>
 
         <div class="login-container">
+            <button class="back-button" onclick="history.back()" aria-label="Kembali">
+                <i class="bi bi-arrow-left-circle"></i>
+            </button>
             <h2>LOGIN</h2>
 
             @if ($errors->any())
