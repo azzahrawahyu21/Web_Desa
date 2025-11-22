@@ -41,10 +41,10 @@
       </a>
 
       @if($menus->isNotEmpty())
-        @foreach($menus as $url => $menuGroup)
-          @php $firstMenu = $menuGroup->first(); @endphp
-          <a href="{{ route('submenu.index', $firstMenu->id_menu) }}" class="ps-5">
-            <i class="bi bi-folder2-open me-2"></i> {{ ucfirst($firstMenu->nama_menu) }}
+        @foreach($menus as $menu)
+          <a href="{{ route('submenu.index', $menu->id_menu) }}" 
+            class="ps-5 {{ request()->is('admin/menu/'.$menu->id_menu.'/submenu') ? 'active' : '' }}">
+            <i class="bi bi-folder2-open me-2"></i> {{ ucfirst($menu->nama_menu) }}
           </a>
         @endforeach
       @else

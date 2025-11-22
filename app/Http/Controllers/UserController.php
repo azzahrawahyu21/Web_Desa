@@ -12,6 +12,6 @@ class UserController extends Controller
     {
         // Kelompokkan berdasarkan kolom 'url' (karena itu enum kategori)
         $menus = Menu::all()->groupBy('url');
-        return view('user.navbar', compact('menus'));
+        return view('user.navbar');
     }
 }

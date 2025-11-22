@@ -18,10 +18,11 @@ use App\Http\Controllers\RwController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserMenuController;
 use App\Http\Controllers\UserSubmenuController;
+use App\Http\Controllers\StatistikController;
 
 // ROUTE UMUM (TANPA LOGIN)
 Route::get('/', function () {
-    $menus = Menu::with('submenus')->get()->groupBy('url');
+    $menus = Menu::all()->groupBy('url');
     return view('user.utama', compact('menus'));
 })->name('home');
 
