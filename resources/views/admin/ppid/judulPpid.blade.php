@@ -35,7 +35,7 @@
             <thead class="table-success text-center">
                 <tr>
                     <th>No</th>
-                    <th>Judul PPID</th>
+                    <th style="width: 50%">Judul PPID</th>
                     <th>Jenis PPID</th>
                     <th>Aksi</th>
                 </tr>

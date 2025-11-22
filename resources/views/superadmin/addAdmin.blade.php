@@ -21,7 +21,7 @@
         }
 
         .navbar-brand img {
-            width: 40px;
+            width: 70px;
             margin-right: 10px;
         }
 
@@ -60,6 +60,7 @@
         h2 {
             text-align: center;
             margin-bottom: 10px;
+            margin-top: 20px;
         }
 
         .welcome {
@@ -116,7 +117,6 @@
             border-radius: 6px;
             font-size: 15px;
             cursor: pointer;
-            margin-top: 5px;
         }
 
         button:hover {
@@ -350,6 +350,7 @@
             background-color: #0D4715;
             color: white;
             border: none;
+            margin-top: 5px;
         }
 
         .btn-success:hover {
@@ -465,14 +466,14 @@
                     </ul>
                 </div>
             @endif
-            <form method="POST" action="{{ route('superadmin.addAdmin.submit') }}">
+            <form method="POST" action="{{ route('superadmin.addAdmin.submit') }}" autocomplete="off">
                 @csrf
                 <label>Nama Pengguna:</label>
-                <input type="text" name="nama_pengguna" value="{{ old('nama_pengguna') }}" required>
+                <input type="text" name="nama_pengguna" autocomplete="off" required>
                 <label>Email:</label>
-                <input type="email" name="email" value="{{ old('email') }}" required>
+                <input type="email" name="email" autocomplete="off" required>
                 <label>Password:</label>
-                <input type="password" name="kata_sandi" required>
+                <input type="password" name="kata_sandi" autocomplete="off" required>
                 <label>Peran:</label>
                 <select name="peran" required>
                     <option value="">-- Pilih Peran --</option>

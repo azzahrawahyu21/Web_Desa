@@ -22,10 +22,10 @@ public function showMenu($kategori, $menuSlug)
     $viewName = 'user.menu.' . Str::slug($menu->nama_menu);
 
     if (view()->exists($viewName)) {
-        return view($viewName, compact('menu', 'submenus', 'menus', 'kategoris'));
+        return view($viewName, compact('menu', 'submenus', 'kategoris'));
     }
 
-    return view('user.menu.show', compact('menu', 'submenus', 'menus', 'kategoris'));
+    return view('user.menu.show', compact('menu', 'submenus', 'kategoris'));
 }
 
 }
