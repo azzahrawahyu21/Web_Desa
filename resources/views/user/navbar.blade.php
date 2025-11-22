@@ -115,7 +115,9 @@
             <ul class="dropdown-menu">
               @foreach($kategoris as $kategori)
                 <li>
-                  <a class="dropdown-item" href="#">{{ $kategori->nama_kategori }}</a>
+                  <a class="dropdown-item" href="{{ route('user.statistik.kategori', $kategori->id_kategori) }}">
+                    {{ $kategori->nama_kategori }}
+                  </a>
                 </li>
               @endforeach
             </ul>

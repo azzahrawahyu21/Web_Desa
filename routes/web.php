@@ -12,15 +12,17 @@ use App\Http\Controllers\JudulPPIDController;
 use App\Http\Controllers\PPIDController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PageController;
-use App\Models\Menu;
-use Barryvdh\Elfinder\ElfinderController;
-use App\Http\Controllers\RwController;
-use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserMenuController;
 use App\Http\Controllers\UserSubmenuController;
-use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\RwController;
+use App\Http\Controllers\RtController;
+use App\Http\Controllers\UserStatistikController; // ✅ Tambahan
+use App\Models\Menu;
+use Barryvdh\Elfinder\ElfinderController;
 
+// =====================
 // ROUTE UMUM (TANPA LOGIN)
+// =====================
 Route::get('/', function () {
     $menus = Menu::all()->groupBy('url');
     return view('user.utama', compact('menus'));
@@ -42,17 +44,19 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // Navbar & Menu User (publik)
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
-// User
-Route::prefix('user')->group(function () {
-    // Halaman Menu Utama
-    Route::get('/menu/{kategori}/{menu}', [UserMenuController::class, 'showMenu'])->name('user.menu.show');
 
-    // Halaman Submenu
+// User Menu & Submenu
+Route::prefix('user')->group(function () {
+    Route::get('/menu/{kategori}/{menu}', [UserMenuController::class, 'showMenu'])->name('user.menu.show');
     Route::get('/menu/{kategori}/{menu}/{submenu}', [UserSubmenuController::class, 'showSubmenu'])->name('user.submenu.show');
 });
 
 // Profil Desa (publik)
 Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
+
+// ✅ Statistik Desa (publik)
+Route::get('/statistik', [UserStatistikController::class, 'index'])->name('user.statistik');
+Route::get('/statistik/{id_kategori}', [UserStatistikController::class, 'showKategori'])->name('user.statistik.kategori');
 
 // Elfinder (bisa diakses setelah login)
 Route::prefix('elfinder')->group(function () {
@@ -61,13 +65,15 @@ Route::prefix('elfinder')->group(function () {
     Route::get('popup/{input_id?}', [ElfinderController::class, 'showPopup'])->name('elfinder.popup');
 });
 
+// =====================
 // ROUTE YANG BUTUH LOGIN
+// =====================
 Route::middleware(['auth'])->group(function () {
 
-    // === UPDATE PROFIL SENDIRI (bisa superadmin & admin) ===
+    // === UPDATE PROFIL SENDIRI ===
     Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
 
-    // KHUSUS SUPERADMIN (Hanya Manajemen Pengguna)
+    // === KHUSUS SUPERADMIN ===
     Route::middleware(['role:superadmin'])->group(function () {
         Route::get('/add-admin', [AuthController::class, 'addAdmin'])->name('addAdmin');
         Route::post('/add-admin', [AuthController::class, 'storeAdmin'])->name('superadmin.addAdmin.submit');
@@ -77,10 +83,10 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/superadmin/update-pengguna/{id_pengguna}', [AuthController::class, 'updatePengguna'])->name('superadmin.updatePengguna');
     });
 
-    // KHUSUS ADMIN (Semua Fitur Konten)
+    // === KHUSUS ADMIN ===
     Route::middleware(['role:admin'])->group(function () {
 
-        // Dashboard Admin
+        // Dashboard
         Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
 
         // === MENU & SUBMENU ===
