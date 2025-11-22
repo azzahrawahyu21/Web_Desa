@@ -3,28 +3,38 @@
 @section('title', 'Sejarah Desa')
 
 @section('content')
-<div class="container py-5 bg-gray-100">
-  <h2 class="text-center text-primary mb-4">Sejarah Desa Driyorejo</h2>
-
-  <div class="row">
-    @foreach($submenus as $submenu)
-      <div class="col-md-6 mb-4">
-        <div class="card border-0 shadow">
-          @if($submenu->foto)
-            <img src="{{ asset($submenu->foto) }}" class="card-img-top">
-          @endif
-          <div class="card-body">
-            <h5 class="card-title text-success">{{ $submenu->judul }}</h5>
-            <p class="card-text text-muted">{{ Str::limit(strip_tags($submenu->isi), 120) }}</p>
-<a href="{{ route('user.submenu.show', [
-    'kategori' => $menu->url,
-    'menu' => Str::slug($menu->nama_menu),
-    'submenu' => Str::slug($submenu->judul)
-]) }}" class="btn btn-sm btn-outline-success mt-3">Lihat Detail</a>
-          </div>
-        </div>
-      </div>
-    @endforeach
+<div class="container">
+  <!-- Judul -->
+  <div class="text-center mb-3">
+    <h4 class="fw-bold text-white py-2 px-4" style="background-color: #014421; border-radius: 4px; display: inline-block; width: 100%;">
+      Sejarah Desa
+    </h4>
   </div>
+
+  <!-- Konten Sejarah Desa -->
+  @foreach($submenus as $submenu)
+  <div class="border border-success rounded-bottom p-4 bg-white box-shadow: 0 4px 15px rgba(13, 71, 21, 0.5);">
+      <h4 class="fw-bold mb-1">{{ $submenu->judul }}</h4>
+      <div style="width: 90px; height: 4px; background-color: #e67e22; margin-bottom: 25px;"></div>
+
+      <div class="row align-items-center">
+          <!-- Gambar kiri -->
+          <div class="col-md-5 mb-3 mb-md-0">
+            {{-- Foto --}}
+            <img src="{{ asset('ufiles/' . $submenu->foto) }}"
+            alt="{{ $submenu->judul }}" class="img-fluid rounded-3 shadow-sm" style="width: 100%; height: auto;">
+          </div>
+
+          <!-- Teks kanan -->
+          <div class="col-md-7">
+              <div class="bg-white border border-success-subtle rounded-4 shadow-sm p-4">
+                <p class="text-justify mb-2">
+                    {!! $submenu->isi !!}
+                </p>
+              </div>
+          </div>
+      </div>
+  </div>
+  @endforeach
 </div>
 @endsection
