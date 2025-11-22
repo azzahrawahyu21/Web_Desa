@@ -54,7 +54,7 @@ Route::prefix('user')->group(function () {
 // Profil Desa (publik)
 Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
 
-// ✅ Statistik Desa (publik)
+// Statistik Desa (publik)
 Route::get('/statistik', [UserStatistikController::class, 'index'])->name('user.statistik');
 Route::get('/statistik/{id_kategori}', [UserStatistikController::class, 'showKategori'])->name('user.statistik.kategori');
 
