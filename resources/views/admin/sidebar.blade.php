@@ -96,7 +96,7 @@
     @endif
     </div>
 
-     <!-- RT/RW -->
+    <!-- RT/RW -->
     <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
       <i class="bi bi-journal-text me-2"></i> Data RT/RW
       <i class="bi bi-chevron-down float-end"></i>
@@ -115,6 +115,30 @@
         @endforeach
       @else
         <p class="text-sm text-gray-300 px-5 mt-2 italic">Belum ada data RW.</p>
+      @endif
+    </div>
+
+    {{-- jabatan --}}
+    <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
+      <i class="bi bi-journal-text me-2"></i> Kelola Jabatan
+      <i class="bi bi-chevron-down float-end"></i>
+    </button>
+
+    <!-- Isi dropdown jabatan dinamis -->
+    <div id="jabatanDropdown" class="dropdown-content">
+      <a href="{{ route('jabatan.index') }}" class="ps-5 {{ request()->routeIs('jabatan.index') ? 'active' : '' }}">
+        <i class="bi bi-list-check me-2"></i> Daftar Jabatan
+      </a>
+
+      @if($jabatans->isNotEmpty())
+        @foreach($jabatans as $jabatan)
+          <a href="{{ route('subjabatan.index', $jabatan->id_jabatan) }}" 
+            class="ps-5 {{ request()->is('admin/jabatan/'.$jabatan->id_jabatan.'/subjabatan') ? 'active' : '' }}">
+            <i class="bi bi-folder2-open me-2"></i> {{ ucfirst($jabatan->nama_jabatan) }}
+          </a>
+        @endforeach
+      @else
+        <p class="text-sm text-gray-300,300 px-5 mt-2 italic">Belum ada jabatan.</p>
       @endif
     </div>
 

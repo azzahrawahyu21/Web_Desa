@@ -18,6 +18,9 @@ use App\Http\Controllers\RwController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserMenuController;
 use App\Http\Controllers\UserSubmenuController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\SubJabatanController;
+use App\Http\Controllers\PejabatController;
 
 // ROUTE UMUM (TANPA LOGIN)
 Route::get('/', function () {
@@ -211,6 +214,32 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('/{id_rt}/update', [RtController::class, 'update'])->name('rt.update');
                 Route::delete('/{id_rt}/hapus', [RtController::class, 'destroy'])->name('rt.destroy');
             });
+        });
+        
+        Route::prefix('admin/jabatan')->group(function () {
+            Route::get('/', [JabatanController::class, 'index'])->name('jabatan.index');
+            Route::get('/create', [JabatanController::class, 'create'])->name('jabatan.create');
+            Route::post('/store', [JabatanController::class, 'store'])->name('jabatan.store');
+            Route::get('/{id_jabatan}/edit', [JabatanController::class, 'edit'])->name('jabatan.edit');
+            Route::put('/{id_jabatan}', [JabatanController::class, 'update'])->name('jabatan.update');
+            Route::delete('/{id_jabatan}', [JabatanController::class, 'destroy'])->name('jabatan.destroy');
+            Route::get('/{id_jabatan}/detail', [JabatanController::class, 'detail'])->name('jabatan.detail');
+
+            // SubJabatan Routes
+            Route::get('/{id_jabatan}/subjabatan', [SubJabatanController::class, 'index'])->name('subjabatan.index');
+            Route::get('/{id_jabatan}/subjabatan/create', [SubJabatanController::class, 'create'])->name('subjabatan.create');
+            Route::post('/{id_jabatan}/subjabatan/store', [SubJabatanController::class, 'store'])->name('subjabatan.store');
+            Route::get('/{id_jabatan}/subjabatan/{id_subjabatan}/edit', [SubJabatanController::class, 'edit'])->name('subjabatan.edit');
+            Route::put('/{id_jabatan}/subjabatan/{id_subjabatan}', [SubJabatanController::class, 'update'])->name('subjabatan.update');
+            Route::delete('/{id_jabatan}/subjabatan/{id_subjabatan}', [SubJabatanController::class, 'destroy'])->name('subjabatan.destroy');
+           
+            Route::get('/{id_jabatan}/pejabat/create/{id_sub?}', [PejabatController::class, 'create'])->name('pejabat.create');
+            Route::get('/{id_jabatan}/pejabat/{id_sub?}', [PejabatController::class, 'index'])->name('pejabat.index');
+            Route::post('/pejabat/store', [PejabatController::class, 'store'])->name('pejabat.store');
+            Route::get('/pejabat/edit/{id_pejabat}/{id_sub?}', [PejabatController::class, 'edit'])->name('pejabat.edit');
+            Route::put('/pejabat/update/{id_pejabat}/{id_sub?}', [PejabatController::class, 'update'])->name('pejabat.update');
+            Route::delete('/pejabat/destroy/{id_pejabat}/{id_sub?}', [PejabatController::class, 'destroy'])->name('pejabat.destroy');
+            Route::get('/pejabat/show/{id_pejabat}', [PejabatController::class, 'show'])->name('pejabat.show');
         });
     });
 });

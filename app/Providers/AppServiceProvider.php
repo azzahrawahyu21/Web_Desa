@@ -8,6 +8,7 @@ use App\Models\Menu;
 use App\Models\KategoriStatistik;
 use App\Models\JenisPPID;
 use App\Models\Rw;
+use App\Models\Jabatan;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,7 +39,8 @@ class AppServiceProvider extends ServiceProvider
             $kategoris = KategoriStatistik::all();
             $jenisPpids = JenisPPID::all();
             $rws = Rw::all();
-            $view->with(compact('menus', 'kategoris', 'jenisPpids','rws'));
+            $jabatans = Jabatan::all();
+            $view->with(compact('menus', 'kategoris', 'jenisPpids','rws','jabatans'));
         });    
     }
 }
