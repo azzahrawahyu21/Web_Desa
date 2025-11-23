@@ -58,10 +58,16 @@ class RwController extends Controller
     public function destroy($id_rw)
     {
         $rw = Rw::findOrFail($id_rw);
-        $rw->delete();
 
+        if ($rw->rt()->count() > 0) {
+            return redirect()->route('rw.index')
+                ->with('error', 'RW tidak bisa dihapus karena masih memiliki RT terkait. Hapus atau pindahkan RT terlebih dahulu.');
+        }
+
+        $rw->delete();
         return redirect()->route('rw.index')->with('success', 'Data RW berhasil dihapus!');
     }
+
 
     public function show($id_rw)
     {
