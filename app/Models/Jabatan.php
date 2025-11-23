@@ -14,5 +14,11 @@ class Jabatan extends Model
     {
         return $this->hasMany(SubJabatan::class, 'id_jabatan');
     }
+
+    public function pejabat()
+    {
+        return $this->hasMany(Pejabat::class, 'id_jabatan', 'id_jabatan');
+    }
+
     public $timestamps = false;
 }

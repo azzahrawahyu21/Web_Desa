@@ -79,4 +79,15 @@ class JabatanController extends Controller
         // jika multi → masuk ke sub jabatan
         return redirect()->route('subjabatan.index', $id_jabatan);
     }
+
+    public function show($id_jabatan)
+    {
+        $jabatan = Jabatan::findOrFail($id_jabatan);
+
+        // ambil semua pejabat dalam jabatan ini
+        $pejabat = $jabatan->pejabat()->get();
+
+        return view('user.struktur.show', compact('jabatan', 'pejabat'));
+    }
+
 }

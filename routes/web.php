@@ -59,6 +59,9 @@ Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
 Route::get('/statistik', [UserStatistikController::class, 'index'])->name('user.statistik');
 Route::get('/statistik/{id_kategori}', [UserStatistikController::class, 'showKategori'])->name('user.statistik.kategori');
 
+// Struktur Jabatan & Pejabat (publik)
+Route::get('/struktur/{id_jabatan}', [JabatanController::class, 'show'])->name('user.struktur.show');
+
 // Elfinder (bisa diakses setelah login)
 Route::prefix('elfinder')->group(function () {
     Route::get('/', [ElfinderController::class, 'showIndex'])->name('elfinder.index');

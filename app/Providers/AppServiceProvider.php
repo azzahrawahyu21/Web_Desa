@@ -28,7 +28,8 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['user.*', 'user.submenu.*', 'layouts.user', 'user.navbar'], function ($view) {
             $menus = Menu::with('submenus')->get()->groupBy('url');
             $kategoris = KategoriStatistik::all();
-            $view->with(compact('menus', 'kategoris'));
+            $jabatans = Jabatan::all();
+            $view->with(compact('menus', 'kategoris', 'jabatans'));
         });
 
         // Untuk sidebar admin
