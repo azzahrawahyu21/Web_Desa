@@ -115,12 +115,38 @@
             <ul class="dropdown-menu">
               @foreach($kategoris as $kategori)
                 <li>
-                  <a class="dropdown-item" href="#">{{ $kategori->nama_kategori }}</a>
+                  <a class="dropdown-item" href="{{ route('user.statistik.kategori', $kategori->id_kategori) }}">
+                    {{ $kategori->nama_kategori }}
+                  </a>
                 </li>
               @endforeach
             </ul>
           </li>
         @endif
+
+        {{-- STRUKTUR ORGANISASI --}}
+        {{-- @if(isset($jabatans) && $jabatans->count())
+          <li class="nav-item dropdown">
+            <a class="nav-link text-dark d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+              Struktur Organisasi <i class="bi bi-chevron-down ms-2"></i>
+            </a>
+            <ul class="dropdown-menu">
+              @foreach($jabatans as $jabatan)
+                <li>
+                  <a class="dropdown-item"
+                    href="{{ route('user.struktur.show', $jabatan->id_jabatan) }}">
+                    {{ $jabatan->nama_jabatan }}
+                  </a>
+                </li>
+              @endforeach
+            </ul>
+          </li>
+        @endif --}}
+          <li class="nav-item">
+            <a class="nav-link text-dark" href="{{ route('user.struktur.semua') }}">
+                Struktur Organisasi
+            </a>
+          </li>
 
         {{-- PPID (diambil dari tabel Jenis PPID) --}}
           <li class="nav-item dropdown">

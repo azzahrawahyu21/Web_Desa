@@ -12,13 +12,16 @@ use App\Http\Controllers\JudulPPIDController;
 use App\Http\Controllers\PPIDController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PageController;
-use App\Models\Menu;
-use Barryvdh\Elfinder\ElfinderController;
-use App\Http\Controllers\RwController;
-use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserMenuController;
 use App\Http\Controllers\UserSubmenuController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\SubJabatanController;
+use App\Http\Controllers\PejabatController;
+use App\Http\Controllers\RwController;
+use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserStatistikController;
+use App\Models\Menu;
+use Barryvdh\Elfinder\ElfinderController;
 use App\Http\Controllers\UserPPIDController;
 
 // ROUTE UMUM (TANPA LOGIN)
@@ -43,12 +46,10 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // Navbar & Menu User (publik)
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
-// User
-Route::prefix('user')->group(function () {
-    // Halaman Menu Utama
-    Route::get('/menu/{kategori}/{menu}', [UserMenuController::class, 'showMenu'])->name('user.menu.show');
 
-    // Halaman Submenu
+// User Menu & Submenu
+Route::prefix('user')->group(function () {
+    Route::get('/menu/{kategori}/{menu}', [UserMenuController::class, 'showMenu'])->name('user.menu.show');
     Route::get('/menu/{kategori}/{menu}/{submenu}', [UserSubmenuController::class, 'showSubmenu'])->name('user.submenu.show');
 });
 
@@ -59,12 +60,15 @@ Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
 Route::get('/statistik', [UserStatistikController::class, 'index'])->name('user.statistik');
 Route::get('/statistik/{id_kategori}', [UserStatistikController::class, 'showKategori'])->name('user.statistik.kategori');
 
+// Struktur Jabatan & Pejabat (publik)
+// Route::get('/struktur/{id_jabatan}', [JabatanController::class, 'show'])->name('user.struktur.show');
+Route::get('/struktur', [JabatanController::class, 'showSemua'])->name('user.struktur.semua');
+
 // PPID (publik)
 Route::get('/ppid', [UserPPIDController::class, 'index'])
     ->name('user.ppid.index');
 Route::get('/ppid/detail/{id}', [UserPPIDController::class, 'showDetail'])
     ->name('user.ppid.show-detail');
-
 
 // Elfinder (bisa diakses setelah login)
 Route::prefix('elfinder')->group(function () {
@@ -76,10 +80,10 @@ Route::prefix('elfinder')->group(function () {
 // ROUTE YANG BUTUH LOGIN
 Route::middleware(['auth'])->group(function () {
 
-    // === UPDATE PROFIL SENDIRI (bisa superadmin & admin) ===
+    // === UPDATE PROFIL SENDIRI ===
     Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
 
-    // KHUSUS SUPERADMIN (Hanya Manajemen Pengguna)
+    // === KHUSUS SUPERADMIN ===
     Route::middleware(['role:superadmin'])->group(function () {
         Route::get('/add-admin', [AuthController::class, 'addAdmin'])->name('addAdmin');
         Route::post('/add-admin', [AuthController::class, 'storeAdmin'])->name('superadmin.addAdmin.submit');
@@ -89,10 +93,10 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/superadmin/update-pengguna/{id_pengguna}', [AuthController::class, 'updatePengguna'])->name('superadmin.updatePengguna');
     });
 
-    // KHUSUS ADMIN (Semua Fitur Konten)
+    // === KHUSUS ADMIN ===
     Route::middleware(['role:admin'])->group(function () {
 
-        // Dashboard Admin
+        // Dashboard
         Route::get('/admin/dashboard', [MenuController::class, 'index'])->name('admin.dashboard');
 
         // === MENU & SUBMENU ===
@@ -224,6 +228,32 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('/{id_rt}/update', [RtController::class, 'update'])->name('rt.update');
                 Route::delete('/{id_rt}/hapus', [RtController::class, 'destroy'])->name('rt.destroy');
             });
+        });
+        
+        Route::prefix('admin/jabatan')->group(function () {
+            Route::get('/', [JabatanController::class, 'index'])->name('jabatan.index');
+            Route::get('/create', [JabatanController::class, 'create'])->name('jabatan.create');
+            Route::post('/store', [JabatanController::class, 'store'])->name('jabatan.store');
+            Route::get('/{id_jabatan}/edit', [JabatanController::class, 'edit'])->name('jabatan.edit');
+            Route::put('/{id_jabatan}', [JabatanController::class, 'update'])->name('jabatan.update');
+            Route::delete('/{id_jabatan}', [JabatanController::class, 'destroy'])->name('jabatan.destroy');
+            Route::get('/{id_jabatan}/detail', [JabatanController::class, 'detail'])->name('jabatan.detail');
+
+            // SubJabatan Routes
+            Route::get('/{id_jabatan}/subjabatan', [SubJabatanController::class, 'index'])->name('subjabatan.index');
+            Route::get('/{id_jabatan}/subjabatan/create', [SubJabatanController::class, 'create'])->name('subjabatan.create');
+            Route::post('/{id_jabatan}/subjabatan/store', [SubJabatanController::class, 'store'])->name('subjabatan.store');
+            Route::get('/{id_jabatan}/subjabatan/{id_subjabatan}/edit', [SubJabatanController::class, 'edit'])->name('subjabatan.edit');
+            Route::put('/{id_jabatan}/subjabatan/{id_subjabatan}', [SubJabatanController::class, 'update'])->name('subjabatan.update');
+            Route::delete('/{id_jabatan}/subjabatan/{id_subjabatan}', [SubJabatanController::class, 'destroy'])->name('subjabatan.destroy');
+           
+            Route::get('/{id_jabatan}/pejabat/create/{id_sub?}', [PejabatController::class, 'create'])->name('pejabat.create');
+            Route::get('/{id_jabatan}/pejabat/{id_sub?}', [PejabatController::class, 'index'])->name('pejabat.index');
+            Route::post('/pejabat/store', [PejabatController::class, 'store'])->name('pejabat.store');
+            Route::get('/pejabat/edit/{id_pejabat}/{id_sub?}', [PejabatController::class, 'edit'])->name('pejabat.edit');
+            Route::put('/pejabat/update/{id_pejabat}/{id_sub?}', [PejabatController::class, 'update'])->name('pejabat.update');
+            Route::delete('/pejabat/destroy/{id_pejabat}/{id_sub?}', [PejabatController::class, 'destroy'])->name('pejabat.destroy');
+            Route::get('/pejabat/show/{id_pejabat}', [PejabatController::class, 'show'])->name('pejabat.show');
         });
     });
 });
