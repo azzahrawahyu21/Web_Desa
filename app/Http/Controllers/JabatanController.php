@@ -84,10 +84,22 @@ class JabatanController extends Controller
     {
         $jabatan = Jabatan::findOrFail($id_jabatan);
 
-        // ambil semua pejabat dalam jabatan ini
-        $pejabat = $jabatan->pejabat()->get();
+        if ($jabatan->tipe == 'multi') {
+            // tampilkan sub jabatan
+            $subjabatan = $jabatan->subJabatan()->with('pejabat')->get();
+            return view('user.struktur.multi', compact('jabatan', 'subjabatan'));
+        }
 
+        // jika tunggal
+        $pejabat = $jabatan->pejabat()->get();
         return view('user.struktur.show', compact('jabatan', 'pejabat'));
     }
 
+    public function showSemua()
+    {
+        // Ambil semua jabatan + relasi pejabat
+        $jabatans = Jabatan::with('pejabat')->get();
+
+        return view('user.struktur.semua', compact('jabatans'));
+    }
 }

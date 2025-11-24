@@ -21,7 +21,7 @@ class Pejabat extends Model
 
     public function jabatan()
     {
-        return $this->belongsTo(Jabatan::class, 'id_jabatan');
+        return $this->belongsTo(Jabatan::class, 'id_jabatan', 'id_jabatan');
     }
 
     public function subjabatan()

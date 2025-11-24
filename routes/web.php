@@ -60,7 +60,8 @@ Route::get('/statistik', [UserStatistikController::class, 'index'])->name('user.
 Route::get('/statistik/{id_kategori}', [UserStatistikController::class, 'showKategori'])->name('user.statistik.kategori');
 
 // Struktur Jabatan & Pejabat (publik)
-Route::get('/struktur/{id_jabatan}', [JabatanController::class, 'show'])->name('user.struktur.show');
+// Route::get('/struktur/{id_jabatan}', [JabatanController::class, 'show'])->name('user.struktur.show');
+Route::get('/struktur', [JabatanController::class, 'showSemua'])->name('user.struktur.semua');
 
 // Elfinder (bisa diakses setelah login)
 Route::prefix('elfinder')->group(function () {

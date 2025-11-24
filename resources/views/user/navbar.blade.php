@@ -125,7 +125,7 @@
         @endif
 
         {{-- STRUKTUR ORGANISASI --}}
-        @if(isset($jabatans) && $jabatans->count())
+        {{-- @if(isset($jabatans) && $jabatans->count())
           <li class="nav-item dropdown">
             <a class="nav-link text-dark d-flex align-items-center" href="#" data-bs-toggle="dropdown">
               Struktur Organisasi <i class="bi bi-chevron-down ms-2"></i>
@@ -141,7 +141,13 @@
               @endforeach
             </ul>
           </li>
-        @endif
+        @endif --}}
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{{ route('user.struktur.semua') }}">
+              Struktur Organisasi
+          </a>
+      </li>
+
       </ul>
 
       <!-- Login -->
