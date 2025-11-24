@@ -18,6 +18,8 @@ use App\Http\Controllers\RwController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserMenuController;
 use App\Http\Controllers\UserSubmenuController;
+use App\Http\Controllers\UserStatistikController;
+use App\Http\Controllers\UserPPIDController;
 
 // ROUTE UMUM (TANPA LOGIN)
 Route::get('/', function () {
@@ -52,6 +54,17 @@ Route::prefix('user')->group(function () {
 
 // Profil Desa (publik)
 Route::get('/profil', [PageController::class, 'index'])->name('profil_desa');
+
+// Statistik Desa (publik)
+Route::get('/statistik', [UserStatistikController::class, 'index'])->name('user.statistik');
+Route::get('/statistik/{id_kategori}', [UserStatistikController::class, 'showKategori'])->name('user.statistik.kategori');
+
+// PPID (publik)
+Route::get('/ppid', [UserPPIDController::class, 'index'])
+    ->name('user.ppid.index');
+Route::get('/ppid/detail/{id}', [UserPPIDController::class, 'showDetail'])
+    ->name('user.ppid.show-detail');
+
 
 // Elfinder (bisa diakses setelah login)
 Route::prefix('elfinder')->group(function () {

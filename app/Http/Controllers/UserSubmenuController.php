@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use Illuminate\Support\Str;
 use App\Models\KategoriStatistik;
+use App\Models\JenisPPID;
 
 class UserSubmenuController extends Controller
 {
@@ -18,8 +19,9 @@ class UserSubmenuController extends Controller
 
         $menus = Menu::with('submenus')->get()->groupBy('url');
         $kategoris = KategoriStatistik::all();
+        $jenisPpids = JenisPPID::all();
 
-        return view('user.menu.show', compact('submenu', 'menus', 'kategoris'));
+        return view('user.menu.show', compact('submenu', 'menus', 'kategoris', 'jenisPpids'));
     }
 
 }

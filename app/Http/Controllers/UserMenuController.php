@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\JenisPPID;
+use App\Models\KategoriStatistik;
 
 class UserMenuController extends Controller
 {
@@ -17,15 +19,16 @@ public function showMenu($kategori, $menuSlug)
     $submenus = $menu->submenus;
 
     $menus = Menu::with('submenus')->get()->groupBy('url');
-    $kategoris = \App\Models\KategoriStatistik::all();
+    $kategoris = KategoriStatistik::all();
+    $jenisPpids = JenisPPID::all();
 
     $viewName = 'user.menu.' . Str::slug($menu->nama_menu);
 
     if (view()->exists($viewName)) {
-        return view($viewName, compact('menu', 'submenus', 'kategoris'));
+        return view($viewName, compact('menu', 'submenus', 'kategoris', 'jenisPpids'));
     }
 
-    return view('user.menu.show', compact('menu', 'submenus', 'kategoris'));
+    return view('user.menu.show', compact('menu', 'submenus', 'kategoris', 'jenisPpids'));
 }
 
 }

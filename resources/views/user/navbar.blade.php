@@ -122,6 +122,12 @@
           </li>
         @endif
 
+        {{-- PPID (diambil dari tabel Jenis PPID) --}}
+          <li class="nav-item dropdown">
+            <a class="nav-link text-dark d-flex align-items-center" href="{{ route('user.ppid.index') }}">
+              PPID
+            </a>
+          </li>
       </ul>
 
       <!-- Login -->
