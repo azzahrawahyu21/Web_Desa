@@ -9,6 +9,8 @@ use App\Models\KategoriStatistik;
 use App\Models\JenisPPID;
 use App\Models\Rw;
 use App\Models\Jabatan;
+use App\Models\Berita;
+use App\Models\Galeri;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,7 +32,9 @@ class AppServiceProvider extends ServiceProvider
             $kategoris = KategoriStatistik::all();
             $jabatans = Jabatan::all();
             $jenisPpids = JenisPPID::all();
-            $view->with(compact('menus', 'kategoris', 'jabatans', 'jenisPpids'));
+            $beritas = Berita::orderBy('tanggal', 'desc')->take(5)->get();
+            $galeris = Galeri::orderBy('tanggal', 'desc')->take(5)->get();
+            $view->with(compact('menus', 'kategoris', 'jabatans', 'jenisPpids', 'beritas', 'galeris'));
         });
 
         // Untuk sidebar admin
@@ -42,7 +46,9 @@ class AppServiceProvider extends ServiceProvider
             $jenisPpids = JenisPPID::all();
             $rws = Rw::all();
             $jabatans = Jabatan::all();
-            $view->with(compact('menus', 'kategoris', 'jenisPpids','rws','jabatans'));
+            $beritas = Berita::orderBy('tanggal', 'desc')->take(5)->get();
+            $galeris = Galeri::orderBy('tanggal', 'desc')->take(5)->get();
+            $view->with(compact('menus', 'kategoris', 'jenisPpids','rws','jabatans', 'beritas', 'galeris'));
         });    
     }
 }

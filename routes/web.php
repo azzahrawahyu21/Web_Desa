@@ -23,6 +23,8 @@ use App\Http\Controllers\UserStatistikController;
 use App\Models\Menu;
 use Barryvdh\Elfinder\ElfinderController;
 use App\Http\Controllers\UserPPIDController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\GaleriController;
 
 // ROUTE UMUM (TANPA LOGIN)
 Route::get('/', function () {
@@ -46,6 +48,7 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // Navbar & Menu User (publik)
 Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
+Route::get('/user', function () {return view('user.utama');})->name('user.dashboard');
 
 // User Menu & Submenu
 Route::prefix('user')->group(function () {
@@ -69,6 +72,14 @@ Route::get('/ppid', [UserPPIDController::class, 'index'])
     ->name('user.ppid.index');
 Route::get('/ppid/detail/{id}', [UserPPIDController::class, 'showDetail'])
     ->name('user.ppid.show-detail');
+
+// Berita
+Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('user.berita.show');
+Route::get('/berita', [BeritaController::class, 'list'])->name('user.berita.index');
+
+// Galeri
+Route::get('/galeri/{id}', [GaleriController::class, 'show'])->name('user.galeri.show');
+Route::get('/galeri', [GaleriController::class, 'list'])->name('user.galeri.index');
 
 // Elfinder (bisa diakses setelah login)
 Route::prefix('elfinder')->group(function () {
@@ -254,6 +265,18 @@ Route::middleware(['auth'])->group(function () {
             Route::put('/pejabat/update/{id_pejabat}/{id_sub?}', [PejabatController::class, 'update'])->name('pejabat.update');
             Route::delete('/pejabat/destroy/{id_pejabat}/{id_sub?}', [PejabatController::class, 'destroy'])->name('pejabat.destroy');
             Route::get('/pejabat/show/{id_pejabat}', [PejabatController::class, 'show'])->name('pejabat.show');
+        });
+
+        // === BERITA ===
+        Route::prefix('admin')->group(function() {
+            Route::resource('berita', BeritaController::class);
+            Route::get('berita/detail/{id_berita}', [BeritaController::class, 'detail'])->name('berita.detail');
+        });
+
+        // === GALERI ===
+        Route::prefix('admin')->group(function() {
+            Route::resource('galeri', GaleriController::class);
+            Route::get('galeri/detail/{id_galeri}', [GaleriController::class, 'detail'])->name('galeri.detail');
         });
     });
 });

@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.usersub')
 
-  <title>Desa Driyorejo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@section('title', 'Berita Desa')
 
-<body>
-  {{-- Navbar --}}
-  @include('user.navbar')
-
-  {{-- Header --}}
+@section('content')
 <header class="header-2 position-relative">
-  <div class="page-header d-flex align-items-center justify-content-center text-center text-white"
-       style="background-image: url('{{ asset('assets/img/image_desa.jpg') }}');
-              background-size: cover; background-position: center; height: 60vh; position: relative;">
+  <div id="header-bg" style="height:60vh; position:relative; overflow:hidden;">
+    <!-- Slide -->
+    <div class="slide" style="background-image:url('{{ asset('assets/img/background.jpg') }}');"></div>
+    <div class="slide" style="background-image:url('{{ asset('assets/img/image_desa.jpg') }}');"></div>
+    <div class="slide" style="background-image:url('{{ asset('assets/img/image_profil_desa.jpg') }}');"></div>
+
     <!-- Overlay -->
-    <div style="background: rgba(0,0,0,0.5); position:absolute; top:0; right:0; bottom:0; left:0;"></div>
+    <div style="background: rgba(0,0,0,0.5); position:absolute; top:0; right:0; bottom:0; left:0; z-index:1;"></div>
 
     <!-- Teks -->
-    <div class="container position-relative">
-        <h1 class="fw-bold">Selamat Datang di Website Resmi Desa Driyorejo</h1>
-        <p style="font-size: 25px">Sumber informasi terbuka, pelayanan mudah, dan desa maju bersama.</p>
+    <div class="container position-relative" style="z-index:2; text-align:center; color:white; top:50%; transform:translateY(-50%);">
+      <h1 class="fw-bold" style="font-size: 35px;">Selamat Datang di Website Resmi Desa Driyorejo</h1>
+      <p style="font-size: 25px;">Sumber informasi terbuka, pelayanan mudah, dan desa maju bersama.</p>
     </div>
   </div>
 </header>
@@ -85,38 +78,18 @@
         </div>
       </div>
 
-      <!-- Kolom kanan: Gambar dengan ornamen -->
       <div class="col-md-6 d-flex justify-content-center">
-        <div class="position-relative" style="display: inline-block;">
-          <!-- Ornamen kanan atas -->
-          <div style="
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            width: 120px;
-            height: 120px;
-            background-color: #e67e22;
-            border-radius: 15px;
-            z-index: 1;
-          "></div>
-
-          <!-- Ornamen kiri bawah -->
-          <div style="
-            position: absolute;
-            bottom: -15px;
-            left: -15px;
-            width: 120px;
-            height: 120px;
-            background-color: #e67e22;
-            border-radius: 15px;
-            z-index: 1;
-          "></div>
-
-          <!-- Gambar utama -->
-          <img src="assets/img/image_profil_desa.jpg"
-              alt="Profil Desa"
-              class="img-fluid rounded-4 position-relative"
-              style="z-index: 2; width: 100%; max-width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <div class="position-relative" style="display: inline-block; width: 100%; max-width: 400px;">
+          <!-- Embed Google Maps -->
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.936143982015!2d111.36903291477503!3d-7.669545994445763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79c7b97d6d6eab%3A0x3a8c945e92d3b3da!2sDriyorejo%2C%20Magetan%2C%20East%20Java%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1701290071920!5m2!1sen!2sid"
+            width="100%"
+            height="300"
+            style="border:0; border-radius:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -179,112 +152,87 @@
   <div class="container my-5 px-5">
     <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
       <h3 class="fw-bold mb-0">Berita</h3>
-      <a href="#" class="btn btn-warning text-white fw-semibold px-3 py-1 mt-2 mt-sm-0"
-        style="background-color: #e67e22; border: none;">Baca Selengkapnya</a>
+      <a href="{{ route('user.berita.index') }}" 
+          class="btn btn-warning text-white fw-semibold px-3 py-1 mt-2 mt-sm-0"
+          style="background-color: #e67e22; border: none;">
+          Baca Selengkapnya
+      </a>
     </div>
 
     <div style="width: 90px; height: 4px; background-color: #2A774C; margin-bottom: 25px;"></div>
 
     <!-- Scrollable Berita -->
     <div class="d-flex flex-nowrap overflow-auto pb-3 px-1" style="gap: 1rem; scroll-snap-type: x mandatory;">
+      @foreach($beritas as $b)
+        <div class="col-md-4">
+            <div class="card rounded-4 shadow-sm border-0 h-100 berita-card"
+                    style="transition: .3s; cursor: pointer;"
+                    onclick="window.location='{{ route('user.berita.show', $b->id_berita) }}'">
 
-      <!-- Card 1 -->
-      <div class="card shadow-sm border-success flex-shrink-0" 
-          style="min-width: 260px; max-width: 300px; scroll-snap-align: start;">
-        <img src="assets/img/dashboard/berita.png" class="card-img-top img-fluid" alt="Berita 1"
-            style="object-fit: cover; height: 180px;">
-        <div class="card-body">
-          <small class="text-muted"><i class="bi bi-calendar-event"></i> 14 September 2025</small>
-          <h6 class="fw-bold mt-2">Desa Driyorejo Mengesahkan Pembukaan Tempat Wisata Baru</h6>
-          <p class="text-muted small mb-2">
-            Pemerintah Desa Driyorejo bersama Badan Permusyawaratan Desa (BPD) secara resmi mengesahkan pembukaan tempat...
-          </p>
-          <a href="#" class="text-success fw-semibold text-decoration-none">Baca Selengkapnya</a>
-        </div>
-      </div>
+              {{-- Foto --}}
+              <img src="{{ $b->foto ? asset('ufiles/'.$b->foto) : asset('noimage.png') }}"
+                      class="card-img-top rounded-top-4"
+                      style="height: 220px; object-fit: cover;">
 
-      <!-- Card 2 -->
-      <div class="card shadow-sm border-success flex-shrink-0" 
-          style="min-width: 260px; max-width: 300px; scroll-snap-align: start;">
-        <img src="assets/img/dashboard/berita.png" class="card-img-top img-fluid" alt="Berita 2"
-            style="object-fit: cover; height: 180px;">
-        <div class="card-body">
-          <small class="text-muted"><i class="bi bi-calendar-event"></i> 14 September 2025</small>
-          <h6 class="fw-bold mt-2">Desa Driyorejo Meningkatkan Kualitas UMKM Lokal</h6>
-          <p class="text-muted small mb-2">
-            Melalui pelatihan dan dukungan pemerintah desa, pelaku UMKM kini lebih siap menghadapi pasar digital...
-          </p>
-          <a href="#" class="text-success fw-semibold text-decoration-none">Baca Selengkapnya</a>
-        </div>
-      </div>
+              <div class="d-flex align-items-center text-muted" style="font-size: 15px; margin: 20px 0 0 10px ;">
+                  <i class="bi bi-calendar-event" style="margin-right: 10px;"></i>
+                  {{ \Carbon\Carbon::parse($b->tanggal)->translatedFormat('d F Y') }}
+              </div>
+              
+              <hr class="my-2">
 
-      <!-- Card 3 -->
-      <div class="card shadow-sm border-success flex-shrink-0" 
-          style="min-width: 260px; max-width: 300px; scroll-snap-align: start;">
-        <img src="assets/img/dashboard/berita.png" class="card-img-top img-fluid" alt="Berita 3"
-            style="object-fit: cover; height: 180px;">
-        <div class="card-body">
-          <small class="text-muted"><i class="bi bi-calendar-event"></i> 14 September 2025</small>
-          <h6 class="fw-bold mt-2">Desa Driyorejo Adakan Gotong Royong Bersama Warga</h6>
-          <p class="text-muted small mb-2">
-            Dalam rangka mempererat kebersamaan, warga Desa Driyorejo menggelar kegiatan bersih lingkungan bersama...
-          </p>
-          <a href="#" class="text-success fw-semibold text-decoration-none">Baca Selengkapnya</a>
-        </div>
-      </div>
+              <div class="card-body">
+                <h5 class="fw-bold mb-2">
+                    {{ Str::limit($b->judul, 70) }}
+                </h5>
 
-      <!-- Card 4 -->
-      <div class="card shadow-sm border-success flex-shrink-0" 
-          style="min-width: 260px; max-width: 300px; scroll-snap-align: start;">
-        <img src="assets/img/dashboard/berita.png" class="card-img-top img-fluid" alt="Berita 1"
-            style="object-fit: cover; height: 180px;">
-        <div class="card-body">
-          <small class="text-muted"><i class="bi bi-calendar-event"></i> 14 September 2025</small>
-          <h6 class="fw-bold mt-2">Desa Driyorejo Mengesahkan Pembukaan Tempat Wisata Baru</h6>
-          <p class="text-muted small mb-2">
-            Pemerintah Desa Driyorejo bersama Badan Permusyawaratan Desa (BPD) secara resmi mengesahkan pembukaan tempat...
-          </p>
-          <a href="#" class="text-success fw-semibold text-decoration-none">Baca Selengkapnya</a>
-        </div>
-      </div>
+                <p class="text-muted mb-0" style="font-size: .9rem;">
+                    {!! Str::words(strip_tags($b->isi), 20, '...') !!}
+                </p>
+              </div>
 
-      <!-- Card 5 -->
-      <div class="card shadow-sm border-success flex-shrink-0" 
-          style="min-width: 260px; max-width: 300px; scroll-snap-align: start;">
-        <img src="assets/img/dashboard/berita.png" class="card-img-top img-fluid" alt="Berita 2"
-            style="object-fit: cover; height: 180px;">
-        <div class="card-body">
-          <small class="text-muted"><i class="bi bi-calendar-event"></i> 14 September 2025</small>
-          <h6 class="fw-bold mt-2">Desa Driyorejo Meningkatkan Kualitas UMKM Lokal</h6>
-          <p class="text-muted small mb-2">
-            Melalui pelatihan dan dukungan pemerintah desa, pelaku UMKM kini lebih siap menghadapi pasar digital...
-          </p>
-          <a href="#" class="text-success fw-semibold text-decoration-none">Baca Selengkapnya</a>
+              <div class="p-3">
+                <a href="{{ route('user.berita.show', $b->id_berita) }}"
+                  class="fw-semibold"
+                  style="color: #0D4715; text-decoration: none;">
+                    Baca Selengkapnya →
+                </a>
+              </div>
+            </div>
         </div>
-      </div>
-
-      <!-- Card 6 -->
-      <div class="card shadow-sm border-success flex-shrink-0" 
-          style="min-width: 260px; max-width: 300px; scroll-snap-align: start;">
-        <img src="assets/img/dashboard/berita.png" class="card-img-top img-fluid" alt="Berita 3"
-            style="object-fit: cover; height: 180px;">
-        <div class="card-body">
-          <small class="text-muted"><i class="bi bi-calendar-event"></i> 14 September 2025</small>
-          <h6 class="fw-bold mt-2">Desa Driyorejo Adakan Gotong Royong Bersama Warga</h6>
-          <p class="text-muted small mb-2">
-            Dalam rangka mempererat kebersamaan, warga Desa Driyorejo menggelar kegiatan bersih lingkungan bersama...
-          </p>
-          <a href="#" class="text-success fw-semibold text-decoration-none">Baca Selengkapnya</a>
-        </div>
-      </div>
+      @endforeach
     </div>
   </div>
 
 </main>
 
-  {{-- Footer --}}
-  @include('user.footer')
+<style>
+#header-bg .slide {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition: opacity 1s ease-in-out;
+}
+#header-bg .slide.active {
+  opacity:1;
+}
+</style>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<script>
+const slides = document.querySelectorAll('#header-bg .slide');
+let currentIndex = 0;
+slides[currentIndex].classList.add('active');
+
+setInterval(() => {
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % slides.length;
+    slides[currentIndex].classList.add('active');
+}, 5000);
+</script>
+
+@endsection

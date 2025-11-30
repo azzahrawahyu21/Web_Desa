@@ -142,18 +142,28 @@
             </ul>
           </li>
         @endif --}}
-          <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('user.struktur.semua') }}">
-                Struktur Organisasi
-            </a>
-          </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="{{ route('user.struktur.semua') }}">
+              Struktur Organisasi
+          </a>
+        </li>
 
         {{-- PPID (diambil dari tabel Jenis PPID) --}}
-          <li class="nav-item dropdown">
-            <a class="nav-link text-dark d-flex align-items-center" href="{{ route('user.ppid.index') }}">
-              PPID
-            </a>
-          </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link text-dark d-flex align-items-center" href="{{ route('user.ppid.index') }}">
+            PPID
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link text-dark d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+            Media <i class="bi bi-chevron-down ms-2"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('user.berita.index') }}">Berita</a></li>
+            <li><a class="dropdown-item" href="{{ route('user.galeri.index') }}">Galeri</a></li>
+          </ul>
+        </li>
       </ul>
 
       <!-- Login -->

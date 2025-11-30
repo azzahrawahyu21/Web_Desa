@@ -1,3 +1,22 @@
+<style>
+  .sidebar {
+    width: 260px;
+    height: 100vh;
+    background-color: #0D4715;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+    z-index: 40;
+    overflow-y: auto;
+    max-height: 100vh;
+  }
+</style>
 <nav class="navbar navbar-expand-lg fixed-top bg-[#0D4715] py-3 shadow-md">
   <div class="container-fluid px-4 d-flex justify-content-between align-items-center text-white">
     <button id="toggleSidebar" class="btn text-white d-lg-none me-2 fs-4 border-0">
@@ -142,14 +161,26 @@
       @endif
     </div>
 
+    {{-- berita --}}
+    <a href="{{ route('berita.index') }}" 
+      class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold d-block">
+      <i class="bi bi-journal-text me-2"></i> Kelola Berita
+    </a>
+
+    {{-- galeri --}}
+    <a href="{{ route('galeri.index') }}" 
+      class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold d-block">
+      <i class="bi bi-journal-text me-2"></i> Kelola Galeri
+    </a>
+
     {{-- <hr class="opacity-30 mx-3"> --}}
   </div>
 
-  <div class="bottom">
+  {{-- <div class="bottom">
     <a href="{{ route('menu.create') }}" class="add-menu-btn">
       <i class="bi bi-plus-circle me-2"></i> Tambah Menu
     </a>
-  </div>
+  </div> --}}
 </aside>
 
 <style>
