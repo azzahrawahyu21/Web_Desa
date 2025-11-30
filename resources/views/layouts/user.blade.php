@@ -10,13 +10,132 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   @stack('styles')
 </head>
 <body class="bg-gray-50">
 
-  {{-- Navbar + Sidebar --}}
-  @include('user.navbar')
+{{-- <div style="background:white; width:100%; position:relative; z-index:10; border-bottom:1px solid #eee;"> --}}
+<div style="
+    background:white;
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:50;
+    border-bottom:1px solid #eee;
+">
+    <div class="container py-3 d-flex justify-content-between align-items-center">
+
+        {{-- Logo (Left) --}}
+        <a class="navbar-brand fw-bold text-dark d-flex align-items-center" href="{{ url('/') }}">
+            <img src="{{ asset('assets/img/navbar/logo 1.png') }}" alt="Logo Desa" width="40" class="me-2">
+            <div class="d-flex flex-column">
+                <span style="font-size: 0.95rem; font-weight: 600;">Desa Driyorejo</span>
+                <small style="font-size: 0.75rem; font-weight: 400; color: #555;">
+                    Kec. Driyorejo Kab. Magetan
+                </small>
+            </div>
+        </a>
+
+        {{-- Breadcrumb (Center) --}}
+        <nav aria-label="breadcrumb" class="flex-grow-1 d-flex justify-content-center">
+            <ol class="breadcrumb mb-0 bg-transparent px-0 py-1"
+                style="--bs-breadcrumb-divider: ''; gap: 25px;">
+                
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ route('user.dashboard') }}">
+                        Beranda
+                    </a>
+                </li>
+                {{-- PROFIL DESA --}}
+                @if(isset($menus['profil_desa']))
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-dark d-flex align-items-center"
+                    href="#" data-bs-toggle="dropdown">
+                        <span>Profil Desa</span>
+                        <i class="bi bi-chevron-down ms-2" style="font-size: 0.85rem; margin-top: 4px;"></i>
+                    </a>
+
+                    {{-- Tambahkan margin-top agar dropdown agak turun --}}
+                    <ul class="dropdown-menu mt-2">
+                        @foreach($menus['profil_desa'] as $menu)
+                        <li>
+                            <a class="dropdown-item"
+                            href="{{ route('user.menu.show', [
+                                    'kategori' => $menu->url,
+                                    'menu' => Str::slug($menu->nama_menu)
+                            ]) }}">
+                                {{ $menu->nama_menu }}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+                @endif
+
+
+                {{-- DATA STATISTIK --}}
+                @if(isset($kategoris) && $kategoris->count())
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-dark d-flex align-items-center" 
+                    href="#" data-bs-toggle="dropdown">
+                        <span>Data Statistik</span>
+                        <i class="bi bi-chevron-down ms-2" style="font-size: 0.85rem; margin-top: 4px;"></i>
+                    </a>
+                    <ul class="dropdown-menu mt-2">
+                        @foreach($kategoris as $kategori)
+                        <li>
+                            <a class="dropdown-item"
+                            href="{{ route('user.statistik.kategori', $kategori->id_kategori) }}">
+                                {{ $kategori->nama_kategori }}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+                @endif
+
+
+                {{-- STRUKTUR ORGANISASI --}}
+                <li class="nav-item">
+                    <a class="nav-link text-dark"
+                    href="{{ route('user.struktur.semua') }}">
+                        Struktur Organisasi
+                    </a>
+                </li>
+
+                {{-- PPID --}}
+                <li class="nav-item">
+                    <a class="nav-link text-dark"
+                    href="{{ route('user.ppid.index') }}">
+                        PPID
+                    </a>
+                </li>
+
+                {{-- MEDIA --}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-dark d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                        <span>Media</span>
+                        <i class="bi bi-chevron-down ms-2" style="font-size: 0.85rem; margin-top: 4px;"></i>
+                    </a>
+                    <ul class="dropdown-menu mt-2">
+                        <li><a class="dropdown-item" href="{{ route('user.berita.index') }}">Berita</a></li>
+                        <li><a class="dropdown-item" href="{{ route('user.galeri.index') }}">Galeri</a></li>
+                    </ul>
+                </li>
+            </ol>
+        </nav>
+
+        {{-- Login Button (Right) --}}
+        <a class="btn btn-success px-4" href="{{ route('login') }}"
+            style="border-radius: 20px; background-color:#0D4715; border:none;">
+            Login
+        </a>
+
+    </div>
+</div>
 
   {{-- Konten Utama --}}
   <main class="p-6 main-content">
@@ -25,11 +144,12 @@
 
   @include('user.footer')
 
-  <style>
+<style>
     .main-content {
-      margin-top: 90px; /* memberi jarak dari navbar fixed-top */
+        margin-top: 5% !important;
+        padding: 0 !important;
     }
-  </style>
+</style>
 
   @stack('scripts')
 </body>

@@ -1,11 +1,22 @@
 @extends('layouts.user')
 
 @section('title', 'Data Statistik - ' . $kategori->nama_kategori)
+
 @section('content')
+<div class="header-section text-white d-flex flex-column justify-content-center text-center"
+     style="height: 20vh; background: url('{{ asset('assets/img/background.jpg') }}') center/cover no-repeat; position: relative;">
+    
+    <div style="position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.45);"></div>
+
+    <h1 class="fw-bold position-relative" style="z-index: 2; font-size:30px;">
+        DATA STATISTIK
+    </h1>
+</div>
+
 <div class="container py-5">
   {{-- 🟢 Kategori Utama --}}
   <h2 class="text-center mb-4 fw-bold" 
-      style="color: rgba(13, 71, 21, 1); font-size: 2.5rem; letter-spacing: 1px;">
+      style="color: rgba(13, 71, 21, 1); font-size: 2rem; letter-spacing: 1px;">
     {{ $kategori->nama_kategori }}
   </h2>
 
