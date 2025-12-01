@@ -141,7 +141,7 @@
 
               <div class="d-flex align-items-center text-muted" style="font-size: 15px; margin: 20px 0 0 10px ;">
                   <i class="bi bi-calendar-event" style="margin-right: 10px;"></i>
-                  {{ \Carbon\Carbon::parse($b->tanggal)->translatedFormat('d F Y') }}
+                  {{ \Carbon\Carbon::parse($b->tanggal)->locale('id')->translatedFormat('d F Y') }}
               </div>
               
               <hr class="my-2">

@@ -18,9 +18,8 @@
         @foreach($galeris as $g)
         <div class="col-12 col-sm-6 col-lg-3"> {{-- 4 kolom per baris --}}
             <div class="card shadow-sm border-0 h-100 galeri-card"
-                 style="transition: .3s; cursor: pointer;"
-                 {{-- onclick="window.location='{{ route('user.galeri.show', $g->id_galeri) }}'"> --}}
-                 >
+                 style="transition: .3s; cursor: pointer;">
+
                 {{-- Foto --}}
                 <img src="{{ $g->foto ? asset('ufiles/'.$g->foto) : asset('noimage.png') }}"
                      class="card-img-top"
@@ -29,7 +28,7 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center text-muted" style="font-size: .85rem;">
                         <i class="bi bi-calendar-event" style="margin-right: 10px;"></i>
-                        {{ \Carbon\Carbon::parse($g->tanggal)->translatedFormat('d F Y') }}
+                        {{ \Carbon\Carbon::parse($g->tanggal)->locale('id')->translatedFormat('d F Y') }}
                     </div>
                     <hr class="my-2">
                     <h5 class="fw-bold mb-2">{{ $g->judul }}</h5>
@@ -38,7 +37,6 @@
             </div>
         </div>
         @endforeach
-
     </div>
 </div>
 
@@ -48,5 +46,4 @@
         box-shadow: 0 12px 25px rgba(0,0,0,0.18) !important;
     }
 </style>
-
 @endsection

@@ -18,18 +18,18 @@
         @foreach($beritas as $b)
         <div class="col-md-4">
             <div class="card rounded-4 shadow-sm border-0 h-100 berita-card"
-                    style="transition: .3s; cursor: pointer;"
-                    onclick="window.location='{{ route('user.berita.show', $b->id_berita) }}'">
+                style="transition: .3s; cursor: pointer;"
+                onclick="window.location='{{ route('user.berita.show', $b->id_berita) }}'">
 
                 {{-- Foto --}}
                 <img src="{{ $b->foto ? asset('ufiles/'.$b->foto) : asset('noimage.png') }}"
-                        class="card-img-top rounded-top-4"
-                        style="height: 220px; object-fit: cover;">
+                    class="card-img-top rounded-top-4"
+                    style="height: 220px; object-fit: cover;">
 
                 <div class="card-body">
                     <div class="d-flex align-items-center text-muted" style="font-size: .85rem;">
                         <i class="bi bi-calendar-event" style="margin-right: 10px;"></i>
-                        {{ \Carbon\Carbon::parse($b->tanggal)->translatedFormat('d F Y') }}
+                        {{ \Carbon\Carbon::parse($b->tanggal)->locale('id')->translatedFormat('d F Y') }}
                     </div>
 
                     <hr class="my-2">
@@ -42,7 +42,6 @@
                         {!! Str::words(strip_tags($b->isi), 20, '...') !!}
                     </p>
                 </div>
-
             </div>
         </div>
         @endforeach
@@ -55,5 +54,4 @@
         box-shadow: 0 12px 25px rgba(0,0,0,0.18) !important;
     }
 </style>
-
 @endsection

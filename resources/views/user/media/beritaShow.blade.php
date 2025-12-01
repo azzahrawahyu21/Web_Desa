@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="header-section text-white d-flex flex-column justify-content-center text-center"
-     style="height: 20vh; background: url('{{ asset('assets/img/background.jpg') }}') center/cover no-repeat; position: relative;">
+    style="height: 20vh; background: url('{{ asset('assets/img/background.jpg') }}') center/cover no-repeat; position: relative;">
     
     <div style="position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.45);"></div>
 
@@ -15,7 +15,6 @@
 
 <div class="container" style="margin-top: -150px; padding-top: 180px; margin-bottom: 50px;">
     <div class="row">
-
         {{-- ============ KOLOM KIRI (DETAIL BERITA) ============ --}}
         <div class="col-lg-8 mb-4">
             <div id="berita-container"></div>
@@ -36,7 +35,7 @@
                     <div class="p-3">
                         <div class="text-muted" style="font-size: .8rem;">
                             <i class="bi bi-calendar-event" style="margin-right: 10px;"></i>
-                            {{ \Carbon\Carbon::parse($r->tanggal)->format('d M Y') }}
+                            {{ \Carbon\Carbon::parse($r->tanggal)->locale('id')->translatedFormat('d M Y') }}
                         </div>
     
                         <hr class="my-2">
@@ -46,19 +45,14 @@
                         <p class="text-muted" style="font-size: .85rem;">
                             {!! Str::words(strip_tags($r->isi), 15, '...') !!}
                         </p>
-
                     </div>
-
                 </div>
             @empty
                 <p class="text-muted">Tidak ada rekomendasi berita.</p>
             @endforelse
-
         </div>
-
     </div>
 </div>
-
 
 {{-- ============ CSS HOVER CARD REKOMENDASI ============ --}}
 <style>
@@ -99,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             <div class="text-muted mb-3" style="font-size:.9rem;">
                                 <i class="bi bi-calendar-event" style="margin-right: 10px;"></i>
-                                {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }}
+                                {{ \Carbon\Carbon::parse($berita->tanggal)->locale('id')->translatedFormat('d F Y') }}
                             </div>
 
                             <hr>
@@ -126,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     <div class="text-muted mb-3" style="font-size:.9rem;">
                         <i class="fa-solid fa-calendar-days me-2"></i>
-                        {{ \Carbon\Carbon::parse($berita->tanggal)->translatedFormat('d F Y') }}
+                        {{ \Carbon\Carbon::parse($berita->tanggal)->locale('id')->translatedFormat('d F Y') }}
                     </div>
 
                     <hr>

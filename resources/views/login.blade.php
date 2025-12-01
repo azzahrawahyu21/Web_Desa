@@ -162,11 +162,10 @@
         <div class="illustration"></div>
 
         <div class="login-container">
-            <button class="back-button" onclick="history.back()" aria-label="Kembali">
+            <a href="{{ route('user.dashboard') }}" class="back-button" onclick="history.back()" aria-label="Kembali">
                 <i class="bi bi-arrow-left-circle"></i>
-            </button>
+            </a>
             <h2>LOGIN</h2>
-
             @if ($errors->any())
                 <div class="error">{{ $errors->first() }}</div>
             @endif
