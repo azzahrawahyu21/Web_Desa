@@ -49,14 +49,14 @@
 
     <!-- Tombol dropdown Kelola Menu -->
     <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
-      <i class="bi bi-journal-text me-2"></i> Kelola Menu
+      <i class="bi bi-journal-text me-2"></i> Profil Desa
       <i class="bi bi-chevron-down float-end"></i>
     </button>
 
     <!-- Isi dropdown menu dinamis -->
     <div id="menuDropdown" class="dropdown-content">
       <a href="{{ route('menu.index') }}" class="ps-5 {{ request()->routeIs('menu.index') ? 'active' : '' }}">
-        <i class="bi bi-list-check me-2"></i> Daftar Menu
+        <i class="bi bi-list-check me-2"></i> Daftar Profil
       </a>
 
       @if($menus->isNotEmpty())
@@ -67,7 +67,7 @@
           </a>
         @endforeach
       @else
-        <p class="text-sm text-gray-300,300 px-5 mt-2 italic">Belum ada menu.</p>
+        <p class="text-sm text-gray-300,300 px-5 mt-2 italic">Belum ada Profil Desa.</p>
       @endif
     </div>
 
@@ -116,7 +116,7 @@
     </div>
 
     <!-- RT/RW -->
-    <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
+    {{-- <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
       <i class="bi bi-journal-text me-2"></i> Data RT/RW
       <i class="bi bi-chevron-down float-end"></i>
     </button>
@@ -135,11 +135,11 @@
       @else
         <p class="text-sm text-gray-300 px-5 mt-2 italic">Belum ada data RW.</p>
       @endif
-    </div>
+    </div> --}}
 
     {{-- jabatan --}}
     <button class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold">
-      <i class="bi bi-journal-text me-2"></i> Kelola Jabatan
+      <i class="bi bi-journal-text me-2"></i> Struktur Organisasi
       <i class="bi bi-chevron-down float-end"></i>
     </button>
 
@@ -164,13 +164,13 @@
     {{-- berita --}}
     <a href="{{ route('berita.index') }}" 
       class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold d-block">
-      <i class="bi bi-journal-text me-2"></i> Kelola Berita
+      <i class="bi bi-journal-text me-2"></i> Berita
     </a>
 
     {{-- galeri --}}
     <a href="{{ route('galeri.index') }}" 
       class="dropdown-toggle-btn w-100 text-start px-4 py-2 border-0 bg-transparent text-white fw-semibold d-block">
-      <i class="bi bi-journal-text me-2"></i> Kelola Galeri
+      <i class="bi bi-journal-text me-2"></i> Galeri
     </a>
 
     {{-- <hr class="opacity-30 mx-3"> --}}

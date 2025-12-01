@@ -23,85 +23,50 @@
 
   {{-- Content --}}
 <main class="position-relative mb-5">
-  <div class="container d-flex justify-content-center" 
-       style="margin-top:-100px; z-index:5; position:relative;">
-    <div class="card p-4 bg-transparent text-center"
-         style="border-radius:20px;
-                max-width: 1000px;
-                min-height: 200px;
-                background: linear-gradient(to bottom, rgba(255, 255, 255, 0.84), rgba(104, 152, 117, 100));
-                box-shadow: 0 4px 15px rgba(210, 231, 213, 0.5);">
+  <div class="container my-5 px-5">
+    {{-- <div class="row align-items-center"> --}}
+    <div class="row justify-content-center align-items-center">
+      
+    <!-- Kolom kiri: Profil teks -->
+    <div class="col-md-6 mb-4 mb-md-0" style="max-width: 500px;">
+      <h3 class="fw-bold mb-3" style="font-size: 20px;">
+        Profil Desa
+        <div style="width: 90px; height: 4px; background-color: #d35400; margin-top: 5px;"></div>
+      </h3>
 
-      <div class="row mt-4">
-        <!-- Jumlah Penduduk -->
-        <div class="col-md-4 mb-md-0">
-          <h3 class="fw-bold">3.100</h3>
-          <h5 class="mb-0">Jumlah Penduduk</h5>
-          <small>Total warga yang tinggal dan terdata di Desa</small>
-        </div>
-
-        <!-- Jumlah KK -->
-        <div class="col-md-4 mb-md-0 border-start border-end" style="border-color: black !important;">
-          <h3 class="fw-bold">130</h3>
-          <h5 class="mb-0">Jumlah KK</h5>
-          <small>Total kepala keluarga sebagai dasar kependudukan</small>
-        </div>
-
-        <!-- Jumlah UMKM -->
-        <div class="col-md-4">
-          <h3 class="fw-bold">75</h3>
-          <h5 class="mb-0">Jumlah UMKM</h5>
-          <small>Jumlah UMKM yang beroperasi di Desa Driyorejo</small>
-        </div>
+      <div class="mt-4">
+        <p><strong>Nama Desa</strong> : Driyorejo</p>
+        <p><strong>Luas Wilayah</strong> : ± 248,35 hektar (sekitar 2,4835 km²)</p>
+        <p><strong>Letak Geografis</strong> : Terletak di Kecamatan Nguntoronadi, Kabupaten Magetan, Jawa Timur</p>
+        <p><strong>Kode Pos</strong> : 63383</p>
+        <p><strong>Kecamatan</strong> : Nguntoronadi</p>
+        <p><strong>Kabupaten</strong> : Magetan</p>
       </div>
     </div>
-  </div>
 
-  <!-- Bagian Profil Desa -->
-  <div class="container my-5 px-5">
-    <div class="row align-items-center">
-      
-      <!-- Kolom kiri: Profil teks -->
-      <div class="col-md-6 mb-4 mb-md-0">
-        <h3 class="fw-bold mb-3">
-          Profil Desa
-          <div style="width: 90px; height: 4px; background-color: #d35400; margin-top: 5px;"></div>
-        </h3>
-
-        <div class="mt-4">
-          <p><strong>Nama Desa</strong> : Driyorejo</p>
-          <p><strong>Luas Wilayah</strong> : ± 248,35 hektar (sekitar 2,4835 km²)</p>
-          <p><strong>Letak Geografis</strong> : Terletak di Kecamatan Nguntoronadi, Kabupaten Magetan, Jawa Timur</p>
-          <p><strong>Kode Pos</strong> : 63383</p>
-          <p><strong>Kecamatan</strong> : Nguntoronadi</p>
-          <p><strong>Kabupaten</strong> : Magetan</p>
-        </div>
-      </div>
-
-      <div class="col-md-6 d-flex justify-content-center">
-        <div class="position-relative" style="display: inline-block; width: 100%; max-width: 400px;">
-          <!-- Embed Google Maps -->
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.936143982015!2d111.36903291477503!3d-7.669545994445763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79c7b97d6d6eab%3A0x3a8c945e92d3b3da!2sDriyorejo%2C%20Magetan%2C%20East%20Java%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1701290071920!5m2!1sen!2sid"
-            width="100%"
-            height="300"
-            style="border:0; border-radius:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
+    <div class="col-md-6 d-flex justify-content-center" style="max-width: 500px;">
+      <div class="position-relative" style="display: inline-block; width: 100%; max-width: 400px;">
+        <!-- Embed Google Maps -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.936143982015!2d111.36903291477503!3d-7.669545994445763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79c7b97d6d6eab%3A0x3a8c945e92d3b3da!2sDriyorejo%2C%20Magetan%2C%20East%20Java%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1701290071920!5m2!1sen!2sid"
+          width="100%"
+          height="300"
+          style="border:0; border-radius:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
       </div>
     </div>
   </div>
 
   <!-- Bagian Jam Kerja & SOTK -->
   <div class="container my-5 px-5">
-    <div class="row mt-4">
+    <div class="row justify-content-center mt-4">
       <!-- Jam Kerja -->
-      <div class="col-md-3 mb-4 mb-md-0">
-        <div class="border border-success rounded p-4 text-center h-100">
-          <h5 class="fw-bold mb-2">Jam Kerja</h5>
+      <div class="col-md-3 mb-4 mb-md-0" style="max-width: 300px;">
+        <div class="border border-success rounded p-3 text-center h-100">
+          <h5 class="fw-bold mb-2" style="font-size: 20px;">Jam Kerja</h5>
           <div style="width: 90px; height: 4px; background-color: #2A774C; margin: 0 auto 15px auto;"></div>
           <div class="d-flex justify-content-between align-items-center mb-2">
           <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Senin</span>
@@ -135,9 +100,9 @@
       </div>
 
       <!-- SOTK -->
-      <div class="col-md-8">
+      <div class="col-md-8" style="max-width: 650px;">
         <div class="border border-success rounded p-4 text-center h-100">
-          <h5 class="fw-bold mb-2">SOTK</h5>
+          <h5 class="fw-bold mb-2" style="font-size: 20px;">SOTK</h5>
           <div style="width: 90px; height: 4px; background-color: #2A774C; margin: 0 auto 15px auto;"></div>
           <img src="assets/img/sotk.png" alt="Struktur Organisasi" class="img-fluid mb-3">
           <a href="#" class="btn btn-warning text-white" style="background-color: #e67e22; border: none;">
@@ -151,7 +116,7 @@
   <!-- Bagian Berita -->
   <div class="container my-5 px-5">
     <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-      <h3 class="fw-bold mb-0">Berita</h3>
+      <h3 class="fw-bold mb-0" style="font-size: 20px;">Berita</h3>
       <a href="{{ route('user.berita.index') }}" 
           class="btn btn-warning text-white fw-semibold px-3 py-1 mt-2 mt-sm-0"
           style="background-color: #e67e22; border: none;">
@@ -185,7 +150,6 @@
                 <h5 class="fw-bold mb-2">
                     {{ Str::limit($b->judul, 70) }}
                 </h5>
-
                 <p class="text-muted mb-0" style="font-size: .9rem;">
                     {!! Str::words(strip_tags($b->isi), 20, '...') !!}
                 </p>
@@ -203,36 +167,44 @@
       @endforeach
     </div>
   </div>
-
 </main>
 
 <style>
-#header-bg .slide {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-size:cover;
-  background-position:center;
-  opacity:0;
-  transition: opacity 1s ease-in-out;
-}
-#header-bg .slide.active {
-  opacity:1;
-}
+  #header-bg .slide {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-size:cover;
+    background-position:center;
+    opacity:0;
+    transition: opacity 1s ease-in-out;
+  }
+  #header-bg .slide.active {
+    opacity:1;
+  }
+  .header-section, #header-bg {
+      min-height: 60vh; /* Bisa disesuaikan */
+      position: relative;
+  }
+
+  .main-card-container {
+      margin-top: -50px; /* atau 0, nanti kita atur dengan media queries */
+      position: relative;
+      z-index: 5;
+  }
 </style>
 
 <script>
-const slides = document.querySelectorAll('#header-bg .slide');
-let currentIndex = 0;
-slides[currentIndex].classList.add('active');
+  const slides = document.querySelectorAll('#header-bg .slide');
+  let currentIndex = 0;
+  slides[currentIndex].classList.add('active');
 
-setInterval(() => {
-    slides[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + 1) % slides.length;
-    slides[currentIndex].classList.add('active');
-}, 5000);
+  setInterval(() => {
+      slides[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].classList.add('active');
+  }, 5000);
 </script>
-
 @endsection
