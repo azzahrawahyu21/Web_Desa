@@ -20,7 +20,6 @@ use App\Http\Controllers\PejabatController;
 use App\Http\Controllers\RwController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserStatistikController;
-use App\Models\Menu;
 use Barryvdh\Elfinder\ElfinderController;
 use App\Http\Controllers\UserPPIDController;
 use App\Http\Controllers\BeritaController;
@@ -46,14 +45,15 @@ Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->nam
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('reset.password.submit');
 
 // Navbar & Menu User (publik)
-Route::get('/menu/{id}', [UserController::class, 'show'])->name('menu.show');
 Route::get('/navbar', [UserController::class, 'index'])->name('navbar');
 Route::get('/user', function () {return view('user.utama');})->name('user.dashboard');
 
 // User Menu & Submenu
 Route::prefix('user')->group(function () {
-    Route::get('/menu/{kategori}/{menu}', [UserMenuController::class, 'showMenu'])->name('user.menu.show');
-    Route::get('/menu/{kategori}/{menu}/{submenu}', [UserSubmenuController::class, 'showSubmenu'])->name('user.submenu.show');
+    Route::get('/menu/{kategori}/{menuSlug}/{slug}', [UserMenuController::class, 'showSubmenu'])
+        ->name('user.submenu.show');
+    Route::get('/menu/{kategori}/{menuSlug}', [UserMenuController::class, 'showMenu'])
+        ->name('user.menu.show');
 });
 
 // Profil Desa (publik)

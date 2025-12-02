@@ -13,15 +13,18 @@ class UserSubmenuController extends Controller
 {
     public function showSubmenu($kategori, $menuSlug, $slug)
     {
-        $submenu = Submenu::whereRaw('LOWER(REPLACE(judul, " ", "-")) = ?', [$slug])
-            ->with('menu')
+        $menu = Menu::where('url', $kategori)
+            ->whereRaw('LOWER(REPLACE(nama_menu, " ", "-")) = ?', [strtolower($menuSlug)])
+            ->firstOrFail();
+
+        $submenu = Submenu::where('id_menu', $menu->id_menu)
+            ->whereRaw('LOWER(REPLACE(judul, " ", "-")) = ?', [strtolower($slug)])
             ->firstOrFail();
 
         $menus = Menu::with('submenus')->get()->groupBy('url');
         $kategoris = KategoriStatistik::all();
         $jenisPpids = JenisPPID::all();
 
-        return view('user.menu.show', compact('submenu', 'menus', 'kategoris', 'jenisPpids'));
+        return view('user.submenu.show', compact('menu', 'submenu', 'menus', 'kategoris', 'jenisPpids'));
     }
-
 }

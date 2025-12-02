@@ -37,11 +37,11 @@
 
   <div class="table-responsive">
     <table class="table table-bordered table-striped align-middle">
-      <thead class="text-center table-success">
+      <thead class="table-success text-center">
         <tr>
-          <th style="width:5%">No</th>
+          <th style="width:5%">Nom</th>
           <th>Judul</th>
-          <th>Isi</th>
+          <th style="width:30%">Isi</th>
           <th>Foto</th>
           <th style="width:25%">Aksi</th>
         </tr>
@@ -51,7 +51,9 @@
           <tr>
             <td class="text-center">{{ $index + 1 }}</td>
             <td>{{ $submenu->judul }}</td>
-            <td>{!! Str::limit($submenu->isi, 200, '...') !!}</td>
+            <td class="isi-teks">
+                {{ \Illuminate\Support\Str::limit(strip_tags($submenu->isi), 200, '...') }}
+            </td>
             <td class="text-center">
               @if($submenu->foto)
                 <img src="{{ asset('ufiles/' . $submenu->foto) }}" alt="Foto" class="img-fluid rounded" style="max-height:80px;">

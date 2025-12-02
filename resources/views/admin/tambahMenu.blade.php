@@ -53,10 +53,6 @@
       <select name="url" id="url" class="form-select w-100" required>
         <option value="" disabled selected>-- Pilih Kategori --</option>
         <option value="profil_desa">Profil Desa</option>
-        <option value="data_statistik">Data Statistik</option>
-        <option value="lembaga">Lembaga</option>
-        <option value="berita_desa">Berita Desa</option>
-        <option value="galeri">Galeri</option>
       </select>
     </div>
 

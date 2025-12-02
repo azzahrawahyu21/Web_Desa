@@ -29,7 +29,7 @@ public function store(Request $request)
 {
     $request->validate([
         'nama_menu' => 'required|string|max:45',
-        'url' => 'required|in:profil_desa,data_statistik,lembaga,berita_desa,galeri',
+        'url' => 'required|in:profil_desa',
     ]);
 
     Menu::create([
@@ -51,7 +51,7 @@ public function store(Request $request)
     {
         $request->validate([
             'nama_menu' => 'required|string|max:45',
-            'url' => 'required|string|in:profil_desa,data_statistik,lembaga,berita_desa,galeri',
+            'url' => 'required|string|in:profil_desa',
         ]);
 
         $menu = Menu::findOrFail($id_menu);

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="bg-white rounded-lg shadow-md p-6">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
         <h2 class="text-[#0D4715] text-2xl font-bold">Kelola Galeri</h2>
         <a href="{{ route('galeri.create') }}" class="btn btn-success">
             <i class="bi bi-plus-circle"></i> Tambah Galeri
@@ -27,7 +27,7 @@
                 <th style="width: 20%">Judul</th>
                 <th style="width: 15%">Foto</th>
                 <th style="width: 10%">Tanggal</th>
-                <th style="width: 15%">Aksi</th>
+                <th style="width: 25%">Aksi</th>
             </tr>
         </thead>
         <tbody>

@@ -49,32 +49,32 @@
                         Beranda
                     </a>
                 </li>
-                {{-- PROFIL DESA --}}
-                @if(isset($menus['profil_desa']))
-                <li class="nav-item dropdown">
-                    <a class="nav-link text-dark d-flex align-items-center"
-                    href="#" data-bs-toggle="dropdown">
-                        <span>Profil Desa</span>
-                        <i class="bi bi-chevron-down ms-2" style="font-size: 0.85rem; margin-top: 4px;"></i>
-                    </a>
+                {{-- MENU DINAMIS BERDASARKAN KATEGORI --}}
+                @php
+                    $groupedMenus = $menus ?? Menu::with('submenus')->get()->groupBy('url');
+                @endphp
 
-                    {{-- Tambahkan margin-top agar dropdown agak turun --}}
-                    <ul class="dropdown-menu mt-2">
-                        @foreach($menus['profil_desa'] as $menu)
-                        <li>
-                            <a class="dropdown-item"
-                            href="{{ route('user.menu.show', [
-                                    'kategori' => $menu->url,
-                                    'menu' => Str::slug($menu->nama_menu)
-                            ]) }}">
-                                {{ $menu->nama_menu }}
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </li>
+                {{-- PROFIL DESA - Dropdown Otomatis --}}
+                @if(isset($groupedMenus['profil_desa']) && $groupedMenus['profil_desa']->count() > 0)
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-dark d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                            <span>Profil Desa</span>
+                            <i class="bi bi-chevron-down ms-2" style="font-size: 0.85rem;"></i>
+                        </a>
+                        <ul class="dropdown-menu mt-2">
+                            @foreach($groupedMenus['profil_desa'] as $menu)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('user.menu.show', [
+                                        'kategori' => $menu->url,
+                                        'menuSlug' => Str::slug($menu->nama_menu)
+                                    ]) }}">
+                                        {{ $menu->nama_menu }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
                 @endif
-
 
                 {{-- DATA STATISTIK --}}
                 @if(isset($kategoris) && $kategoris->count())

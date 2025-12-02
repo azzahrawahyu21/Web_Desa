@@ -10,8 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        // Kelompokkan berdasarkan kolom 'url' (karena itu enum kategori)
-        $menus = Menu::all()->groupBy('url');
-        return view('user.navbar');
+        $menus = Menu::with('submenus')->get()->groupBy('url');
+        return view('user.dashboard', compact('menus'));
     }
 }

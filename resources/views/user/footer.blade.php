@@ -14,46 +14,48 @@
             </small>
           </div>
         </a>
-        <p class="mt-3 mb-0" style="font-size: 0.9rem; color: #ffffff;">
+        <div class="ml-5">
+          <p class="mt-3 mb-0" style="font-size: 0.9rem; color: #ffffff;">
           Driyorejo, Nguntoronadi, Driyan, Driyorejo, Magetan, Jawa Timur 63383
-        </p>
-      </div>
-
-      <!-- Profil Desa -->
-      <div class="col-md-3 mb-4">
-        <h6 class="fw-bold" style="color: #ffffff;">Profil Desa</h6>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Profil Desa</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Sejarah Desa</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Visi Misi</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Struktur Keanggotaan</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Regulasi</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Peta Desa</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">UMKM</a></li>
-        </ul>
+          </p>
+          <h6 class="fw-bold mt-3" style="color: #ffffff;">Hubungi Kami</h6>
+          <div style="width: 110px; height: 3px; background-color: #e67e22; margin-bottom: 10px; margin-top: 5px;"></div>
+          <p class="mb-1" style="color: #ffffff;"><i class="bi bi-telephone me-2"></i>0850000000</p>
+          <p class="mb-0" style="color: #ffffff;"><i class="bi bi-envelope me-2"></i>driyorejo@gmail.com</p>
+        </div>        
       </div>
 
       <!-- Informasi -->
-      <div class="col-md-3 mb-4">
+      <div class="col-md-2 mb-4 ml-5">
         <h6 class="fw-bold" style="color: #ffffff;">Informasi</h6>
+        <div style="width: 70px; height: 3px; background-color: #e67e22; margin-bottom: 10px; margin-top: 5px;"></div>
         <ul class="list-unstyled">
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Data Statistik</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Lembaga</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Berita Desa</a></li>
-          <li><a href="#" class="text-decoration-none" style="color: #ffffff;">Galeri</a></li>
+          <li><a href="{{ route('user.struktur.semua') }}"  class="text-decoration-none" style="color: #ffffff;">Struktur Organisasi</a></li>
+          <li><a href="{{ route('user.ppid.index') }}"  class="text-decoration-none" style="color: #ffffff;">PPID</a></li>
+          <li><a href="{{ route('user.berita.index') }}" class="text-decoration-none" style="color: #ffffff;">Berita</a></li>
+          <li><a href="{{ route('user.galeri.index') }}"  class="text-decoration-none" style="color: #ffffff;">Galeri</a></li>
         </ul>
+      </div>
 
-        <h6 class="fw-bold mt-3" style="color: #ffffff;">Hubungi Kami</h6>
-        <p class="mb-1" style="color: #ffffff;"><i class="bi bi-telephone me-2"></i>0850000000</p>
-        <p class="mb-0" style="color: #ffffff;"><i class="bi bi-envelope me-2"></i>driyorejo@gmail.com</p>
+      <div class="col-md-3 mb-4">
+        <h6 class="fw-bold" style="color: #ffffff;">Berita dan Update Desa Driyorejo</h6>
+        <div style="width: 250px; height: 3px; background-color: #e67e22; margin-bottom: 10px; margin-top: 5px;"></div>
+        <p>Berita, artikel, dan program terbaru dari warga bisa disampaikan lewat kontak yang tersedia</p>
       </div>
 
       <!-- Lokasi -->
       <div class="col-md-3 mb-4">
-        <h6 class="fw-bold" style="color: #ffffff;">Lokasi</h6>
-        <a href="https://maps.app.goo.gl/J1TVzhbwfVrxE5Li9" target="_blank">
-          <img src="{{ asset('assets/img/navbar/lokasi.png') }}" class="img-fluid rounded shadow-sm" alt="Peta Lokasi">
-        </a>
+        <h6 class="fw-bold mb-2" style="color: #ffffff;">Lokasi</h6>
+        <div style="width: 50px; height: 3px; background-color: #e67e22; margin-bottom: 10px; margin-top: 5px;"></div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.936143982015!2d111.36903291477503!3d-7.669545994445763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79c7b97d6d6eab%3A0x3a8c945e92d3b3da!2sDriyorejo%2C%20Magetan%2C%20East%20Java%2C%20Indonesia!5e0!3m2!1sen!2sid!4v1701290071920!5m2!1sen!2sid"
+          width="100%"
+          height="80%"
+          style="border:0; border-radius:15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
 </div>
 
     </div>
