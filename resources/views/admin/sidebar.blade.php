@@ -25,7 +25,7 @@
     <a class="navbar-brand text-white fw-bold d-flex align-items-center gap-2" href="#">
       <img src="{{ asset('assets/img/navbar/logo 1.png') }}" alt="Logo Desa" width="40" class="rounded">
       <div class="d-flex flex-column lh-sm">
-        <span class="fw-semibold" style="font-size: 0.95rem;">Desa Driyorejo</span>
+        <span class="fw-semibold" style="font-size: 0.95rem; color: white;">Desa Driyorejo</span>
         <small class="text-white-50" style="font-size: 0.75rem;">Kec. Driyorejo Kab. Magetan</small>
       </div>
     </a>

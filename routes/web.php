@@ -21,6 +21,7 @@ use App\Http\Controllers\RwController;
 use App\Http\Controllers\RtController;
 use App\Http\Controllers\UserStatistikController;
 use Barryvdh\Elfinder\ElfinderController;
+use App\Models\Menu;
 use App\Http\Controllers\UserPPIDController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriController;
