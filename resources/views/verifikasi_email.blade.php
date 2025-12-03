@@ -144,7 +144,7 @@
                     <input type="text" maxlength="1" name="digit3" class="code-input" required>
                     <input type="text" maxlength="1" name="digit4" class="code-input" required>
                 </div>
-                <p id="timer" class="timer">60s</p>
+                <p id="timer" class="timer">600s</p>
                 <button type="submit">MEMERIKSA</button>
             </form>
         </div>
@@ -152,11 +152,21 @@
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        let timeLeft = 60;
+        let timeLeft = 600;
         const timerElement = document.getElementById('timer');
+
+        function formatTime(seconds) {
+            let minutes = Math.floor(seconds / 60);
+            let secs = seconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        }
+
+        timerElement.textContent = formatTime(timeLeft); 
+
         const interval = setInterval(() => {
             timeLeft--;
-            timerElement.textContent = `${timeLeft}s`;
+            // timerElement.textContent = `${timeLeft}s`;
+            timerElement.textContent = formatTime(timeLeft);
             if (timeLeft <= 0) {
                 clearInterval(interval);
                 timerElement.textContent = 'Kode telah kadaluarsa';

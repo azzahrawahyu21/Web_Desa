@@ -29,14 +29,41 @@
         <small class="text-white-50" style="font-size: 0.75rem;">Kec. Driyorejo Kab. Magetan</small>
       </div>
     </a>
-    <form method="POST" action="{{ route('logout') }}" class="m-0">
-      @csrf
-      <button type="submit" class="btn btn-light rounded-pill px-4 py-2 fw-semibold text-[#0D4715]">
-        <i class="bi bi-box-arrow-right me-1"></i> Logout
-      </button>
-    </form>
+    <div class="d-flex align-items-center gap-4">
+      <a href="javascript:void(0)" id="profileIcon" class="text-light d-flex align-items-center" style="font-size:2rem; text-decoration:none;" title="Profil Saya">
+        <i class="bi bi-person-circle" style="transition:0.3s; cursor:pointer;"></i>
+      </a>
+      <form method="POST" action="{{ route('logout') }}" class="m-0">
+        @csrf
+        <button type="submit" class="btn btn-light rounded-pill px-4 py-2 fw-semibold text-[#0D4715]">
+          <i class="bi bi-box-arrow-right me-1"></i> Logout
+        </button>
+      </form>
+    </div>
   </div>
 </nav>
+
+<div id="profileOverlay" class="profile-overlay">
+    <div class="overlay-content shadow">
+        <h6 style="text-align:center; font-weight:bold; color:#0D4715;">Profil Akun</h6>
+        <hr style="margin:8px 0;">
+        <form id="updateProfileForm" method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            <label>Email</label>
+            <p>{{ auth()->user()->email ?? 'Tidak tersedia' }}</p>
+            <label>Nama Pengguna</label>
+            <input type="text" name="nama_pengguna" value="{{ auth()->user()->nama_pengguna ?? '' }}" required>
+            <label>Password</label>
+            <input type="password" name="kata_sandi" placeholder="Masukkan password baru">
+            <label>Konfirmasi Password</label>
+            <input type="password" name="kata_sandi_confirmation" placeholder="Konfirmasi password baru">
+            <div style="text-align:right; margin-top:10px;">
+                <button type="button" class="btn btn-secondary" id="closeProfileOverlay">Batal</button>
+                <button type="submit" class="btn btn-success">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- Sidebar Admin -->
 <aside id="sidebar" class="sidebar transition-transform duration-300 -translate-x-full lg:translate-x-0">
@@ -268,6 +295,284 @@
       transform: translateX(0);
     }
   }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+  }
+
+  input:disabled {
+      background-color: #e0e0e0;
+      cursor: not-allowed;
+  }
+
+  button {
+      width: 100%;
+      background-color: #0D4715;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+  }
+
+  button:hover {
+      background-color: #0b3a12;
+  }
+
+  .success, .error {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 14px;
+  }
+
+  .success {
+      background-color: #d4edda;
+      color: #155724;
+  }
+
+  .error {
+      background-color: #f8d7da;
+      color: #721c24;
+  }
+
+  .table-container {
+      flex: 2;
+      padding-left: 25px;
+  }
+
+  .table-container h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 18px;
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 5px;
+  }
+
+  th, td {
+      padding: 12px;
+      text-align: center;
+  }
+
+  th {
+      background-color: #0D4715;
+      color: #fff;
+      font-weight: normal;
+  }
+
+  th:last-child, td:last-child {
+      min-width: 100px;
+  }
+
+  tr:nth-child(even) {
+      background-color: #f9faf9;
+  }
+
+  tr:hover {
+      background-color: #f0f3f0;
+  }
+
+  .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+  }
+
+  .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+  }
+
+  .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+  }
+
+  .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+  }
+
+  input:checked + .slider {
+      background-color: #0D4715;
+  }
+
+  input:checked + .slider:before {
+      transform: translateX(22px);
+  }
+
+  .edit-btn, .delete-btn {
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 1;
+      box-sizing: border-box;
+  }
+
+  .edit-btn {
+      background-color: #3498db;
+  }
+
+  .edit-btn:hover {
+      background-color: #2980b9;
+  }
+
+  .delete-btn {
+      background-color: #c0392b;
+  }
+
+  .delete-btn:hover {
+      background-color: #e74c3c;
+  }
+
+  .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      align-items: center;
+  }
+
+  .action-buttons form {
+      display: inline;
+      margin: 0;
+  }
+
+  @media (max-width: 900px) {
+      .wrapper {
+          flex-direction: column;
+      }
+
+      .form-container {
+          border-right: none;
+          border-bottom: 1px solid #e0e0e0;
+          padding-right: 0;
+          padding-bottom: 25px;
+      }
+
+      .table-container {
+          padding-left: 0;
+          padding-top: 15px;
+      }
+
+      th:last-child, td:last-child {
+          min-width: 90px;
+      }
+
+      .edit-btn, .delete-btn {
+          width: 32px;
+          height: 32px;
+      }
+  }
+
+  .profile-overlay, .edit-user-overlay {
+      display: none;
+      position: fixed;
+      z-index: 1050;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.3);
+      backdrop-filter: blur(3px);
+      justify-content: center;
+      align-items: center;
+  }
+
+  .profile-overlay.show, .edit-user-overlay.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+  }
+
+  .overlay-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 320px;
+      max-width: 90%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  .overlay-content input, .overlay-content select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.9rem;
+  }
+
+  .overlay-content input:disabled {
+      background-color: #e0e0e0;
+      cursor: not-allowed;
+  }
+
+  .overlay-content button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+  }
+
+  .btn-success {
+      background-color: #0D4715;
+      color: white;
+      border: none;
+      margin-top: 5px;
+  }
+
+  .btn-success:hover {
+      background-color: #0b3a12;
+  }
+
+  .btn-secondary {
+      background-color: #aaa;
+      color: white;
+      border: none;
+  }
+
+  @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+  }
+
 </style>
 
 <script>
@@ -289,5 +594,28 @@
       const icon = btn.querySelector('.bi-chevron-down');
       icon.classList.toggle('rotate');
     });
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const profileIcon = document.getElementById("profileIcon");
+      const profileOverlay = document.getElementById("profileOverlay");
+      const closeProfileOverlay = document.getElementById("closeProfileOverlay");
+
+      profileIcon.addEventListener("click", () => {
+          profileOverlay.classList.add("show");
+      });
+
+      closeProfileOverlay.addEventListener("click", () => {
+          profileOverlay.classList.remove("show");
+      });
+
+      // klik luar untuk menutup
+      document.addEventListener("click", (e) => {
+          if (!profileOverlay.contains(e.target) && !profileIcon.contains(e.target)) {
+              profileOverlay.classList.remove("show");
+          }
+      });
   });
 </script>
