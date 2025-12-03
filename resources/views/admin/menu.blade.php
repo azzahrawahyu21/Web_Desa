@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola Menu')
+@section('title', 'Kelola Profil Desa')
 
 @section('content')
 <div class="bg-white rounded-lg shadow-md p-6">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="text-[#0D4715] text-2xl font-bold">Kelola Menu</h2>
+    <h2 class="text-[#0D4715] text-2xl font-bold">Kelola Profil Desa</h2>
     <a href="{{ route('menu.create') }}" class="btn btn-success">
-      <i class="bi bi-plus-circle"></i> Tambah Menu
+      <i class="bi bi-plus-circle"></i> Tambah Profil Desa
     </a>
   </div>
 
@@ -24,7 +24,7 @@
       <thead class="text-center table-success">
         <tr>
           <th style="width: 5%">No</th>
-          <th>Nama Menu</th>
+          <th>Nama Profil Desa</th>
           <th style="width: 30%">Aksi</th>
         </tr>
       </thead>
@@ -53,7 +53,7 @@
           </tr>
         @empty
           <tr>
-            <td colspan="3" class="text-center text-muted">Belum ada menu yang ditambahkan.</td>
+            <td colspan="3" class="text-center text-muted">Belum ada profil desa yang ditambahkan.</td>
           </tr>
         @endforelse
       </tbody>

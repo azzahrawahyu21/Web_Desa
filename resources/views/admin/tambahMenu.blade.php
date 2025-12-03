@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Menu')
+@section('title', 'Tambah Profil Desa')
 
 @section('content')
 <div class="bg-white rounded-lg shadow-md p-6">
@@ -11,17 +11,17 @@
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item">
           <a href="{{ route('menu.index') }}" class="text-[#0D4715] fw-semibold text-decoration-none">
-            <i class="bi bi-arrow-left-circle me-1"></i> Daftar Menu
+            <i class="bi bi-arrow-left-circle me-1"></i> Daftar Profil Desa
           </a>
         </li>
         </li>
-        <li class="breadcrumb-item active text-muted" aria-current="page">Tambah Menu</li>
+        <li class="breadcrumb-item active text-muted" aria-current="page">Tambah Profil Desa</li>
       </ol>
     </div>
   </div>
 
   {{-- Judul --}}
-  <h2 class="text-[#0D4715] text-center text-2xl font-bold mb-4">Tambah Menu Baru</h2>
+  <h2 class="text-[#0D4715] text-center text-2xl font-bold mb-4">Tambah Profil Desa Baru</h2>
 
   {{-- Pesan sukses/error --}}
   @if(session('success'))
@@ -36,13 +36,13 @@
 
     {{-- Input Nama Menu --}}
     <div class="mb-3">
-      <label for="nama_menu" class="form-label fw-semibold">Nama Menu</label>
+      <label for="nama_menu" class="form-label fw-semibold">Nama Profil Desa</label>
       <input
         type="text"
         name="nama_menu"
         id="nama_menu"
         class="form-control w-100"
-        placeholder="Masukkan nama menu baru"
+        placeholder="Masukkan profil desa baru"
         required
       >
     </div>
@@ -59,7 +59,7 @@
     {{-- Tombol --}}
     <div class="text-end mt-4">
       <button type="submit" class="btn btn-success px-4">
-        <i class="bi bi-save me-1"></i>Simpan Menu
+        <i class="bi bi-save me-1"></i>Simpan
       </button>
     </div>
   </form>
