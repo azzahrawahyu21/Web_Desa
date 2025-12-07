@@ -16,15 +16,6 @@
 </head>
 <body class="bg-gray-50">
 
-{{-- <div style="
-    background:white;
-    width:100%;
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:50;
-    border-bottom:1px solid #eee;
-"> --}}
 <div class="fixed-top bg-white border-bottom" style="z-index:50;">
     <div class="container py-3 d-flex justify-content-between align-items-center">
 
@@ -40,7 +31,6 @@
         </a>
 
         {{-- Breadcrumb (Center) --}}
-        {{-- <nav aria-label="breadcrumb" class="flex-grow-1 d-flex justify-content-center"> --}}
         <nav class="d-none d-lg-flex flex-grow-1 justify-content-center">
             <ol class="breadcrumb mb-0 bg-transparent px-0 py-1" style="--bs-breadcrumb-divider: ''; gap: 25px;">
                 
