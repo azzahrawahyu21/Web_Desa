@@ -16,7 +16,7 @@ class PPID extends Model
 
     public function judul()
     {
-        return $this->belongsTo(JudulPpid::class, 'id_judul');
+        return $this->belongsTo(JudulPPID::class, 'id_judul');
     }
 
     public function pengguna()
