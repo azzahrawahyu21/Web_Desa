@@ -227,13 +227,12 @@
 {{-- MOBILE OFFCANVAS MENU --}}
 <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu">
     <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Menu</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
 
     <div class="offcanvas-body">
 
-        <a class="d-block mb-3" href="{{ route('user.dashboard') }}">Beranda</a>
+        <a class="d-block mb-3" href="{{ route('user.dashboard') }}"><b>Beranda</b></a>
 
         {{-- Profil Desa --}}
         @if(isset($groupedMenus['profil_desa']) && $groupedMenus['profil_desa']->count())
@@ -264,8 +263,8 @@
         </div>
         @endif
 
-        <a class="d-block mb-3" href="{{ route('user.struktur.semua') }}">Struktur Organisasi</a>
-        <a class="d-block mb-3" href="{{ route('user.ppid.index') }}">PPID</a>
+        <a class="d-block mb-3" href="{{ route('user.struktur.semua') }}"><b>Struktur Organisasi</b></a>
+        <a class="d-block mb-3" href="{{ route('user.ppid.index') }}"><b>PPID</b></a>
 
         <div class="mb-3">
             <strong>Media</strong>
@@ -275,7 +274,7 @@
             </ul>
         </div>
 
-        <a class="btn btn-success w-100 mt-4" href="{{ route('login') }}">Login</a>
+        <a class="btn w-100 mt-4" style="background-color: #0D4715; color: #ffffff" href="{{ route('login') }}">Login</a>
 
     </div>
 </div>
