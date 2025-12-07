@@ -1,6 +1,6 @@
-@extends('layouts.usersub')
+@extends('layouts.user')
 
-@section('title', 'Berita Desa')
+@section('title', 'Desa Driyorejo')
 
 @section('content')
 <header class="header-2 position-relative">
@@ -23,8 +23,7 @@
 
   {{-- Content --}}
 <main class="position-relative mb-5">
-  <div class="container my-5 px-5">
-    {{-- <div class="row align-items-center"> --}}
+  <div class="container container-custom my-5">
     <div class="row justify-content-center align-items-center">
       
     <!-- Kolom kiri: Profil teks -->
@@ -61,51 +60,46 @@
   </div>
 
   <!-- Bagian Jam Kerja & SOTK -->
-  <div class="container my-5 px-5">
+  <div class="container container-custom my-5">
     <div class="row justify-content-center mt-4">
       <!-- Jam Kerja -->
       <div class="col-md-3 mb-4 mb-md-0" style="max-width: 300px;">
         <div class="border border-success rounded p-3 text-center h-100">
           <h5 class="fw-bold mb-2" style="font-size: 20px;">Jam Kerja</h5>
           <div style="width: 90px; height: 4px; background-color: #2A774C; margin: 0 auto 15px auto;"></div>
-          <div class="d-flex justify-content-between align-items-center mb-2">
-          <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Senin</span>
-          <span class="border border-warning rounded-pill px-3 py-2">08:00 - 13:00</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Selasa</span>
-            <span class="border border-warning rounded-pill px-3 py-2">08:00 - 13:00</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Rabu</span>
-            <span class="border border-warning rounded-pill px-3 py-2">08:00 - 13:00</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Kamis</span>
-            <span class="border border-warning rounded-pill px-3 py-2">08:00 - 13:00</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Jumat</span>
-            <span class="border border-warning rounded-pill px-3 py-2">08:00 - 11:00</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Sabtu</span>
-            <span class="border border-warning rounded-pill px-3 py-2">Libur</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="badge text-white px-4 py-2" style="background-color: #e67e22;">Minggu</span>
-            <span class="border border-warning rounded-pill px-3 py-2">Libur</span>
-          </div>
+
+          @php
+            $jamkerja = [
+              ['hari' => 'Senin', 'jam' => '08:00 - 13:00'],
+              ['hari' => 'Selasa', 'jam' => '08:00 - 13:00'],
+              ['hari' => 'Rabu', 'jam' => '08:00 - 13:00'],
+              ['hari' => 'Kamis', 'jam' => '08:00 - 13:00'],
+              ['hari' => 'Jumat', 'jam' => '08:00 - 11:00'],
+              ['hari' => 'Sabtu', 'jam' => 'Libur'],
+              ['hari' => 'Minggu', 'jam' => 'Libur']
+            ];
+          @endphp
+
+          @foreach($jamkerja as $j)
+            <div class="jamkerja-item">
+              <span class="badge text-white" style="background-color:#e67e22;">{{ $j['hari'] }}</span>
+              <span class="waktu">{{ $j['jam'] }}</span>
+            </div>
+          @endforeach
         </div>
       </div>
 
       <!-- SOTK -->
       <div class="col-md-8" style="max-width: 650px;">
-        <div class="border border-success rounded p-4 text-center h-100">
+        <div class="border border-success rounded sotk-card text-center h-100">
           <h5 class="fw-bold mb-2" style="font-size: 20px;">SOTK</h5>
           <div style="width: 90px; height: 4px; background-color: #2A774C; margin: 0 auto 15px auto;"></div>
-          <img src="assets/img/sotk.png" alt="Struktur Organisasi" class="img-fluid mb-3">
-          <a href="#" class="btn btn-warning text-white" style="background-color: #e67e22; border: none;">
+
+          <img src="assets/img/sotk.png" alt="Struktur Organisasi" 
+              class="img-fluid mb-3" style="max-height: 330px; object-fit:contain;">
+
+          <a href="#" class="btn btn-warning text-white fw-semibold"
+            style="background-color: #e67e22; border:none;">
             Baca Selengkapnya
           </a>
         </div>
@@ -114,20 +108,22 @@
   </div>
 
   <!-- Bagian Berita -->
-  <div class="container my-5 px-5">
-    <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-      <h3 class="fw-bold mb-0" style="font-size: 20px;">Berita</h3>
-      <a href="{{ route('user.berita.index') }}" 
-          class="btn btn-warning text-white fw-semibold px-3 py-1 mt-2 mt-sm-0"
-          style="background-color: #e67e22; border: none;">
-          Baca Selengkapnya
-      </a>
+  <div class="container container-custom my-5">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="fw-bold mb-0" style="font-size: 20px;">Berita</h3>
+
+        <a href="{{ route('user.berita.index') }}" 
+            class="btn btn-warning text-white fw-semibold px-3 py-1"
+            style="background-color: #e67e22; border: none;">
+            Baca Selengkapnya
+        </a>
     </div>
 
     <div style="width: 90px; height: 4px; background-color: #2A774C; margin-bottom: 25px;"></div>
 
     <!-- Scrollable Berita -->
-    <div class="d-flex flex-nowrap overflow-auto pb-3 px-1" style="gap: 1rem; scroll-snap-type: x mandatory;">
+    {{-- <div class="d-flex flex-nowrap overflow-auto pb-3 px-1" style="gap: 1rem; scroll-snap-type: x mandatory;"> --}}
+    <div class="berita-wrapper d-flex flex-nowrap overflow-auto pb-3 px-1">
       @foreach($beritas as $b)
         <div class="col-md-4">
             <div class="card rounded-4 shadow-sm border-0 h-100 berita-card"
@@ -170,6 +166,7 @@
 </main>
 
 <style>
+  /* -------------------- SLIDER -------------------- */
   #header-bg .slide {
     position:absolute;
     top:0;
@@ -194,6 +191,96 @@
       position: relative;
       z-index: 5;
   }
+
+  /* -------------------- RESPONSIVE CONTAINER -------------------- */
+  @media (max-width: 768px) {
+      .container-custom {
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+      }
+
+      #header-bg {
+          height: 45vh !important;
+      }
+  }
+
+  /* -------------------- JAM KERJA -------------------- */
+  .jamkerja-item {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom: .6rem;
+      gap: 10px;
+  }
+  .jamkerja-item .badge {
+      font-size:.75rem;
+      padding:.4rem .7rem;
+  }
+  .jamkerja-item .waktu {
+      border:1px solid #e67e22;
+      border-radius:20px;
+      padding:.35rem .7rem;
+      font-size:.75rem;
+      white-space:nowrap;
+  }
+
+  @media(max-width:576px){
+      .jamkerja-item .badge{
+        font-size:.7rem;
+        padding:.35rem .6rem;
+      }
+      .jamkerja-item .waktu{
+        font-size:.7rem;
+        padding:.3rem .6rem;
+      }
+  }
+
+  /* -------------------- SOTK CARD -------------------- */
+  .sotk-card {
+      padding: 1.5rem;
+  }
+  @media(max-width:576px){
+      .sotk-card { padding: 1rem; }
+  }
+
+  /* -------------------- BERITA: SCROLL RESPONSIVE -------------------- */
+  .berita-scroll {
+      gap: .9rem;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+  }
+  .berita-card {
+      min-width: 260px;
+      scroll-snap-align: start;
+  }
+  /* @media(max-width:576px){
+      .berita-card {
+          min-width: 80%;
+      }
+  } */
+  .berita-wrapper {
+      gap: 1rem;
+      scroll-snap-type: x mandatory;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+  }
+
+  /* Mobile → scroll ke bawah */
+  @media (max-width: 576px) {
+      .berita-wrapper {
+          display: block !important;     /* ubah flex horizontal → block */
+          overflow-x: hidden !important;
+          overflow-y: auto !important;   /* scroll ke bawah */
+          max-height: 550px;             /* biar bisa discroll */
+      }
+
+      .berita-wrapper .berita-card {
+          min-width: 100% !important;    /* satu card per baris */
+          margin-bottom: 1rem;
+      }
+  }
+
 </style>
 
 <script>
