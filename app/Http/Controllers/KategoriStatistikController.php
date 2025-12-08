@@ -35,7 +35,7 @@ class KategoriStatistikController extends Controller
         return redirect()->route('kategori-statistik.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
-    // Edit kategori
+    // Edit kategori statistik
     public function edit($id_kategori)
     {
         $kategori = KategoriStatistik::findOrFail($id_kategori);

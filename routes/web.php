@@ -129,7 +129,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id_menu}/kelola', [SubmenuController::class, 'kelola'])->name('submenu.kelola');
         });
 
-        // === KATEGORI STATISTIK ===
+        // === KATEGORI STATISTIKK ===
         Route::prefix('admin/kategori-statistik')->group(function () {
             Route::get('/', [KategoriStatistikController::class, 'index'])->name('kategori-statistik.index');
             Route::get('/tambah', [KategoriStatistikController::class, 'create'])->name('kategori-statistik.create');
