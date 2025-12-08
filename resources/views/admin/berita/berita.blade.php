@@ -36,7 +36,7 @@
             <tr>
                 <td class="text-center">{{ $index + 1 }}</td>
                 <td>{{ $berita->judul }}</td>
-                <td>{!! Str::limit($berita->isi, 200, '...') !!}</td>
+                <td>{!! Str::limit(strip_tags($berita->isi), 50, ' ... ') !!}</td>
                 <td class="text-center">
                     @if($berita->foto)
                         <img src="{{ asset('ufiles/' . $berita->foto) }}"alt="Foto"class="rounded"style="width: 100%; height: auto; display: block; margin: 0 auto; object-fit: cover; object-position: center;">
