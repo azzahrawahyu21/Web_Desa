@@ -14,14 +14,14 @@ class JenisPPID extends Model
 
     public function juduls()
     {
-        return $this->hasMany(JudulPpid::class, 'id_jenis_ppid');
+        return $this->hasMany(JudulPPID::class, 'id_jenis_ppid');
     }
 
     public function ppids()
     {
         return $this->hasManyThrough(
             PPID::class,       
-            JudulPpid::class,   
+            JudulPPID::class,   
             'id_jenis_ppid',    
             'id_judul',         
             'id_jenis_ppid',    
