@@ -39,7 +39,7 @@ class KategoriStatistikController extends Controller
     public function edit($id_kategori)
     {
         $kategori = KategoriStatistik::findOrFail($id_kategori);
-        return view('admin.dataStatistik.editDataStatistik', compact('kategori'));
+        return view('admin.dataStatistik.editdataStatistik', compact('kategori'));
     }
 
     // Update kategori

@@ -137,7 +137,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id_kategori}', [KategoriStatistikController::class, 'edit'])->name('kategori-statistik.edit');
             Route::put('/update/{id_kategori}', [KategoriStatistikController::class, 'update'])->name('kategori-statistik.update');
             Route::delete('/hapus/{id_kategori}', [KategoriStatistikController::class, 'destroy'])->name('kategori-statistik.destroy');
-            Route::get('/{id_kategori}', [KategoriStatistikController::class, 'show'])->name('kategori-statistik.show');
         });
 
         // === SUBKATEGORI STATISTIK ===
