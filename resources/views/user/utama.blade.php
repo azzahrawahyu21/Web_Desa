@@ -35,7 +35,7 @@
 
       <div class="mt-4">
         <p><strong>Nama Desa</strong> : Driyorejo</p>
-        <p><strong>Luas Wilayah</strong> : ± 182,02 Hektar</p>
+        <p><strong>Luas Wilayah</strong> : ± 182,02 Hektar</p> 
         <p><strong>Letak Geografis</strong> : Terletak di Kecamatan Nguntoronadi, Kabupaten Magetan, Jawa Timur</p>
         <p><strong>Kode Pos</strong> : 63383</p>
         <p><strong>Kecamatan</strong> : Nguntoronadi</p>
@@ -95,7 +95,7 @@
           <h5 class="fw-bold mb-2" style="font-size: 20px;">SOTK</h5>
           <div style="width: 90px; height: 4px; background-color: #2A774C; margin: 0 auto 15px auto;"></div>
 
-          <img src="assets/img/sotk.png" alt="Struktur Organisasi" 
+          <img src="assets/img/sotknew.png" alt="Struktur Organisasi" 
               class="img-fluid mb-3" style="max-height: 330px; object-fit:contain;">
 
           <a href="#" class="btn btn-warning text-white fw-semibold"
