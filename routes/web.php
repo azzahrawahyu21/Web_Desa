@@ -129,7 +129,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id_menu}/kelola', [SubmenuController::class, 'kelola'])->name('submenu.kelola');
         });
 
-        // === KATEGORI STATISTIK ===
+        // === KATEGORI STATISTIKK ===
         Route::prefix('admin/kategori-statistik')->group(function () {
             Route::get('/', [KategoriStatistikController::class, 'index'])->name('kategori-statistik.index');
             Route::get('/tambah', [KategoriStatistikController::class, 'create'])->name('kategori-statistik.create');
@@ -137,7 +137,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit/{id_kategori}', [KategoriStatistikController::class, 'edit'])->name('kategori-statistik.edit');
             Route::put('/update/{id_kategori}', [KategoriStatistikController::class, 'update'])->name('kategori-statistik.update');
             Route::delete('/hapus/{id_kategori}', [KategoriStatistikController::class, 'destroy'])->name('kategori-statistik.destroy');
-            Route::get('/{id_kategori}', [KategoriStatistikController::class, 'show'])->name('kategori-statistik.show');
         });
 
         // === SUBKATEGORI STATISTIK ===

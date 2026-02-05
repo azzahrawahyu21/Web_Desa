@@ -32,8 +32,8 @@ class AppServiceProvider extends ServiceProvider
             $kategoris = KategoriStatistik::all();
             $jabatans = Jabatan::all();
             $jenisPpids = JenisPPID::all();
-            $beritas = Berita::orderBy('tanggal', 'desc')->take(5)->get();
-            $galeris = Galeri::orderBy('tanggal', 'desc')->take(5)->get();
+            $beritas = Berita::orderBy('tanggal', 'desc')->get();
+            $galeris = Galeri::orderBy('tanggal', 'desc')->get();
             $view->with(compact('menus', 'kategoris', 'jabatans', 'jenisPpids', 'beritas', 'galeris'));
         });
 

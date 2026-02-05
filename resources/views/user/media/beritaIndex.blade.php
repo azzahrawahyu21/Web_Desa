@@ -39,7 +39,7 @@
                     </h5>
 
                     <p class="text-muted mb-3" style="font-size: .9rem;">
-                        {!! Str::words(strip_tags($b->isi), 20, '...') !!}
+                        {{ Str::limit(strip_tags($b->isi), 100) }}
                     </p>
                 </div>
             </div>
