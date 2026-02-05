@@ -35,7 +35,7 @@
 
       <div class="mt-4">
         <p><strong>Nama Desa</strong> : Driyorejo</p>
-        <p><strong>Luas Wilayah</strong> : ± 248,35 hektar (sekitar 2,4835 km²)</p>
+        <p><strong>Luas Wilayah</strong> : ± 182,02 Hektar</p>
         <p><strong>Letak Geografis</strong> : Terletak di Kecamatan Nguntoronadi, Kabupaten Magetan, Jawa Timur</p>
         <p><strong>Kode Pos</strong> : 63383</p>
         <p><strong>Kecamatan</strong> : Nguntoronadi</p>
@@ -70,11 +70,11 @@
 
           @php
             $jamkerja = [
-              ['hari' => 'Senin', 'jam' => '08:00 - 13:00'],
-              ['hari' => 'Selasa', 'jam' => '08:00 - 13:00'],
-              ['hari' => 'Rabu', 'jam' => '08:00 - 13:00'],
-              ['hari' => 'Kamis', 'jam' => '08:00 - 13:00'],
-              ['hari' => 'Jumat', 'jam' => '08:00 - 11:00'],
+              ['hari' => 'Senin', 'jam' => '08:00 - 15:00'],
+              ['hari' => 'Selasa', 'jam' => '08:00 - 15:00'],
+              ['hari' => 'Rabu', 'jam' => '08:00 - 15:00'],
+              ['hari' => 'Kamis', 'jam' => '08:00 - 15:00'],
+              ['hari' => 'Jumat', 'jam' => '08:00 - 15:00'],
               ['hari' => 'Sabtu', 'jam' => 'Libur'],
               ['hari' => 'Minggu', 'jam' => 'Libur']
             ];
