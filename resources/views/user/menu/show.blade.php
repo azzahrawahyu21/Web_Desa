@@ -57,11 +57,11 @@
       </div>
   </div>
 @else
-  <div class="text-center submenu-container">
+  <div class="text-left submenu-container">
       <div class="mx-auto" style="max-width: 800px;">
           @foreach($submenus as $submenu)
               <div class="mb-5 submenu-box">
-                  <h3 class="fw-bold text-success" style="margin-top: 20px;">
+                  <h3 class="fw-bold text-success text-center" style="margin-top: 20px;">
                       {{ $submenu->judul }}
                   </h3>
                   <hr style="width: 100px; height: 4px; background-color: #e67e22; border: none; margin: 15px auto;">
